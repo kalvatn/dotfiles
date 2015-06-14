@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+git pull
+git submodule update --init
+cwd=$(pwd)
+ln -fs "$cwd/.vim/.vimrc" "$HOME/.vimrc"
+ln -fs "$cwd/.vim" "$HOME/.vim"
+ln -fs "$cwd/.tmux.conf" "$HOME/.tmux.conf"
