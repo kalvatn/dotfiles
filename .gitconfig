@@ -1,0 +1,28 @@
+[user]
+    name = Jon Terje Tvergrov Kalvatn
+    email = jonterje.kalvatn@gmail.com
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = auto
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    di = diff
+    dc = diff --cached
+    amend = commit --amend
+    aa = add --all
+    #lg = log --pretty=oneline --graph -n 10
+    #lg = log --graph --decorate --pretty=oneline --abbrev-commit -n 50
+    #lg = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lg = log --graph --decorate --pretty=oneline --abbrev-commit 
+    syncfork = !git fetch upstream && git merge upstream/master
+[core]
+    excludesfile = ~/.gitignore_global
+    autocrlf = false
+    pager = less -x4
+    editor = vim
+[push]
+    default = simple
