@@ -9,4 +9,4 @@ ln -fs "$cwd/.vim/.vimrc" "$HOME"
 ln -fs "$cwd/.tmux.conf" "$HOME"
 ln -fs "$cwd/.zshrc" "$HOME"
 ln -fs "$cwd/.oh-my-zsh" "$HOME"
-ln -s oh-my-zsh-custom-themes/kalvatn.zsh-theme .oh-my-zsh/themes/
+ln -s "$cwd/oh-my-zsh-custom-themes/kalvatn.zsh-theme" "$HOME/.oh-my-zsh/themes/"
