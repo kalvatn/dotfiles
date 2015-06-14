@@ -2,9 +2,11 @@
 
 set -e
 
-git pull
 git submodule update --init
 cwd=$(pwd)
-ln -fs "$cwd/.vim/.vimrc" "$HOME/.vimrc"
-ln -fs "$cwd/.vim" "$HOME/.vim"
-ln -fs "$cwd/.tmux.conf" "$HOME/.tmux.conf"
+ln -fs "$cwd/.vim" "$HOME"
+ln -fs "$cwd/.vim/.vimrc" "$HOME"
+ln -fs "$cwd/.tmux.conf" "$HOME"
+ln -fs "$cwd/.zshrc" "$HOME"
+ln -fs "$cwd/.oh-my-zsh" "$HOME"
+ln -s oh-my-zsh-custom-themes/kalvatn.zsh-theme .oh-my-zsh/themes/
