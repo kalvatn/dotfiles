@@ -1,2 +1,8 @@
-#!/bin/sh
-i3lock -i "$(random_image)"
+#!/bin/bash
+LOCK_IMAGE=/tmp/i3lock_screenshot.png
+scrot -m $LOCK_IMAGE
+mogrify \
+  -blur 3x3 \
+  -colorize 100,0,0 \
+  $LOCK_IMAGE
+i3lock -i $LOCK_IMAGE
