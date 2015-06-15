@@ -139,6 +139,9 @@ let g:syntastic_puppet_puppetlint_args=['--no-80chars-check']
 "let g:syntastic_sh_checkers=['sh', 'shellcheck', 'checkbashisms', 'bashate']
 let g:syntastic_sh_checkers=['sh', 'shellcheck', 'bashate']
 
+" python
+let g:syntastic_python_pylint_args=['--disable=C0111'] " disable docstring warn
+
 
 " https://github.com/Yggdroot/indentLine
 "let g:indentLine_color_term = 239
