@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+diff <(sort "$1") <(sort "$2")
