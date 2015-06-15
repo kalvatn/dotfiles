@@ -4,6 +4,7 @@ set -e
 
 git submodule update --init
 cwd=$(pwd)
+ln -fs "$cwd/bin" "$HOME"
 ln -fs "$cwd/.vim" "$HOME"
 ln -fs "$cwd/.vim/.vimrc" "$HOME"
 ln -fs "$cwd/.gitconfig" "$HOME"
@@ -15,3 +16,15 @@ ln -fs "$cwd/oh-my-zsh-custom-themes/kalvatn.zsh-theme" "$HOME/.oh-my-zsh/themes
 ln -fs "$cwd/.aliases" "$HOME"
 ln -fs "$cwd/.gemrc" "$HOME"
 ln -fs "$cwd/.my.cnf" "$HOME"
+
+# warn about missing packages
+
+# linter packages
+
+# bash
+[[ -z "$(which shellcheck)" ]] && echo "install shellcheck shell linter with sudo apt-get install shellcheck" || echo "shellcheck shell linter installed"
+[[ -z "$(which bashate)" ]] && echo "install bashate shell linter with sudo apt-get install python-pip && sudo pip install bashate" || echo "bashate shell linter installed"
+# markdown
+[[ -z "$(which mdl)" ]] && echo "install mdl markdown linter with sudo gem install mdl" || echo "mdl markdown linter installed"
+# pylint
+[[ -z "$(which pylint)" ]] && echo "install pylint python linter with sudo pip install pylint" || echo "pylint python linter installed"
