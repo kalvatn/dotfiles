@@ -47,6 +47,15 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+if !exists("*ReloadVimConfig")
+    function! ReloadVimConfig ()
+        let current_location = getpos('.')
+        :so $MYVIMRC
+        call setpos('.', current_location)
+    endfunction
+    command! Recfg call ReloadVimConfig()
+endif
+
 " indentation
 set expandtab " replace tabs with spaces
 " number of spaces in one indent
@@ -148,7 +157,8 @@ map q :q
 let mapleader = ','
 let g:mapleader = ','
 " reload vimrc
-nnoremap <leader>r :so $MYVIMRC<cr>
+"nnoremap <leader>r :so $MYVIMRC<cr>
+nnoremap <leader>r :call ReloadVimConfig()<cr>
 " toggle list mode
 nnoremap <silent> <leader>l :set list!<cr>
 " toggle line numbers
