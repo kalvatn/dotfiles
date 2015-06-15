@@ -31,3 +31,9 @@ ln -fs "$cwd/.i3" "$HOME"
 [[ -z "$(which mdl)" ]] && echo "install mdl markdown linter with sudo gem install mdl" || echo "mdl markdown linter installed"
 # pylint
 [[ -z "$(which pylint)" ]] && echo "install pylint python linter with sudo pip install pylint" || echo "pylint python linter installed"
+
+
+
+
+# various other tools
+[[ -z "$(which feh)" ]] && echo "install feh background image viewer with sudo pip install feh" || echo "feh image viewer installed"
