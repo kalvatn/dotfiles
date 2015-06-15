@@ -18,6 +18,9 @@ tmux_attach() {
 alias nslisten="netstat -plan | grep LISTEN"
 
 
+# custom launchers
+alias sqlyog='wine "C:\Program Files (x86)\SQLyog\SQLyog.exe"'
+
 # ssh aliases
 if [ -z "$(which autossh)" ]; then
     echo "autossh not found"
