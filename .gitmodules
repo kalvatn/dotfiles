@@ -10,3 +10,6 @@
 	path = .oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh
     ignore = dirty
+[submodule ".vim/bundle/dragvisuals.vim"]
+	path = .vim/bundle/dragvisuals.vim
+	url = https://github.com/gavinbeatty/dragvisuals.vim.git
