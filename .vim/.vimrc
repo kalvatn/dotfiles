@@ -83,9 +83,15 @@ au BufRead,BufNewFile Vagrantfile set filetype=ruby
 "autocmd BufRead,BufNewFile   *.pl syntax on
 autocmd FileType sh,puppet,ruby set ts=2 sw=2
 
+" file search/completion
+set wildmenu " enable commandlist suggestions
+
 " file name patters to ignore for completion
 set wildignore+=*.o,*.out,*.obj,*.class,*.pyc,*.swp
 set wildignore+=*.git,*.svn
+
+" ctrl+p
+let g:ctrlp_show_hidden = 1 " include hidden files
 
 " search settings
 set ignorecase
@@ -141,6 +147,7 @@ let g:syntastic_sh_checkers=['sh', 'shellcheck', 'bashate']
 "let g:indentLine_color_tty_light = 7 " (default: 4)
 "let g:indentLine_color_dark = 1 " (default: 2)
 "let g:indentLine_leadingSpaceEnabled = 0 " (default: 0)
+
 
 """
 " CUSTOM MAPPINGS
