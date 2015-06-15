@@ -1,3 +1,9 @@
 #!/bin/sh
 
-amixer -q sset 'Master'  "$2%$1"
+if amixer scontrols | grep Master; then
+  amixer -q sset 'Master'  "$2%$1"
+else
+  amixer -q -c1 sset 'Master' "$2%$1"
+fi
+
+
