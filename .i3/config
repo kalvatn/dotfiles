@@ -124,13 +124,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+set $volumestep 5
 mode "volume" {
-	bindsym Up exec amixer -c1 -q set Master 2dB+ unmute
-	bindsym Down exec amixer -c1 -q set Master 2dB- unmute
+	bindsym Up exec volume + $volumestep
+	bindsym Down exec volume - $volumestep
 
     # vim-like bindings
-	bindsym k exec amixer -c1 -q set Master 2dB+ unmute
-	bindsym j exec amixer -c1 -q set Master 2dB- unmute
+	bindsym k exec volume + $volumestep
+	bindsym j exec volume - $volumestep
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
