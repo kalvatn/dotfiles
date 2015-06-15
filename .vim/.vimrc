@@ -82,7 +82,26 @@ set wildignore+=*.git,*.svn
 set ignorecase
 set smartcase
 set incsearch
-set nohlsearch
+set hlsearch
+
+" remaps n and N to call custom highlighting function
+" https://docs.google.com/file/d/0Bx3f0gFZh5Jqc0MtcUstV3BKdTQ/edit
+nnoremap <silent> n   n:call HLNext(0.2)<cr>
+nnoremap <silent> N   N:call HLNext(0.2)<cr>
+
+function! HLNext (blinktime)
+    highlight WhiteOnRed ctermfg=white ctermbg=red
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pattern = '\c\%#\%('.@/.'\)'
+    let match_indicator = matchadd('WhiteOnRed', target_pattern, 101)
+    set invcursorline " toggle line of match indicator
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(match_indicator)
+    set invcursorline " toggle line of match indicator
+    redraw
+endfunction
 
 " syntax highlighting
 syntax enable
