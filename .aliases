@@ -19,7 +19,11 @@ alias nslisten="netstat -plan | grep LISTEN"
 
 
 # custom launchers
+
+# work
 alias sqlyog='wine "C:\Program Files (x86)\SQLyog\SQLyog.exe"'
+alias idea='/work/tools/ide/intellij/idea-IU-141.713.2/bin/idea.sh'
+alias eclipse='/work/tools/ide/eclipse/eclipse-java-luna-SR2-linux-gtk-x86_64/eclipse'
 
 # ssh aliases
 if [ -z "$(which autossh)" ]; then
