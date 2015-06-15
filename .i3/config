@@ -184,4 +184,4 @@ assign [class="Spotify" ] $0
 #exec --no-startup-id spotify
 exec --no-startup-id nm-applet
 
-#exec /home/kalvatn/bin/switch_background
+exec /home/kalvatn/bin/switch_background
