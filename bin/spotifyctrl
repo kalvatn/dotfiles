@@ -4,6 +4,7 @@ if pgrep -x spotify &> /dev/null; then
   case "$1" in
     Next|Previous|PlayPause)
       dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."$1" &> /dev/null
+      exit 0
       ;;
     NowPlaying)
       xdotool search \
@@ -12,6 +13,7 @@ if pgrep -x spotify &> /dev/null; then
       | grep "^_NET_WM_ICON_NAME" \
       | cut -d '=' -f2 \
       | sed -e 's/\(^\s\+\"Spotify\)\(\s\+\-\s\+\)*//' -e 's/\"*$//'
+      exit 0
       ;;
     *)
       exit 1
@@ -19,7 +21,7 @@ if pgrep -x spotify &> /dev/null; then
   esac
 fi
 
-if pgrep mopidy &> /dev/null; then
+if pgrep -x mopidy &> /dev/null; then
   player="ncmpcpp"
   case "$1" in
     Next)
@@ -32,7 +34,8 @@ if pgrep mopidy &> /dev/null; then
       "$player" toggle
       ;;
     NowPlaying)
-      "$player" --now-playing
+      "$player" --now-playing "{%a - }{%b - }{%t}" | sed "s/\"/'/g"
+      exit 0
       ;;
     *)
       exit 1
