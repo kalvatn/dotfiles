@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+state=$(awk '/TouchpadOff/ { print $3 }' <(synclient -l))
+
+case "$state" in
+  0) synclient touchpadoff=1
+    # hide mouse pointer
+    unclutter -noevents &
+    ;;
+  1) synclient touchpadoff=0
+    # kill unclutter to show pointer
+    if pidof unclutter; then pkill unclutter; fi
+    ;;
+  *) exit 1
+    ;;
+esac
