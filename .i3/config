@@ -9,6 +9,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
+# toggle touchpad
+bindsym $mod+m exec toggle-touchpad
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
