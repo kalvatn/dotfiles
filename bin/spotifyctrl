@@ -2,12 +2,20 @@
 
 if pgrep -x spotify &> /dev/null; then
   case "$1" in
-      Next|Previous|PlayPause)
-          dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."$1" &> /dev/null
-          ;;
-      *)
-          exit 1
-          ;;
+    Next|Previous|PlayPause)
+      dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."$1" &> /dev/null
+      ;;
+    NowPlaying)
+      xdotool search \
+        --name "Spotify Premium - Linux Preview" \
+      | xargs xprop -id \
+      | grep "^_NET_WM_ICON_NAME" \
+      | cut -d '=' -f2 \
+      | sed -e 's/\(^\s\+\"Spotify\)\(\s\+\-\s\+\)*//' -e 's/\"*$//'
+      ;;
+    *)
+      exit 1
+      ;;
   esac
 fi
 
@@ -22,6 +30,9 @@ if pgrep mopidy &> /dev/null; then
       ;;
     PlayPause)
       "$player" toggle
+      ;;
+    NowPlaying)
+      "$player" --now-playing
       ;;
     *)
       exit 1
