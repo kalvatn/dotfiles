@@ -25,15 +25,15 @@ ln -fs "$cwd/.i3" "$HOME"
 # linter packages
 
 # bash
-[[ -z "$(which shellcheck)" ]] && echo "install shellcheck shell linter with sudo apt-get install shellcheck" || echo "shellcheck shell linter installed"
-[[ -z "$(which bashate)" ]] && echo "install bashate shell linter with sudo apt-get install python-pip && sudo pip install bashate" || echo "bashate shell linter installed"
+[[ -z "$(which shellcheck)" ]] && echo "sudo apt-get install shellcheck" || echo "shellcheck installed"
+[[ -z "$(which bashate)" ]] && echo "sudo apt-get install python-pip && sudo pip install bashate" || echo "bashate installed"
 # markdown
-[[ -z "$(which mdl)" ]] && echo "install mdl markdown linter with sudo gem install mdl" || echo "mdl markdown linter installed"
+[[ -z "$(which mdl)" ]] && echo "sudo gem install mdl" || echo "mdl installed"
 # pylint
-[[ -z "$(which pylint)" ]] && echo "install pylint python linter with sudo pip install pylint" || echo "pylint python linter installed"
-
-
+[[ -z "$(which pylint)" ]] && echo "sudo pip install pylint" || echo "pylint installed"
 
 
 # various other tools
-[[ -z "$(which feh)" ]] && echo "install feh background image viewer with sudo pip install feh" || echo "feh image viewer installed"
+[[ -z "$(which feh)" ]] && echo "sudo apt-get install feh" || echo "feh installed"
+[[ -z "$(which scrot)" ]] && echo "sudo apt-get install scrot" || echo "scrot installed"
+[[ -z "$(which unclutter)" ]] && echo "sudo apt-get install unclutter" || echo "unclutter installed"
