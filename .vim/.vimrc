@@ -177,6 +177,8 @@ nnoremap <silent> <leader>n :set nu!<cr>
 map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
 " quicksave
 nnoremap <leader>w :w<cr>
+" quickreload
+nnoremap <leader>e :e<cr>
 " search
 nnoremap <leader>s /
 " toggle search highlighting
