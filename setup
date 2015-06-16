@@ -22,6 +22,9 @@ ln -fs "$cwd/.notify-osd" "$HOME"
 # i3
 ln -fs "$cwd/.i3" "$HOME"
 
+# ncmpcpp
+ln -fs "$cwd/.ncmpcpp" "$HOME"
+
 # warn about missing packages
 
 # linter packages
