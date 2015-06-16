@@ -21,3 +21,4 @@ source $ZSH/oh-my-zsh.sh
 export SSH_KEY_PATH="~/.ssh/id_rsa"
 
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
+[[ -f $HOME/.variables ]] && source $HOME/.variables

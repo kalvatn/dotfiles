@@ -1,0 +1,3 @@
+#!/bin/sh
+
+export JBOSS_HOME="/work/tools/appservers/jboss/wildfly-8.2.0.Final"
