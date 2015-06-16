@@ -5,14 +5,7 @@
 touch /tmp/last_fm_last_scrobble
 
 function now_playing_spotify() {
-  if pgrep spotify &> /dev/null; then
-    xdotool search \
---name "Spotify Premium - Linux Preview" |
-xargs xprop -id |
-grep "^_NET_WM_ICON_NAME" |
-cut -d '=' -f2 |
-sed -e 's/\(^\s\+\"Spotify\)\(\s\+\-\s\+\)*//' -e 's/\"*$//'
-  fi
+  spotifyctrl NowPlaying
 }
 
 function now_playing_last_fm() {
