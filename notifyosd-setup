@@ -1,8 +1,14 @@
 #!/bin/bash
 # fixes notify-send configurable timeout
 
+# patched notify-osd
 sudo add-apt-repository ppa:leolik/leolik
+# configure patched notify-osd
+sudo add-apt-repository ppa:amandeepgrewal/notifyosdconfig
+
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install libnotify-bin
+sudo apt-get install libnotify-bin notifyosdconfig
+
+# kill running notify-osd
 pkill notify-osd
