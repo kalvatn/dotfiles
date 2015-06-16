@@ -16,6 +16,7 @@ ln -fs "$cwd/oh-my-zsh-custom-themes/kalvatn.zsh-theme" "$HOME/.oh-my-zsh/themes
 ln -fs "$cwd/.aliases" "$HOME"
 ln -fs "$cwd/.gemrc" "$HOME"
 ln -fs "$cwd/.my.cnf" "$HOME"
+ln -fs "$cwd/.notify-osd" "$HOME"
 
 # i3
 ln -fs "$cwd/.i3" "$HOME"
