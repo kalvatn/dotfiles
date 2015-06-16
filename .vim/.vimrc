@@ -136,8 +136,8 @@ let g:syntastic_puppet_checkers=['puppetlint']
 let g:syntastic_puppet_puppetlint_args=['--no-80chars-check']
 
 " bash
-"let g:syntastic_sh_checkers=['sh', 'shellcheck', 'checkbashisms', 'bashate']
-let g:syntastic_sh_checkers=['sh', 'shellcheck']
+let g:syntastic_sh_checkers=['sh', 'shellcheck', 'bashate']
+let g:syntastic_sh_bashate_args=['--ignore E003'] " ignore indent multiple of 4 warning
 
 " python
 let g:syntastic_python_pylint_args=['--disable=C0111'] " disable docstring warn
