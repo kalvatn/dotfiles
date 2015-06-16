@@ -1,0 +1,9 @@
+#!/bin/bash
+#pgp
+wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
+# apt sources
+sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/mopidy.list
+
+sudo apt-get update -qq
+# modipy with spotiy and alsamixer extensions and curses based mpd client
+sudo apt-get install mopidy mopidy-spotify mopidy-alsamixer ncmpcpp
