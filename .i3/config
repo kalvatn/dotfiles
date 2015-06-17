@@ -149,7 +149,10 @@ bindsym $mod+Shift+End exec spotifyctrl PlayPause
 #bindsym $mod+Shift+KP_Add exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Seek int64:10000000 1>/dev/null
 #bindsym $mod+Shift+KP_Subtract exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player int64:-10000000 1>/dev/null
 
-
+# signal i3blocks on these keys
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Insert exec pkill -SIGRTMIN+11 i3blocks
 
 bar {
     workspace_buttons no
@@ -161,7 +164,8 @@ bar {
     }
 }
 bar {
-    status_command ~/.i3/i3status.sh ~/.i3/i3status.conf
+    #status_command ~/.i3/i3status.sh ~/.i3/i3status.conf
+    status_command i3blocks -c ~/.i3/i3blocks.conf
     workspace_buttons yes
     position bottom
     colors {
