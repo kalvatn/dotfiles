@@ -2,7 +2,7 @@
 export ZSH=/home/kalvatn/.oh-my-zsh
 
 ZSH_THEME="kalvatn"
-plugins=(git vi-mode)
+plugins=(git svn vi-mode)
 
 # User configuration
 
