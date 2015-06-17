@@ -11,7 +11,17 @@ local host="%{$fg_bold[$HOST_COLOR]%}%m%{$reset_color%}"
 local dir="%{$fg_bold[$PATH_COLOR]%}%3~%{$reset_color%}"
 local caret="%{${fg_bold[$CARETCOLOR]}%}»%{$reset_color%}"
 
-PROMPT='${user}@${host}|${dir} $(git_prompt_info)${caret} '
+vcs_status() {
+if [[ ( $(whence in_svn) != "" ) && ( $(in_svn) == 1 ) ]]; then
+    svn_prompt_info
+else
+    git_prompt_info
+fi
+}
+
+
+#PROMPT='${user}@${host}|${dir} $(git_prompt_info)${caret} '
+PROMPT='${user}@${host}|${dir} $(vcs_status)${caret} '
 
 RPS1="${return_code}"
 
