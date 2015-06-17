@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 alias ls='ls -Fh --color=auto'
 alias dir='ls'
 alias sl='ls'
 alias ll='ls -l'
-alias lsa='ls -la'
+alias la='ls -la | less'
 
 alias grep='grep --color=auto'
 alias igrep='grep -i'
