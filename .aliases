@@ -4,7 +4,7 @@ alias ls='ls -Fh --color=auto'
 alias dir='ls'
 alias sl='ls'
 alias ll='ls -l'
-alias la='ls -la | less'
+alias la='ll -a'
 
 alias grep='grep --color=auto'
 alias igrep='grep -i'
