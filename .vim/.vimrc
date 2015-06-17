@@ -40,10 +40,17 @@ set ruler " show caret position
 set so=10 " lines of view 'context' relative to cursor
 set virtualedit=block " allow block selection beyond EOL
 " Return to last edit position when opening files
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+autocmd BufReadPost * :call LastPos()
+
+function! LastPos()
+    if &ft =~ 'gitcommit'
+        call setpos('.',0)
+        return
+    endif
+    if line("'\"") > 0 && line("'\"") <= line("$") |
+	exe "normal! g`\"" |
+    endif
+endfunction
 " Remember info about open buffers on close
 set viminfo^=%
 
