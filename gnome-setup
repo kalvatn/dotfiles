@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# disable default lock
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
+gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+
+# disable screensaver
+gnome-screensaver-command -d

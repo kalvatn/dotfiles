@@ -143,8 +143,8 @@ let g:syntastic_puppet_checkers=['puppetlint']
 let g:syntastic_puppet_puppetlint_args=['--no-80chars-check']
 
 " bash
-"let g:syntastic_sh_checkers=['sh', 'shellcheck', 'checkbashisms', 'bashate']
-let g:syntastic_sh_checkers=['sh', 'shellcheck']
+let g:syntastic_sh_checkers=['sh', 'shellcheck', 'bashate']
+let g:syntastic_sh_bashate_args=['--ignore E003'] " ignore indent multiple of 4 warning
 
 " python
 let g:syntastic_python_pylint_args=['--disable=C0111'] " disable docstring warn
@@ -184,6 +184,8 @@ nnoremap <silent> <leader>n :set nu!<cr>
 map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
 " quicksave
 nnoremap <leader>w :w<cr>
+" quickreload
+nnoremap <leader>e :e<cr>
 " search
 nnoremap <leader>s /
 " toggle search highlighting
@@ -216,19 +218,31 @@ autocmd BufWrite *.*rc :call DeleteTrailingWS()
 
 
 
-function s:MkNonExDir(file, buf)
-if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-    let dir=fnamemodify(a:file, ':h')
-    if !isdirectory(dir)
-        call mkdir(dir, 'p')
+function! AskQuit (msg, options, quit_option)
+    if confirm(a:msg, a:options) == a:quit_option
+        exit
     endif
-endif
 endfunction
-augroup BWCCreateDir
-autocmd!
-autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-augroup END
 
+function! EnsureDirExists ()
+    let required_dir = expand("%:h")
+    if !isdirectory(required_dir)
+        call AskQuit("Parent directory '" . required_dir . "' doesn't exist.",
+                    \       "&Create it\nor &Quit?", 2)
+
+        try
+            call mkdir( required_dir, 'p' )
+        catch
+            call AskQuit("Can't create '" . required_dir . "'",
+                        \            "&Quit\nor &Continue anyway?", 1)
+        endtry
+    endif
+endfunction
+
+augroup AutoMkdir
+    autocmd!
+    autocmd  BufNewFile  *  :call EnsureDirExists()
+augroup END
 
 
 
