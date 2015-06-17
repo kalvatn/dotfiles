@@ -1,9 +1,14 @@
 #!/bin/bash
 
+signal_i3blocks() {
+  pkill -SIGRTMIN+10 i3blocks
+}
+
 if pgrep -x spotify &> /dev/null; then
   case "$1" in
     Next|Previous|PlayPause)
       dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."$1" &> /dev/null
+      signal_i3blocks
       exit 0
       ;;
     NowPlaying)
@@ -26,9 +31,11 @@ if pgrep -x mopidy &> /dev/null; then
   case "$1" in
     Next)
       "$player" next
+      signal_i3blocks
       ;;
     Previous)
       "$player" prev
+      signal_i3blocks
       ;;
     PlayPause)
       "$player" toggle

@@ -1,9 +1,13 @@
 #!/bin/sh
 
+
+
 if amixer scontrols | grep Master; then
   amixer -q sset 'Master'  "$2%$1"
+  pkill -SIGRTMIN+1 i3blocks
 else
   amixer -q -c1 sset 'Master' "$2%$1"
+  pkill -SIGRTMIN+1 i3blocks
 fi
 
 
