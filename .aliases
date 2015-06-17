@@ -16,6 +16,12 @@ tmux_attach() {
 }
 
 alias nslisten="netstat -plan | grep LISTEN"
+alias wflymonitor=wildfly8_jvisualvm
+
+wildfly8_jvisualvm() {
+  source "$HOME"/.variables
+  "$JBOSS_HOME"/bin/jvisualvm
+}
 
 
 # custom launchers
