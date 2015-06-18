@@ -68,40 +68,41 @@ bindsym $mod+Shift+space floating toggle
 # focus the child container
 #bindsym $mod+d focus child
 
-set $1 1
-set $2 2
-set $3 3
-set $4 4
-set $5 5
-set $6 6
-set $7 7
-set $8 8
-set $9 9
-set $0 0
+# define workspaces
+set $workspace_1 1
+set $workspace_2 2
+set $workspace_3 3
+set $workspace_4 4
+set $workspace_5 5
+set $workspace_6 6
+set $workspace_7 7
+set $workspace_8 8
+set $workspace_9 9
+set $workspace_0 0
 
 # switch to workspace
-bindsym $mod+1 workspace $1
-bindsym $mod+2 workspace $2
-bindsym $mod+3 workspace $3
-bindsym $mod+4 workspace $4
-bindsym $mod+5 workspace $5
-bindsym $mod+6 workspace $6
-bindsym $mod+7 workspace $7
-bindsym $mod+8 workspace $8
-bindsym $mod+9 workspace $9
-bindsym $mod+0 workspace $0
+bindsym $mod+1 workspace $workspace_1
+bindsym $mod+2 workspace $workspace_2
+bindsym $mod+3 workspace $workspace_3
+bindsym $mod+4 workspace $workspace_4
+bindsym $mod+5 workspace $workspace_5
+bindsym $mod+6 workspace $workspace_6
+bindsym $mod+7 workspace $workspace_7
+bindsym $mod+8 workspace $workspace_8
+bindsym $mod+9 workspace $workspace_9
+bindsym $mod+0 workspace $workspace_0
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $1
-bindsym $mod+Shift+2 move container to workspace $2
-bindsym $mod+Shift+3 move container to workspace $3
-bindsym $mod+Shift+4 move container to workspace $4
-bindsym $mod+Shift+5 move container to workspace $5
-bindsym $mod+Shift+6 move container to workspace $6
-bindsym $mod+Shift+7 move container to workspace $7
-bindsym $mod+Shift+8 move container to workspace $8
-bindsym $mod+Shift+9 move container to workspace $9
-bindsym $mod+Shift+0 move container to workspace $0
+bindsym $mod+Shift+1 move container to workspace $workspace_1
+bindsym $mod+Shift+2 move container to workspace $workspace_2
+bindsym $mod+Shift+3 move container to workspace $workspace_3
+bindsym $mod+Shift+4 move container to workspace $workspace_4
+bindsym $mod+Shift+5 move container to workspace $workspace_5
+bindsym $mod+Shift+6 move container to workspace $workspace_6
+bindsym $mod+Shift+7 move container to workspace $workspace_7
+bindsym $mod+Shift+8 move container to workspace $workspace_8
+bindsym $mod+Shift+9 move container to workspace $workspace_9
+bindsym $mod+Shift+0 move container to workspace $workspace_0
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -184,9 +185,9 @@ exec xautolock -time 5 -locker /home/kalvatn/bin/lock &
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 for_window [class="^Spotify$"] floating enable
 
-assign [class="Pidgin"] $6
-assign [class="Thunderbird"] $6
-assign [class="Spotify" ] $0
+assign [class="Pidgin"] $workspace_6
+assign [class="Thunderbird"] $workspace_6
+assign [class="Spotify" ] $workspace_0
 
 
 # startup
@@ -195,14 +196,14 @@ exec --no-startup-id nm-applet
 
 exec /home/kalvatn/bin/switch_background
 
-#workspace $1 output DVI-0
-#workspace $2 output DVI-0
-#workspace $3 output DVI-0
-#workspace $4 output DVI-0
-#workspace $5 output DVI-0
+#workspace $workspace_1 output DVI-0
+#workspace $workspace_2 output DVI-0
+#workspace $workspace_3 output DVI-0
+#workspace $workspace_4 output DVI-0
+#workspace $workspace_5 output DVI-0
 #
-#workspace $6 output DVI-1
-#workspace $7 output DVI-1
-#workspace $8 output DVI-1
-#workspace $9 output DVI-1
-#workspace $0 output DVI-1
+#workspace $workspace_6 output DVI-1
+#workspace $workspace_7 output DVI-1
+#workspace $workspace_8 output DVI-1
+#workspace $workspace_9 output DVI-1
+#workspace $workspace_0 output DVI-1
