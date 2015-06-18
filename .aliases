@@ -8,19 +8,18 @@ alias la='ll -A'
 alias grep='grep --color=auto'
 alias igrep='grep -i'
 
-alias ta=tmux_attach
-
 tmux_attach() {
     tmux attach -t "$1"
 }
+alias ta=tmux_attach
 
 alias nslisten="netstat -plan | grep LISTEN"
-alias wflymonitor=wildfly8_jvisualvm
 
 wildfly8_jvisualvm() {
   source "$HOME"/.variables
   "$JBOSS_HOME"/bin/jvisualvm
 }
+alias wflymonitor=wildfly8_jvisualvm
 
 
 # custom launchers
