@@ -21,6 +21,12 @@ wildfly8_jvisualvm() {
 }
 alias wflymonitor=wildfly8_jvisualvm
 
+tailF() {
+  tail -F "$@"
+}
+alias tail=tailF
+
+
 
 # custom launchers
 
