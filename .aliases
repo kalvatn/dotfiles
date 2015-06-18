@@ -13,7 +13,8 @@ tmux_attach() {
 }
 alias ta=tmux_attach
 
-alias nslisten="netstat -plan | grep LISTEN"
+
+alias nslisten='netstat -plan | grep LISTEN'
 
 wildfly8_jvisualvm() {
   source "$HOME"/.variables
