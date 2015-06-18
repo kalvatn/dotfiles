@@ -108,8 +108,9 @@ set hlsearch
 
 " remaps n and N to call custom highlighting function
 " https://docs.google.com/file/d/0Bx3f0gFZh5Jqc0MtcUstV3BKdTQ/edit
-nnoremap <silent> n   n:call HLNext(0.2)<cr>
-nnoremap <silent> N   N:call HLNext(0.2)<cr>
+let hlnext_blinktime = 0.050
+nnoremap <silent> n   n:call HLNext(hlnext_blinktime)<cr>
+nnoremap <silent> N   N:call HLNext(hlnext_blinktime)<cr>
 
 function! HLNext (blinktime)
     highlight WhiteOnRed ctermfg=white ctermbg=red
