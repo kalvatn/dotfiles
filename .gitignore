@@ -1,1 +1,3 @@
 .vagrant
+.ncmpcpp/error.log
+.vim/.netrwhist
