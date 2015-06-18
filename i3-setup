@@ -13,8 +13,11 @@ else
   sudo make install
 fi
 
+grep "workspace \$workspace_\d" "$HOME/.i3/config"
 # find monitors
-outputs="$(xrandr -q | grep connected | cut -d ' ' -f1)"
-if [ "$(echo "$outputs" | wc -l)" -gt 1 ]; then
-  echo "$outputs"
+connected_outputs="$(xrandr -q | grep -w connected | cut -d ' ' -f1)"
+if [ "$(echo "$connected_outputs" | wc -l)" -gt 1 ]; then
+  echo "more than one connected outputs : $connected_outputs"
+else
+  echo "only one connected output : $connected_outputs"
 fi
