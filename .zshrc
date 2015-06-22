@@ -32,3 +32,10 @@ vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
 
 
 #export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+
+# -X (--no-init) -F (--quit-if-one-screen) -R (--RAW-CONTROL-CHARS)
+export LESS="-XFR"
+
+
+
+
