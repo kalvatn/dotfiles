@@ -1,6 +1,16 @@
 #!/bin/bash
 
-alias ls='ls -Fh --color=auto'
+ls() {
+    if [[ -t 1 ]]
+    then
+        #paginate ls output with less
+        command ls -Fh --color=always "$@" | less -XFR
+    else
+        # don't pipe to less if piping output to something else
+        command ls -Fh --color=always "$@"
+    fi
+}
+alias ls=ls
 alias sl='ls'
 alias ll='ls -l'
 alias la='ll -A'
