@@ -1,3 +1,4 @@
 .vagrant
-.ncmpcpp/error.log
+.ncmpcpp/*
+!.ncmpcpp/config
 .vim/.netrwhist
