@@ -140,7 +140,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " set additional linter settings
-let g:syntastic_puppet_checkers=['puppetlint']
+let g:syntastic_puppet_checkers=['puppet', 'puppetlint']
 let g:syntastic_puppet_puppetlint_args=['--no-80chars-check']
 
 " bash
