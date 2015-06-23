@@ -4,10 +4,10 @@ ls() {
     if [[ -t 1 ]]
     then
         #paginate ls output with less
-        command ls -Fh --color=always "$@" | less -XFR
+        command ls -F --color=always "$@" | less -XFR
     else
         # don't pipe to less if piping output to something else
-        command ls -Fh --color=always "$@"
+        command ls -F --color=always "$@"
     fi
 }
 alias ls=ls
