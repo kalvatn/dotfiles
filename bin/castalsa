@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# record mp3 from default device
+arecord -f cd -t raw | lame -r - /tmp/test.mp3
