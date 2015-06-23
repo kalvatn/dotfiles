@@ -23,23 +23,22 @@ echo "updating packages (quiet)"
 sudo apt-get install mopidy mopidy-alsamixer mopidy-spotify mopidy-spotify-tunigo mopidy-scrobbler ncmpcpp
 #sudo pip install Mopidy-Mopify
 
-MOPIDY_CONF=/etc/mopidy/mopidy.conf
-sudo cp "$(pwd)/mopidy.conf" $MOPIDY_CONF
+MOPIDY_CONF="$HOME/.config/mopidy/mopidy.conf"
 
 read -p "spotify username: " username
 read -sp "spotify password: " password
 
 printf "\n"
 
-sudo sed -i "s/SPOTIFY_PASSWORD/$password/g" $MOPIDY_CONF
-sudo sed -i "s/SPOTIFY_USERNAME/$username/g" $MOPIDY_CONF
+sudo sed -i "s/SPOTIFY_PASSWORD/$password/g" "$MOPIDY_CONF"
+sudo sed -i "s/SPOTIFY_USERNAME/$username/g" "$MOPIDY_CONF"
 
 read -p "lastfm username: " username
 read -sp "lastfm password: " password
 
 printf "\n"
 
-sudo sed -i "s/LASTFM_PASSWORD/$password/g" $MOPIDY_CONF
-sudo sed -i "s/LASTFM_USERNAME/$username/g" $MOPIDY_CONF
+sudo sed -i "s/LASTFM_PASSWORD/$password/g" "$MOPIDY_CONF"
+sudo sed -i "s/LASTFM_USERNAME/$username/g" "$MOPIDY_CONF"
 
 
