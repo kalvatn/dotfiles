@@ -24,6 +24,8 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 [[ -f $HOME/.variables ]] && source $HOME/.variables
 
 
+export EDITOR='vim'
+
 # use vim as pager
 export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
