@@ -52,8 +52,11 @@ URxvt.clipboard.pastecmd: xsel --output --clipboard
 
 !URxvt.keysym.Control-Shift-C: perl:clipboard:copy
 !URxvt.keysym.Control-Shift-V: perl:clipboard:paste
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.keysym.Shift-Control-C: perl:clipboard:paste
+!URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+!URxvt.keysym.Shift-Control-C: perl:clipboard:paste
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
 URxvt.color0:  #000000
 URxvt.color1:  #cd0000
