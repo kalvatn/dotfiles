@@ -20,6 +20,9 @@ ln -fs "$cwd/.my.cnf" "$HOME"
 ln -fs "$cwd/.notify-osd" "$HOME"
 ln -fs "$cwd/.asoundrc" "$HOME"
 ln -fs "$cwd/.config/mopidy/mopidy.conf" "$HOME/.config/mopidy/mopidy.conf"
+ln -fs "$cwd/.xinitrc" "$HOME"
+ln -fs "$cwd/.Xresources" "$HOME"
+ln -fs "$cwd/.urxvt" "$HOME"
 
 # i3
 ln -fs "$cwd/.i3" "$HOME"

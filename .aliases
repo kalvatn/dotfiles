@@ -38,6 +38,7 @@ alias wflymonitor=wildfly8_jvisualvm
 #alias tail=tailF
 
 
+alias xup='xrdb ~/.Xresources'
 
 # custom launchers
 

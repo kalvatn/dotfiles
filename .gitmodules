@@ -13,3 +13,6 @@
 [submodule ".vim/bundle/dragvisuals.vim"]
 	path = .vim/bundle/dragvisuals.vim
 	url = https://github.com/gavinbeatty/dragvisuals.vim.git
+[submodule ".urxvt/ext/perls"]
+	path = .urxvt/ext/perls
+	url = git://github.com/muennich/urxvt-perls.git
