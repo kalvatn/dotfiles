@@ -148,7 +148,9 @@ let g:syntastic_sh_checkers=['sh', 'shellcheck', 'bashate']
 let g:syntastic_sh_bashate_args=['--ignore E003'] " ignore indent multiple of 4 warning
 
 " python
-let g:syntastic_python_pylint_args=['--disable=C0111'] " disable docstring warn
+" disable docstring warn (C0111)
+" disable line too long  (C0301)
+let g:syntastic_python_pylint_args=['--disable=C0111,C0301']
 
 
 " https://github.com/Yggdroot/indentLine
