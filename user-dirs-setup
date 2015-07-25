@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+
+cwd=$(pwd)
+source "$cwd/.config/user-dirs.dirs"
+
+if [ -f "$HOME/examples.desktop" ];then
+  rm "$HOME/examples.desktop"
+fi
+
+if [ -d "$HOME/Desktop" ];then
+  mv -T "$HOME/Desktop" "$XDG_DESKTOP_DIR"
+fi
+
+if [ -d "$HOME/Documents" ];then
+  mv -T "$HOME/Documents" "$XDG_DOCUMENTS_DIR"
+fi
+
+if [ -d "$HOME/Templates" ];then
+  mv -T "$HOME/Templates" "$XDG_TEMPLATES_DIR"
+fi
+
+mkdir -p "$HOME/media"
+if [ -d "$HOME/Downloads" ];then
+  mv -T "$HOME/Downloads" "$XDG_DOWNLOAD_DIR"
+fi
+
+if [ -d "$HOME/Music" ];then
+  mv -T "$HOME/Music" "$XDG_MUSIC_DIR"
+fi
+
+if [ -d "$HOME/Pictures" ];then
+  mv -T "$HOME/Pictures" "$XDG_PICTURES_DIR"
+fi
+
+if [ -d "$HOME/Videos" ];then
+  mv -T "$HOME/Videos" "$XDG_VIDEOS_DIR"
+fi
+
+if [ -d "$HOME/Public" ];then
+  mv -T "$HOME/Public" "$XDG_PUBLICSHARE_DIR"
+fi
+
+
+ln -fs "$cwd/.config/user-dirs.dirs" "$HOME/.config/user-dirs.dirs"
+xdg-user-dirs-update
