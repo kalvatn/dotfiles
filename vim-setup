@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+# ruby support (vim-nox), clipboard support (vim-gtk)
+sudo apt-get install vim-nox vim-gtk
