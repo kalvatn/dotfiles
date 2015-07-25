@@ -3,7 +3,7 @@
 set -e
 
 # http://www.ubuntuupdates.org/ppa/google_chrome
-if sudo apt-key list | grep chrome &> /dev/null; then
+if sudo apt-key list | grep google &> /dev/null; then
   echo "google_chrome gpg already added"
 else
   echo "adding google_chrome gpg key"
