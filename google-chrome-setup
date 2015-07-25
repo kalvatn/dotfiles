@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+# http://www.ubuntuupdates.org/ppa/google_chrome
+if sudo apt-key list | grep chrome &> /dev/null; then
+  echo "google_chrome gpg already added"
+else
+  echo "adding google_chrome gpg key"
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+fi
+
+if [ -f /etc/apt/sources.list.d/google.list ]; then
+  echo "google_chrome list already added"
+else
+  echo "adding /etc/apt/sources.list.d/google.list"
+  sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+  echo "updating packages (quiet)"
+  sudo apt-get update -qq
+fi
+
+
+sudo apt-get install google-chrome-stable
