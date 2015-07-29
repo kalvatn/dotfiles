@@ -23,26 +23,29 @@ fi
 sudo apt-get install mopidy mopidy-alsamixer mopidy-spotify mopidy-spotify-tunigo mopidy-scrobbler ncmpcpp
 #sudo pip install Mopidy-Mopify
 
-mkdir -p "$HOME/.config/mopidy"
-cwd=$(pwd)
-ln -fs "$cwd/.config/mopidy/mopidy.conf" "$HOME/.config/mopidy/mopidy.conf"
+if [ -d "$HOME/.config/mopidy" ]; then
+  echo "$HOME/.config/mopidy already exists"
+else
+  mkdir -p "$HOME/.config/mopidy"
+fi
 
-MOPIDY_CONF="$HOME/.config/mopidy/mopidy.conf"
+cwd=$(pwd)
+MOPIDY_CONF="$cwd/.config/mopidy/mopidy.conf"
 
 read -p "spotify username: " username
 read -sp "spotify password: " password
 
 printf "\n"
 
-sudo sed -i "s/SPOTIFY_PASSWORD/$password/g" "$MOPIDY_CONF"
-sudo sed -i "s/SPOTIFY_USERNAME/$username/g" "$MOPIDY_CONF"
+sed -i "s/SPOTIFY_PASSWORD/$password/g" "$MOPIDY_CONF"
+sed -i "s/SPOTIFY_USERNAME/$username/g" "$MOPIDY_CONF"
 
 read -p "lastfm username: " username
 read -sp "lastfm password: " password
 
 printf "\n"
 
-sudo sed -i "s/LASTFM_PASSWORD/$password/g" "$MOPIDY_CONF"
-sudo sed -i "s/LASTFM_USERNAME/$username/g" "$MOPIDY_CONF"
+sed -i "s/LASTFM_PASSWORD/$password/g" "$MOPIDY_CONF"
+sed -i "s/LASTFM_USERNAME/$username/g" "$MOPIDY_CONF"
 
-
+ln -fs "$cwd/.config/mopidy/mopidy.conf" "$HOME/.config/mopidy/mopidy.conf"
