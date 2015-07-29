@@ -9,7 +9,7 @@
 [alias]
     # list all aliases
     alias = config --get-regexp alias
-    st = status
+    st = !sh -c "echo; echo '--- IGNORED ---\n'; git ignored; echo '\n--- IGNORED ---\n'; git status"
     ci = commit
     co = checkout
     di = diff
