@@ -21,6 +21,7 @@
     lg = log --graph --decorate --pretty=oneline --abbrev-commit 
     syncfork = !git fetch upstream && git merge upstream/master
     lastlog = diff HEAD^ HEAD
+    rprune = remote prune origin
 [core]
     excludesfile = ~/.gitignore_global
     autocrlf = false
