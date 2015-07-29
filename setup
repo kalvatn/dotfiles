@@ -4,9 +4,8 @@ set -e
 
 git submodule update --init
 cwd=$(pwd)
+./vim-setup
 ln -fs "$cwd/bin" "$HOME"
-ln -fs "$cwd/.vim" "$HOME"
-ln -fs "$cwd/.vim/.vimrc" "$HOME"
 ln -fs "$cwd/.gitconfig" "$HOME"
 ln -fs "$cwd/.gitignore_global" "$HOME"
 ln -fs "$cwd/.tmux.conf" "$HOME"
