@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+# git and meld (mergetool)
+sudo apt-get install git meld
+
+cwd=$(pwd)
+ln -fs "$cwd/.gitconfig" "$HOME"
+ln -fs "$cwd/.gitignore_global" "$HOME"
