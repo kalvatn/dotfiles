@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+git clone https://github.com/lwfinger/rtlwifi_new.git /tmp/rtlwifi
+cd /tmp/rtlwifi
+make
+sudo make install
+
+echo "reboot to apply changes"
