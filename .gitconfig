@@ -22,6 +22,10 @@
     syncfork = !git fetch upstream && git merge upstream/master
     lastlog = diff HEAD^ HEAD
     rprune = remote prune origin
+
+    ignore = update-index --assume-unchanged
+    unignore = update-index --no-assume-unchanged
+    ignored = !git ls-files -v | grep "^[[:lower:]]"
 [core]
     excludesfile = ~/.gitignore_global
     autocrlf = false
