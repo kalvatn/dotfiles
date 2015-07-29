@@ -29,3 +29,5 @@
     editor = vim
 [push]
     default = current
+[merge]
+    tool = meld
