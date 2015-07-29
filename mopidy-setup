@@ -24,6 +24,7 @@ sudo apt-get install mopidy mopidy-alsamixer mopidy-spotify mopidy-spotify-tunig
 #sudo pip install Mopidy-Mopify
 
 mkdir -p "$HOME/.config/mopidy"
+cwd=$(pwd)
 ln -fs "$cwd/.config/mopidy/mopidy.conf" "$HOME/.config/mopidy/mopidy.conf"
 
 MOPIDY_CONF="$HOME/.config/mopidy/mopidy.conf"
