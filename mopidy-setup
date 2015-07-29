@@ -14,15 +14,17 @@ if [ -f /etc/apt/sources.list.d/mopidy.list ]; then
 else
   echo "adding /etc/apt/sources.list.d/mopidy.list"
   sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/mopidy.list
-  sudo apt-get update
+  echo "updating packages (quiet)"
+  sudo apt-get update -qq
 fi
 
-echo "updating packages (quiet)"
-#sudo apt-get update -qq
 
 
 sudo apt-get install mopidy mopidy-alsamixer mopidy-spotify mopidy-spotify-tunigo mopidy-scrobbler ncmpcpp
 #sudo pip install Mopidy-Mopify
+
+mkdir -p "$HOME/.config/mopidy"
+ln -fs "$cwd/.config/mopidy/mopidy.conf" "$HOME/.config/mopidy/mopidy.conf"
 
 MOPIDY_CONF="$HOME/.config/mopidy/mopidy.conf"
 
