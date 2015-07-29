@@ -90,6 +90,13 @@ au BufRead,BufNewFile Vagrantfile set filetype=ruby
 "autocmd BufRead,BufNewFile   *.pl syntax on
 autocmd FileType sh,puppet,ruby set ts=2 sw=2
 
+
+" use different colorscheme when using vimdiff
+if &diff
+    "colorscheme darkblue
+    colorscheme murphy
+endif
+
 " file search/completion
 set wildmenu " enable commandlist suggestions
 
