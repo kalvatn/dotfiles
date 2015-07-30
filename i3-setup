@@ -12,6 +12,8 @@ else
   make clean all
   sudo make install
 fi
+cwd=$(pwd)
+ln -fs "$cwd/.i3" "$HOME"
 
 grep "workspace \$workspace_\d" "$HOME/.i3/config"
 # find monitors

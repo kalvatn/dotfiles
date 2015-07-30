@@ -18,8 +18,6 @@ ln -fs "$cwd/.xinitrc" "$HOME"
 ln -fs "$cwd/.Xresources" "$HOME"
 ln -fs "$cwd/.urxvt" "$HOME"
 
-# i3
-ln -fs "$cwd/.i3" "$HOME"
 
 # ncmpcpp
 ln -fs "$cwd/.ncmpcpp" "$HOME"
