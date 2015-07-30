@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+# ruby support (vim-nox), clipboard support (vim-gtk)
+sudo apt-get install tmux
+
+cwd=$(pwd)
+ln -fs "$cwd/.tmux.conf" "$HOME"

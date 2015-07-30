@@ -8,7 +8,6 @@ cwd=$(pwd)
 
 git submodule update --init
 ln -fs "$cwd/bin" "$HOME"
-ln -fs "$cwd/.tmux.conf" "$HOME"
 ln -fs "$cwd/.zshrc" "$HOME"
 ln -fs "$cwd/.oh-my-zsh" "$HOME"
 ln -fs "$cwd/oh-my-zsh-custom-themes/kalvatn.zsh-theme" "$HOME/.oh-my-zsh/themes/"
