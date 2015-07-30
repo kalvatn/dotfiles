@@ -18,10 +18,7 @@ else
   sudo apt-get update -qq
 fi
 
-
-
 sudo apt-get install mopidy mopidy-alsamixer mopidy-spotify mopidy-spotify-tunigo mopidy-scrobbler ncmpcpp
-#sudo pip install Mopidy-Mopify
 
 if [ -d "$HOME/.config/mopidy" ]; then
   echo "$HOME/.config/mopidy already exists"
@@ -48,4 +45,5 @@ printf "\n"
 sed -i "s/LASTFM_PASSWORD/$password/g" "$MOPIDY_CONF"
 sed -i "s/LASTFM_USERNAME/$username/g" "$MOPIDY_CONF"
 
+ln -fs "$cwd/.ncmpcpp" "$HOME"
 ln -fs "$cwd/.config/mopidy/mopidy.conf" "$HOME/.config/mopidy/mopidy.conf"

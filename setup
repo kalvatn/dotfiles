@@ -19,8 +19,6 @@ ln -fs "$cwd/.Xresources" "$HOME"
 ln -fs "$cwd/.urxvt" "$HOME"
 
 
-# ncmpcpp
-ln -fs "$cwd/.ncmpcpp" "$HOME"
 
 # warn about missing packages
 
