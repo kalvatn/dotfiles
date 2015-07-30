@@ -40,18 +40,34 @@ alias wflymonitor=wildfly8_jvisualvm
 
 alias xup='xrdb ~/.Xresources'
 
-
-check_word() {
-  spelling="$(echo "$1" | aspell -a | sed -n '2p')"
-  if [ "$spelling" = "*" ]; then
-    sdcv -0cn "$1" | less -XFR
-  else
-    echo "$1 is incorrectly spelled"
+spellcheck_word() {
+  # pipe word(s) to aspell and omit first line of result
+  spelling="$(echo "$@" | aspell -a | sed -n '1!p')"
+  correct=true
+  for i in $(echo "$spelling" | tr "\r" "\n"); do
+    if [ "$i" != "*" ]; then
+      correct=false
+      break
+    fi
+  done
+  if ! $correct; then
+    echo "'$@' is incorrectly spelled"
     echo "$spelling"
   fi
 }
 
-alias dict=check_word
+lookup_word() {
+  sdcv -0cn "$@" | less -XFR
+}
+
+spellcheck_and_lookup_word() {
+  spellcheck_word "$@"
+  lookup_word "$@"
+}
+
+alias dict=lookup_word
+alias spellcheck=spellcheck_word
+alias spelldict=spellcheck_and_lookup_word
 
 # custom launchers
 
