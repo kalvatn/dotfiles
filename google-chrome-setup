@@ -10,7 +10,7 @@ else
   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 fi
 
-if [ -f /etc/apt/sources.list.d/google.list ]; then
+if [ -f /etc/apt/sources.list.d/google.list -o -f /etc/apt/sources.list.d/google-chrome.list ]; then
   echo "google_chrome list already added"
 else
   echo "adding /etc/apt/sources.list.d/google.list"
