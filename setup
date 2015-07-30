@@ -4,9 +4,12 @@ set -e
 
 cwd=$(pwd)
 ./git-setup
-./vim-setup
 
 git submodule update --init
+./vim-setup
+./zsh-setup
+./tmux-setup
+
 ln -fs "$cwd/bin" "$HOME"
 ln -fs "$cwd/.aliases" "$HOME"
 ln -fs "$cwd/.variables" "$HOME"
