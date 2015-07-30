@@ -44,7 +44,7 @@ alias xup='xrdb ~/.Xresources'
 check_word() {
   spelling="$(echo "$1" | aspell -a | sed -n '2p')"
   if [ "$spelling" = "*" ]; then
-    sdcv -cn "$1"
+    sdcv -0cn "$1" | less -XFR
   else
     echo "$1 is incorrectly spelled"
     echo "$spelling"
