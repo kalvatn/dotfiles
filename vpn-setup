@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# install "cisco anyconnect"
+sudo apt-get install openconnect network-manager-openconnect
