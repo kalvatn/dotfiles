@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+if [ "$[$(date +%s) - $(stat -c %Z /var/lib/apt/periodic/update-success-stamp)]" -ge 600 ]; then
+  sudo apt-get update
+else
+  echo "package lists were updated less than 10 minutes ago"
+fi
