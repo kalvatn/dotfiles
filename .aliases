@@ -53,6 +53,8 @@ spellcheck_word() {
   if ! $correct; then
     echo "'$@' is incorrectly spelled"
     echo "$spelling"
+  else
+    echo "'$@' is correctly spelled"
   fi
 }
 
