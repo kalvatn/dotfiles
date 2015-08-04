@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+TARGET_ZIPFILE="$HOME/media/pictures/chromecast_background_images.zip"
+
+if [ -f "$TARGET_ZIPFILE" ]; then
+  echo "$TARGET_ZIPFILE already exists"
+else
+  wget https://dl.dropboxusercontent.com/u/535060/chromecast1080_4.zip -O "$TARGET_ZIPFILE"
+fi
+unzip "$TARGET_ZIPFILE" -d "$HOME/media/pictures/chromecast_background_images"
