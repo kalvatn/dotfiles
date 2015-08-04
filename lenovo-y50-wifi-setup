@@ -2,9 +2,22 @@
 
 set -e
 
-git clone https://github.com/lwfinger/rtlwifi_new.git /tmp/rtlwifi
-cd /tmp/rtlwifi
-make
-sudo make install
+#git clone https://github.com/lwfinger/rtlwifi_new.git /tmp/rtlwifi
+#cd /tmp/rtlwifi
+#make
+#sudo make install
+
+# https://launchpad.net/~hanipouspilot/+archive/ubuntu/rtlwifi
+if [ -f /etc/apt/sources.list.d/hanipouspilot-rtlwifi-trusty.list ]; then
+  echo "hanipouspilot-rtlwifi list already added"
+else
+  echo "adding /etc/apt/sources.list.d/hanipouspilot-rtlwifi-trusty.list"
+  sudo add-apt-repository ppa:hanipouspilot/rtlwifi
+  echo "updating packages (quiet)"
+  sudo apt-get update -qq
+fi
+
+aptup
+sudo apt-get install rtlwifi-new-dkms
 
 echo "reboot to apply changes"
