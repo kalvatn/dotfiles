@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+# https://launchpad.net/~mamarley/+archive/ubuntu/nvidia
+if [ -f /etc/apt/sources.list.d/mamarley-nvidia-trusty.list ]; then
+  echo "mamarley list already added"
+else
+  echo "adding /etc/apt/sources.list.d/mamarley-nvidia-trusty.list"
+  sudo add-apt-repository ppa:mamarley/nvidia
+  echo "updating packages (quiet)"
+  sudo apt-get update -qq
+fi
+
+aptup
+sudo apt-get install nvidia-346
