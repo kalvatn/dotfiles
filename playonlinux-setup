@@ -1,6 +1,20 @@
 #!/bin/bash
 
-wget -q "http://deb.playonlinux.com/public.gpg" -O- | sudo apt-key add -
-sudo wget http://deb.playonlinux.com/playonlinux_trusty.list -O /etc/apt/sources.list.d/playonlinux.list
-sudo apt-get update
-sudo apt-get install playonlinux
+if sudo apt-key list | grep playonlinux &> /dev/null; then
+  echo "playonlinux gpg already added"
+else
+  echo "adding playonlinux gpg key"
+  wget -q "http://deb.playonlinux.com/public.gpg" -O- | sudo apt-key add -
+fi
+
+if [ -f /etc/apt/sources.list.d/playonlinux.list ]; then
+  echo "playonlinux list already added"
+else
+  echo "adding /etc/apt/sources.list.d/playonlinux.list"
+  sudo wget http://deb.playonlinux.com/playonlinux_trusty.list -O /etc/apt/sources.list.d/playonlinux.list
+  echo "updating packages (quiet)"
+  sudo apt-get update -qq
+fi
+
+aptup
+sudo apt-get install playonlinux wine
