@@ -23,3 +23,7 @@ if [ "$(echo "$connected_outputs" | wc -l)" -gt 1 ]; then
 else
   echo "only one connected output : $connected_outputs"
 fi
+
+
+# fix nautilus desktop
+gsettings set org.gnome.desktop.background show-desktop-icons false
