@@ -1,0 +1,12 @@
+#!/bin/sh
+
+CHATLOG_DIR="$HOME/.local/share/profanity/chatlogs/j.kalvatn_at_jabberd.betradar.com/"
+
+
+if [ -z "$2" ];then
+  find $CHATLOG_DIR*$1* -type f
+else
+  find $CHATLOG_DIR*$1* -type f -exec grep -Hn "$2" {} \;
+fi
+
+
