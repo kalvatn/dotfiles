@@ -115,7 +115,7 @@ set hlsearch
 
 " remaps n and N to call custom highlighting function
 " https://docs.google.com/file/d/0Bx3f0gFZh5Jqc0MtcUstV3BKdTQ/edit
-let hlnext_blinktime = 0.050
+let hlnext_blinktime = 0.0050
 nnoremap <silent> n   n:call HLNext(hlnext_blinktime)<cr>
 nnoremap <silent> N   N:call HLNext(hlnext_blinktime)<cr>
 
