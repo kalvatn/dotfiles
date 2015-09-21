@@ -88,7 +88,7 @@ au BufRead,BufNewFile *.pp set filetype=puppet
 au BufRead,BufNewFile Vagrantfile set filetype=ruby
 "autocmd BufRead,BufNewFile   *.c,*.h,*.java set noic cin noexpandtab
 "autocmd BufRead,BufNewFile   *.pl syntax on
-autocmd FileType sh,puppet,ruby set ts=2 sw=2
+autocmd FileType sh,puppet,ruby,xml,html set ts=2 sw=2
 
 
 " use different colorscheme when using vimdiff
