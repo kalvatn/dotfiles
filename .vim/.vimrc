@@ -201,7 +201,7 @@ vmap $ g_
 " remap SOL to first non-blank character
 map 0 ^
 " remap q from recording to :q
-map q :q
+map q :q!
 
 " leader key setup and bindings
 let mapleader = ','
