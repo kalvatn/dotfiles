@@ -39,3 +39,5 @@
     default = current
 [merge]
     tool = meld
+[diff]
+    tool = meld
