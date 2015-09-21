@@ -159,6 +159,29 @@ let g:syntastic_sh_bashate_args=['--ignore E003'] " ignore indent multiple of 4 
 " disable line too long  (C0301)
 let g:syntastic_python_pylint_args=['--disable=C0111,C0301']
 
+" latex
+let g:syntastic_tex_checkers       = ['chktex']
+" see http://www.nongnu.org/chktex/ChkTeX.pdf
+" Warning 1: Command terminated with space
+" Warning 2: Non-breaking space (‘˜’) should have been used.
+" Warning 3: You should enclose the previous parenthesis with ‘{}’.
+" Warning 4: Italic correction (‘\/’) found in non-italic buffer.
+" Warning 5: Italic correction (‘\/’) found more than once.
+" Warning 6: No italic correction (`\/') found
+" Warning 7: Accent command ‘command’ needs use of ‘command’.
+" Warning 8: Wrong length of dash may have been used.
+" Warning 9: ‘%s’ expected, found ‘%s’.
+" Warning 10: Solo ‘%s’ found.
+" Warning 11: You should use ‘%s’ to achieve an ellipsis. ('...' should be \ldots)
+" Warning 12: Interword spacing (‘\ ’) should perhaps be used.
+" Warning 13: Intersentence spacing (‘\@’) should perhaps be used.
+" Warning 14: Could not find argument for command.
+" Warning 15: No match found for ‘%s’.
+" Warning 16: Mathmode still on at end of LaTeX file.
+" Warning 17: Number of ‘character’ doesn’t match the number of ‘character’.
+" Warning 18: You should use either “ or ” as an alternative to ‘ " ’.
+let g:syntastic_tex_chktex_args    = '-n1 -n8 -n12'
+
 
 " https://github.com/Yggdroot/indentLine
 "let g:indentLine_color_term = 239
