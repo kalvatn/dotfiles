@@ -6,7 +6,7 @@ else
   cache=$HOME/.dmenu_cache # if no xdg dir, fall back to dotfile in ~
 fi
 aliases="$HOME/.aliases"
-functions="$HOME/.functions"
+#functions="$HOME/.functions"
 cmd=$(
 IFS=:
 
@@ -16,7 +16,7 @@ if stest -dqr -n "$cache" "$PATH" || stest -fqr -n "$cache" "$aliases" || stest 
   stest -flx $PATH
   source "$aliases"
   alias | awk -F '[ =]' '{print $2}'
-  source "$functions"
+  #source "$functions"
   compgen -A function
   ) | sort -u | tee "$cache" | dmenu "$@"
 else
@@ -24,4 +24,5 @@ else
 fi
 )
 # Perform alias expansion on $cmd
-echo -e "source $aliases \n source $functions \n $cmd" | bash -O expand_aliases &
+#echo -e "source $aliases \n source $functions \n $cmd" | bash -O expand_aliases &
+echo -e "source $aliases \n $cmd" | bash -O expand_aliases &
