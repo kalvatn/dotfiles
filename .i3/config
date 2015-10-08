@@ -194,7 +194,6 @@ assign [class="Spotify" ] $workspace_0
 #exec --no-startup-id spotify
 exec --no-startup-id nm-applet
 
-exec /home/kalvatn/bin/switch_background
 
 #workspace $workspace_1 output DVI-0
 #workspace $workspace_2 output DVI-0
@@ -207,3 +206,7 @@ exec /home/kalvatn/bin/switch_background
 #workspace $workspace_8 output DVI-1
 #workspace $workspace_9 output DVI-1
 #workspace $workspace_0 output DVI-1
+
+# reload desktop-background on startup to fix jagging/tearing issue
+exec /home/kalvatn/bin/reload-desktop-background
+
