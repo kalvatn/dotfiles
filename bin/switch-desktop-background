@@ -1,3 +1,4 @@
 #!/bin/sh
-#feh --bg-scale "$(random_image)"
-feh --no-fehbg --bg-fill "$(random_image)"
+image_file="$(random_image)"
+ln -sf "$image_file" /tmp/current-desktop-background
+feh --no-fehbg --bg-fill "$image_file" 
