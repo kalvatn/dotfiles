@@ -21,6 +21,7 @@
     #lg = log --graph --decorate --pretty=oneline --abbrev-commit -n 50
     #lg = log --graph --decorate --pretty=oneline --abbrev-commit --all
     lg = log --graph --decorate --pretty=oneline --abbrev-commit 
+    lb = branch -avv
     syncfork = !git fetch upstream && git merge upstream/master
     lastlog = diff HEAD^ HEAD
     rprune = remote prune origin
