@@ -69,7 +69,7 @@ spellcheck_and_lookup_word() {
 }
 
 alias dict=lookup_word
-alias spellcheck=spellcheck_word
+alias spell=spellcheck_word
 alias spelldict=spellcheck_and_lookup_word
 
 # custom launchers
