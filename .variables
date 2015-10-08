@@ -2,3 +2,4 @@
 
 export PROJECTS="/work/projects"
 export JBOSS_HOME="/work/tools/appservers/jboss/wildfly-8.2.0.Final"
+export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
