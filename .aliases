@@ -90,6 +90,7 @@ alias hans="ssh hans@172.17.20.220"
 alias xmlexport-zrh1="ssh j.kalvatn@10.200.4.11"
 alias xmlexport-zrh2="ssh j.kalvatn@10.200.4.12"
 alias xmlexport-zrh-test="ssh j.kalvatn@10.200.4.12"
+alias xmlexport-trd-test="ssh jboss@172.17.22.53"
 
 # other
 alias northrend="ssh kalvatn@northrend.bitnexus.net"
