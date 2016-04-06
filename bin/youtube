@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+link="$1"
+if [[ ! "$link" =~ ^(https?)://(www.)?youtube.com/* ]]; then
+  link="https://www.youtube.com/watch?v=$1"
+fi
+echo "opening url : '$link'"
+#curl --ciphers RC4-SHA "$(youtube-dl -g https://www.youtube.com/watch?v="$video_id")" | mplayer -
+curl --ciphers RC4-SHA "$(youtube-dl -g "$link")" | mplayer -
