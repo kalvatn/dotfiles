@@ -147,6 +147,17 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" disable for certain files
+let g:syntastic_disabled_filetypes = ['java']
+let g:syntastic_java_checker=''
+let g:syntastic_ignore_files = ['*.java']
+" trick syntastic to think that javac checker has already been loaded (to
+" actually not load it)
+let g:loaded_syntastic_java_javac_checker = 1
+
+" to explicitly enable/disable files to check
+"let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['foo', 'bar'], 'passive_filetypes': ['java'] }
+
 " set additional linter settings
 let g:syntastic_puppet_checkers=['puppet', 'puppetlint']
 let g:syntastic_puppet_puppetlint_args=['--no-80chars-check']
@@ -181,7 +192,8 @@ let g:syntastic_tex_checkers       = ['chktex']
 " Warning 16: Mathmode still on at end of LaTeX file.
 " Warning 17: Number of ‘character’ doesn’t match the number of ‘character’.
 " Warning 18: You should use either “ or ” as an alternative to ‘ " ’.
-let g:syntastic_tex_chktex_args    = '-n1 -n8 -n12'
+" Warning 29: $\times$ may look prettier here.
+let g:syntastic_tex_chktex_args    = '-n1 -n8 -n12 -n29'
 
 
 " https://github.com/Yggdroot/indentLine
