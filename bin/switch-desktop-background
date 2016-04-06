@@ -1,4 +1,4 @@
 #!/bin/sh
 image_file="$(random_image)"
-ln -sf "$image_file" /tmp/current-desktop-background
+ln -sf "$image_file" /home/kalvatn/current-desktop-background
 feh --no-fehbg --bg-fill "$image_file" 
