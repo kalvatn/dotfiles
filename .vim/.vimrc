@@ -77,8 +77,8 @@ set smartindent " autoindenting of blocks
 "set lw=80 " linewidth
 "set colorcolumn=150
 " highlight only overflowing columns (80 chars)
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
+"highlight ColorColumn ctermbg=magenta
+"call matchadd('ColorColumn', '\%81v', 100)
 
 " filetype detection
 set encoding=utf8
