@@ -35,6 +35,7 @@ set laststatus=2 " always show status
 set statusline=\%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l " format statusline
 set nu " line numbers
 set ruler " show caret position
+set nowrap " do not wrap lines by default
 
 " behaviour
 set so=10 " lines of view 'context' relative to cursor
