@@ -80,8 +80,12 @@ alias spelldict=spellcheck_and_lookup_word
 
 # work
 alias sqlyog='wine "C:\Program Files (x86)\SQLyog\SQLyog.exe"'
-alias idea='/work/tools/ide/intellij/idea-IU-141.713.2/bin/idea.sh'
+#alias idea='/work/tools/ide/intellij/idea-IU-141.713.2/bin/idea.sh'
+#alias idea='/work/tools/ide/intellij/idea-IU-143.381.42/bin/idea.sh'
+#alias idea='/work/tools/ide/intellij/idea-IU-143.1821.5/bin/idea.sh'
+alias idea='/work/tools/ide/intellij/idea-IU-145.258.11/bin/idea.sh'
 alias eclipse='/work/tools/ide/eclipse/eclipse-java-luna-SR2-linux-gtk-x86_64/eclipse'
+alias datagrip='/work/tools/ide/datagrip/DataGrip-1.0.3/bin/datagrip.sh'
 
 # ssh aliases
 if which autossh > /dev/null; then
@@ -89,7 +93,7 @@ if which autossh > /dev/null; then
 fi
 
 # work
-alias hans="ssh hans@172.17.20.220"
+alias hans="ssh hans@10.12.100.220"
 
 alias xmlexport-zrh1="ssh j.kalvatn@10.200.4.11"
 alias xmlexport-zrh2="ssh j.kalvatn@10.200.4.12"
