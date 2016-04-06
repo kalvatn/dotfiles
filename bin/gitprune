@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+skip_branches=(master prod production dev develop)
+
+echo "keeping branches : ${skip_branches[@]}"
+
+grep_filter=""
+for i in "${skip_branches[@]}"; do
+  if [ -z "$grep_filter" ]; then
+    grep_filter="$i$"
+  else
+    grep_filter="$i$\|$grep_filter"
+  fi
+done
+
+merged_branches=$(git branch --merged | grep -v "\*" | grep -v "$grep_filter" | xargs -n1)
+
+for branch in $merged_branches; do
+  git branch -d "$branch"
+done
+
+for remote in $(git remote); do
+  echo "pruning remote '$remote'"
+  git remote prune "$remote"
+done
+
+echo "branches after pruning"
+git branch -avv
