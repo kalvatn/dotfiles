@@ -1,8 +1,12 @@
 #!/bin/bash
+
 LOCK_IMAGE=/tmp/i3lock_screenshot.png
-scrot -m $LOCK_IMAGE
-mogrify \
-  -blur 3x3 \
-  -colorize 100,0,0 \
-  $LOCK_IMAGE
-i3lock -i $LOCK_IMAGE
+
+if ! pgrep i3lock; then
+  scrot "$LOCK_IMAGE"
+  mogrify -scale 10% -scale 1000% "$LOCK_IMAGE"
+  #mogrify -blur 10x10 "$LOCK_IMAGE"
+  #mogrify -colorize 0,0,0 "$LOCK_IMAGE"
+  i3lock -i "$LOCK_IMAGE"
+  #feh "$LOCK_IMAGE"
+fi
