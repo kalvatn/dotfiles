@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [[ $(/usr/bin/id -u) -eq 0 ]]; then
+  apt-get autoremove
+  apt-get clean
+  apt-get autoclean
+  apt-get update
+  apt-get dist-upgrade
+else
+  echo "Not running as root"
+  exit
+fi
