@@ -21,8 +21,12 @@ alias igrep='grep -i'
 tmux_attach() {
     tmux attach -dt "$1"
 }
+tmux_new() {
+    tmux new -s "$1"
+}
 alias ta=tmux_attach
 alias tl="tmux ls"
+alias tn=tmux_new
 
 
 alias nslisten='netstat -plan | grep LISTEN'
