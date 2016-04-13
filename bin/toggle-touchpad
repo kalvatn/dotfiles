@@ -2,7 +2,6 @@
 
 state=$(awk '/TouchpadOff/ { print $3 }' <(synclient -l))
 
-
 case "$state" in
   0) synclient touchpadoff=1
     # hide mouse pointer
@@ -14,6 +13,9 @@ case "$state" in
     if pidof unclutter; then pkill unclutter; fi
     notify-send -t 750 -u low -h string:touchpad:toggle "touchpad on"
     ;;
-  *) exit 1
+  *) 
+    # no synaptics driver loaded, simply kill unclutter
+    if pidof unclutter; then pkill unclutter; fi
+    exit 1
     ;;
 esac
