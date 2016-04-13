@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# http://localhost:631/help/options.html
+
+lpstat -p -d
+#lp -o landscape -o fit-to-page -o media=A4 "$1"
+lp -o fit-to-page -o media=A4 "$1"
+lpstat -p -d
