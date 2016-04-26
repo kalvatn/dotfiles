@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo apt-get install i3
 
 # install i3blocks
 if command -v i3blocks &> /dev/null;then
