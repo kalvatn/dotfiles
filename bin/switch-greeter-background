@@ -1,5 +1,10 @@
 #!/bin/bash
-sudo cp "$(random_image)" /usr/share/backgrounds/background.jpg #copy wallpaper into system hierarchy
+if [ -z "$1" ]; then
+  image_file="$(random_image)"
+else
+  image_file="$1"
+fi
+sudo cp "$image_file" /usr/share/backgrounds/background.jpg #copy wallpaper into system hierarchy
 
 #configure lightdm
 sudo xhost +SI:localuser:lightdm
