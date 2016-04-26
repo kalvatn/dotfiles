@@ -1,4 +1,4 @@
 #!/bin/sh
 IMAGE_FOLDER="$HOME/media/pictures/"
-image=$(find "$IMAGE_FOLDER" -type f -name '*.png' | shuf -n1)
+image=$(find "$IMAGE_FOLDER" -type f -iname '*.png' -o -type f -iname '*.jpg' | shuf -n1)
 echo "$image"
