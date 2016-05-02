@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+
+# xmllint
+sudo apt-get install libxml2-utils
+#sudo apt-get install xmlstarlet
