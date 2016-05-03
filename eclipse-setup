@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -e
+
+if ! command -v xmllint &>/dev/null; then
+  ./xmltools-setup
+fi
+
+echo "getting links from download page"
+for link in $(xmllint --html --xpath '//a[text()="64 bit"]/@href' 'http://eclipse.org/downloads' 2>/dev/null); do
+  url="$(echo "$link" | cut -d '"' -f2 | sed 's/win32-x86_64.zip/linux-gtk-x86_64.tar.gz/g' | sed 's/.*\(download.php\)/\1/')"
+  if [[ "$url" != *"win"* && "$url" != *"mac"* ]]; then
+    options+=("$url")
+  fi
+done
+
+select opt in "${options[@]}" "Quit"; do
+  if (( REPLY == 1 + ${#options[@]} )); then
+    exit
+  elif (( REPLY > 0 && REPLY <= ${#options[@]} )); then
+    break
+  else
+    echo "Invalid option. Try another one."
+  fi
+done
+
+# mirror_id=1156 is Sweden - Academic Computer Club, Umea University
+download_link="http://eclipse.org/downloads/$opt&mirror_id=1156"
+
+echo "fetching direct link from $download_link"
+direct_link="$(xmllint --html --xpath "//span[@class = 'direct-link']//a/@href" "$download_link" 2>/dev/null | cut -d '"' -f2)"
+echo "direct link : $direct_link"
+
+filename="$(basename "$direct_link")"
+filename="${filename%.}"
+
+echo "filename : $filename"
+
+target_folder="/tmp/eclipse-setup"
+mkdir -p "$target_folder"
+
+if [ ! -f "$target_folder/$filename" ];then
+  echo "downloading with 'curl -SLO $direct_link "$target_folder/$filename"'"
+  curl -SLo "$target_folder/$filename" "$direct_link"
+else
+  echo "$target_folder/$filename already exists"
+fi
+
+folder_name="$(echo "$filename" | cut -d '.' -f1)"
+if [ ! -d "$target_folder/$folder_name" ]; then
+  echo "extracting archive $target_folder/$filename to $target_folder"
+  tar xzf "$target_folder/$filename" -C "$target_folder"
+  if [ -d "$target_folder/eclipse" ]; then
+    mv "$target_folder/eclipse" "$target_folder/$folder_name"
+    echo "$target_folder/$folder_name"
+  fi
+fi
+
+
+
+
+
