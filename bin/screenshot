@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source "$HOME/.config/user-dirs.dirs"
+SCREENSHOT_FOLDER="$XDG_PICTURES_DIR/screenshots"
+if [ ! -d "$SCREENSHOT_FOLDER" ]; then
+  mkdir -p "$SCREENSHOT_FOLDER"
+fi
+
+window_id="$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)"
+window_name="$(xprop -id $window_id _NET_WM_NAME | cut -d '"' -f2)"
+sanitized_window_name="$(echo $window_name | sed 's/\W\+/_/g')_$(date +%Y-%m-%d_%H:%M:%S)"
+
+scrot -u "$SCREENSHOT_FOLDER/$sanitized_window_name.png"
+
