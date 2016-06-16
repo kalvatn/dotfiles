@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 
+set -e
+if ! synclient -l &> /dev/null; then
+  echo "synclient not found, disabling unclutter"
+  if pgrep unclutter > /dev/null; then
+    killall -9 unclutter
+  fi
+  exit 0
+fi
+
 state=$(awk '/TouchpadOff/ { print $3 }' <(synclient -l))
 
 case "$state" in
   0) synclient touchpadoff=1
     # hide mouse pointer
     notify-send -t 750 -u low -h string:touchpad:toggle "touchpad off"
-    unclutter -noevents &
+    unclutter -noevents -idle 30 &
     ;;
   1) synclient touchpadoff=0
     # kill unclutter to show pointer
