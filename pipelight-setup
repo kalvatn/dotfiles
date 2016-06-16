@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+# http://www.ubuntuupdates.org/ppa/google_chrome
+if sudo apt-key list | grep pipelight &> /dev/null; then
+  echo "gpg already added"
+else
+  echo "adding repo"
+  sudo add-apt-repository ppa:pipelight/stable
+fi
+
+sudo apt-get update
+sudo apt-get install --install-recommends pipelight-multi
+
+echo "enabling plugins"
+sudo pipelight-plugin --enable flash
+sudo pipelight-plugin --enable widevine
+sudo pipelight-plugin --enable silverlight
+
+echo "create mozilla plugins"
+sudo pipelight-plugin --update
+sudo pipelight-plugin --create-mozilla-plugins
