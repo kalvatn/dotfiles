@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+if [ ! -z "$2" ]; then
+  find . -type f -name "$2" -exec grep -IHn "$1" {} \;
+else
+  find . -type f -exec grep -IHn "$1" {} \;
+fi
