@@ -231,6 +231,7 @@ nnoremap <silent> <leader>l :set list!<cr>
 " toggle line numbers
 "nnoremap <silent> <leader>n :set nu!<cr>
 nnoremap <silent> <leader>n :next<cr>
+nnoremap <silent> <leader>N :prev<cr>
 " paste from clipboard
 map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
 " quicksave
