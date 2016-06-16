@@ -152,10 +152,9 @@ let g:syntastic_check_on_wq = 0
 
 " disable for certain files
 let g:syntastic_disabled_filetypes = ['java']
-let g:syntastic_java_checker=''
+"let g:syntastic_java_checker='javac'
 let g:syntastic_ignore_files = ['*.java']
-" trick syntastic to think that javac checker has already been loaded (to
-" actually not load it)
+" trick syntastic to think that javac checker has already been loaded (to actually not load it)
 let g:loaded_syntastic_java_javac_checker = 1
 
 " to explicitly enable/disable files to check
@@ -230,7 +229,8 @@ nnoremap <leader>r :call ReloadVimConfig()<cr>
 " toggle list mode
 nnoremap <silent> <leader>l :set list!<cr>
 " toggle line numbers
-nnoremap <silent> <leader>n :set nu!<cr>
+"nnoremap <silent> <leader>n :set nu!<cr>
+nnoremap <silent> <leader>n :next<cr>
 " paste from clipboard
 map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
 " quicksave
