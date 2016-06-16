@@ -1,3 +1,4 @@
 #!/bin/bash
 
-nmcli con down id betradar
+#nmcli con down id betradar
+sudo killall -9 openconnect

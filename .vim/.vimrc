@@ -28,7 +28,8 @@ set lazyredraw
 
 
 " layout/view
-colorscheme desert
+"colorscheme desert
+colorscheme default
 set background=dark
 set cmdheight=2 " height of command bar
 set laststatus=2 " always show status
@@ -67,8 +68,8 @@ endif
 " indentation
 set expandtab " replace tabs with spaces
 " number of spaces in one indent
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set smarttab " recognizes indentlevel for (de)indenting
 set autoindent " retain indentation on next line
 set smartindent " autoindenting of blocks
@@ -87,9 +88,11 @@ filetype indent on
 " additional filetype detections
 au BufRead,BufNewFile *.pp set filetype=puppet
 au BufRead,BufNewFile Vagrantfile set filetype=ruby
+au BufRead,BufNewFile *.coffee set filetype=coffee
+"au BufRead,BufNewFile *.styl set filetype=stylus
 "autocmd BufRead,BufNewFile   *.c,*.h,*.java set noic cin noexpandtab
 "autocmd BufRead,BufNewFile   *.pl syntax on
-autocmd FileType sh,puppet,ruby,xml,html set ts=2 sw=2
+autocmd FileType sh,puppet,ruby,xml,html,coffee,styl set ts=2 sw=2
 
 
 " use different colorscheme when using vimdiff
@@ -195,6 +198,8 @@ let g:syntastic_tex_checkers       = ['chktex']
 " Warning 29: $\times$ may look prettier here.
 let g:syntastic_tex_chktex_args    = '-n1 -n8 -n12 -n29'
 
+let g:syntastic_pug_checkers = ['pug_lint']
+let g:syntastic_stylus_checkers = ['stylint']
 
 " https://github.com/Yggdroot/indentLine
 "let g:indentLine_color_term = 239

@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e
+
+if ! command -v xmllint &>/dev/null; then
+  ./xmltools-setup
+fi
+
+echo "getting links from download page"
+
+download_link="https://www.jetbrains.com/idea/download/download-thanks.html?platform=linux&code=IIC"
+echo "fetching direct link from $download_link"
+direct_link="$(xmllint --html --xpath "//a[contains(@href, 'tar.gz')]/@href" "$download_link" 2>/dev/null | cut -d '"' -f2)"
+echo "direct link : $direct_link"
+
+filename="$(basename "$direct_link")"
+filename="${filename%.}"
+
+echo "filename : $filename"
+
+target_folder="/tmp/intellij-setup"
+mkdir -p "$target_folder"
+
+if [ ! -f "$target_folder/$filename" ];then
+  echo "downloading with 'curl -SLO $direct_link "$target_folder/$filename"'"
+  curl -SLo "$target_folder/$filename" "$direct_link"
+else
+  echo "$target_folder/$filename already exists"
+fi
+
+folder_name="$(echo "$filename" | cut -d '.' -f1)"
+if [ ! -d "$target_folder/$folder_name" ]; then
+  echo "extracting archive $target_folder/$filename to $target_folder"
+  tar xzf "$target_folder/$filename" -C "$target_folder"
+  if [ -d "$target_folder/eclipse" ]; then
+    mv "$target_folder/eclipse" "$target_folder/$folder_name"
+    echo "$target_folder/$folder_name"
+  fi
+fi
+
+
+
+
+
