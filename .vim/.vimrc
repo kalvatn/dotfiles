@@ -92,7 +92,7 @@ au BufRead,BufNewFile *.coffee set filetype=coffee
 "au BufRead,BufNewFile *.styl set filetype=stylus
 "autocmd BufRead,BufNewFile   *.c,*.h,*.java set noic cin noexpandtab
 "autocmd BufRead,BufNewFile   *.pl syntax on
-autocmd FileType sh,puppet,ruby,xml,html,coffee,styl set ts=2 sw=2
+autocmd FileType sh,puppet,ruby,xml,html,coffee,styl,js set ts=2 sw=2
 
 
 " use different colorscheme when using vimdiff
@@ -110,6 +110,10 @@ set wildignore+=*.git,*.svn
 
 " ctrl+p
 let g:ctrlp_show_hidden = 1 " include hidden files
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " search settings
 set ignorecase
