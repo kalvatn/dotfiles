@@ -41,4 +41,5 @@
 [merge]
     tool = meld
 [diff]
+    compactionHeuristic
     tool = meld
