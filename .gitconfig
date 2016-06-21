@@ -1,44 +1,45 @@
 [user]
+  name = Jon Terje Tvergrov Kalvatn
+  email = jonterje.kalvatn@gmail.com
   useconfigonly = true
 [color]
-    diff = auto
-    status = auto
-    branch = auto
-    ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  ui = auto
 [alias]
-    # list all aliases
-    alias = config --get-regexp alias
-    st = !sh -c "echo;tput setaf 3; echo '--- IGNORED ---'; git ignored; echo '--- IGNORED ---'; tput sgr 0; git status"
-    ci = commit
-    co = checkout
-    di = diff
-    dc = diff --cached
-    amend = commit --amend
-    aa = add --all
-    ap = add -p
+  alias = config --get-regexp alias
+  st = !sh -c "echo;tput setaf 3; echo '--- IGNORED ---'; git ignored; echo '--- IGNORED ---'; tput sgr 0; git status"
+  ci = commit
+  co = checkout
+  di = diff
+  dc = diff --cached
+  amend = commit --amend
+  aa = add --all
+  ap = add -p
     #lg = log --pretty=oneline --graph -n 10
     #lg = log --graph --decorate --pretty=oneline --abbrev-commit -n 50
     #lg = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    lg = log --graph --decorate --pretty=oneline --abbrev-commit 
-    lb = branch -avv
-    syncfork = !git fetch upstream && git merge upstream/master
-    lastlog = diff HEAD^ HEAD
-    rprune = remote prune origin
+  lg = log --graph --decorate --pretty=oneline --abbrev-commit 
+  lb = branch -avv
+  syncfork = !git fetch upstream && git merge upstream/master
+  lastlog = diff HEAD^ HEAD
+  rprune = remote prune origin
 
-    ignore = update-index --assume-unchanged
-    unignore = update-index --no-assume-unchanged
-    ignored = !git ls-files -v | grep "^[[:lower:]]"
+  ignore = update-index --assume-unchanged
+  unignore = update-index --no-assume-unchanged
+  ignored = !git ls-files -v | grep "^[[:lower:]]"
 
-    diffstash = stash show -p stash@{0}
+  diffstash = stash show -p stash@{0}
 [core]
-    excludesfile = ~/.gitignore_global
-    autocrlf = false
-    pager = less -x4
-    editor = vim
+  excludesfile = ~/.gitignore_global
+  autocrlf = false
+  pager = less -x4
+  editor = vim
 [push]
-    default = current
+  default = current
 [merge]
-    tool = meld
+  tool = meld
 [diff]
-    compactionHeuristic
-    tool = meld
+  compactionHeuristic
+  tool = meld
