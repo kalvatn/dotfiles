@@ -1,6 +1,5 @@
 [user]
-    name = Jon Terje Tvergrov Kalvatn
-    email = jonterje.kalvatn@gmail.com
+  useconfigonly = true
 [color]
     diff = auto
     status = auto
