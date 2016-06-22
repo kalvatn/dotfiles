@@ -1,4 +1,5 @@
 # Path to your oh-my-zsh installation.
+export ZSHRC=/home/kalvatn/.zshrc
 export ZSH=/home/kalvatn/.oh-my-zsh
 
 autoload -U colors zsh-mime-setup select-word-style

@@ -11,6 +11,7 @@ fi
 if ! command -v tmuxinator &> /dev/null; then
   sudo gem install tmuxinator
   tmuxinator doctor
+  rmdir "$HOME/.tmuxinator"
 fi
 mkdir -p "$cwd/.tmuxinator"
 ln -fs "$cwd/.tmux.conf" "$HOME"
@@ -24,10 +25,7 @@ if [ ! -f "$COMPLETION_FILE_NAME" ]; then
 fi
 
 source_cmd="source $COMPLETION_FILE_NAME"
-echo "$ZSHRC"
 if ! grep "$source_cmd" .zshrc &> /dev/null; then
   echo "adding $source_cmd to .zshrc"
-  echo "$source_cmd" | tee -a .zshrc
+  echo "$source_cmd" | tee -a "$ZSHRC"
 fi
-
-
