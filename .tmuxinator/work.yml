@@ -1,6 +1,4 @@
-# ~/.tmuxinator/dev-work.yml
-
-name: dev-work
+name: work
 root: <%= ENV["PROJECTS"] %>
 
 windows:

@@ -1,6 +1,4 @@
-# ~/.tmuxinator/dev-personal.yml
-
-name: dev-personal
+name: personal
 root: <%= ENV["HOME"] %>
 
 windows:
