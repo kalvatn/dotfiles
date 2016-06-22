@@ -128,6 +128,7 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
+
 bindsym $mod+r mode "resize"
 
 set $volumestep 5
@@ -143,6 +144,16 @@ mode "volume" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+s mode "volume"
+
+set $lightstep 10
+
+mode "backlight" {
+  bindsym k exec xbacklight + $lightstep
+  bindsym j exec xbacklight - $lightstep
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+Shift+t mode "backlight"
 
 bindsym $mod+Shift+Prior exec spotifyctrl Next
 bindsym $mod+Shift+Next exec spotifyctrl Previous

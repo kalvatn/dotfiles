@@ -2,6 +2,8 @@
 
 set -e
 
+sudo apt-add-repository ppa:git-core/ppa
+sudo apt-get update
 # git and meld (mergetool)
 sudo apt-get install git meld
 
