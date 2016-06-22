@@ -8,10 +8,14 @@ windows:
       layout: even-vertical
       panes:
         - ./cleanup.sh && ./bin/standalone.sh
-        - watch -d -t -c -p -n10 ./read_queues.py
   - logs: 
       layout: even-vertical
       panes:
         - follow standalone/log/info.log
         - follow standalone/log/debug.log
+        - watch -d -t -c -p -n10 ./read_queues.py
+  - files: 
+      layout: even-vertical
+      panes:
         - follow standalone/log/filesender.log
+        - cd /tmp/xmlexport && ls

@@ -1,14 +1,17 @@
 #!/bin/bash
 
-LOCAL=$(git rev-parse @)
-REMOTE=$(git rev-parse @{u})
-BASE=$(git merge-base @ @{u})
+git remote -v update
 
-if [ $LOCAL = $REMOTE ]; then
+LOCAL="$(git rev-parse @)"
+REMOTE="$(git rev-parse "@{u}")"
+BASE="$(git merge-base @ "@{u}")"
+
+if [ "$LOCAL" = "$REMOTE" ]; then
   echo "Up-to-date"
-elif [ $LOCAL = $BASE ]; then
+elif [ "$LOCAL" = "$BASE" ]; then
   echo "Need to pull"
-elif [ $REMOTE = $BASE ]; then
+  git pull
+elif [ "$REMOTE" = "$BASE" ]; then
   echo "Need to push"
 else
   echo "Diverged"

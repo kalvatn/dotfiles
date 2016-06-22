@@ -10,6 +10,7 @@
 [alias]
   alias = config --get-regexp alias
   st = !sh -c "echo;tput setaf 3; echo '--- IGNORED ---'; git ignored; echo '--- IGNORED ---'; tput sgr 0; git status"
+  bst = !sh -c "gitbranchstatus; git st"
   ci = commit
   co = checkout
   di = diff

@@ -1,0 +1,12 @@
+# ~/.tmuxinator/dev-personal.yml
+
+name: dev-personal
+root: <%= ENV["HOME"] %>
+
+windows:
+  - dotfiles:
+      root: <%= ENV["HOME"] + "/dotfiles" %>
+      layout: even-vertical
+      panes:
+        - git bst
+        - vim
