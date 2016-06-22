@@ -121,3 +121,4 @@ export LESS="-XFR"
 
 export NVM_DIR="/home/kalvatn/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+source /home/kalvatn/.tmuxinator/completion/tmuxinator.zsh

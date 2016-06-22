@@ -32,6 +32,8 @@ alias tl="tmux ls"
 alias tn=tmux_new
 alias tk=tmux_kill_session
 
+alias mux=tmuxinator
+
 alias nslisten='netstat -plan | grep LISTEN'
 
 wildfly8_jvisualvm() {
@@ -40,10 +42,10 @@ wildfly8_jvisualvm() {
 }
 alias wflymonitor=wildfly8_jvisualvm
 
-#tailF() {
-#  tail -F "$@"
-#}
-#alias tail=tailF
+tailF() {
+  tail -Fn100 "$1" 2> /dev/null
+}
+alias follow=tailF
 
 
 alias xup='xrdb ~/.Xresources'

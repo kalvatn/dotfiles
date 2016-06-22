@@ -1,0 +1,22 @@
+# ~/.tmuxinator/dev-work.yml
+
+name: dev-work
+root: <%= ENV["PROJECTS"] %>
+
+windows:
+  - xmlexport:
+      root: <%= ENV["PROJECTS"] + "/bac/xmlexport" %>
+      layout: even-vertical
+      panes:
+        - git st
+  - java:
+      root: <%= ENV["PROJECTS"] + "/bac/java" %>
+      layout: even-vertical
+      panes:
+        - cd lib && git st
+        - cd source && git st
+  - www:
+      root: <%= ENV["PROJECTS"] + "/dei" %>
+      layout: even-vertical
+      panes:
+        - cd www && svn status

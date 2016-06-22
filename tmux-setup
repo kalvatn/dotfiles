@@ -2,8 +2,32 @@
 
 set -e
 
-# ruby support (vim-nox), clipboard support (vim-gtk)
-sudo apt-get install tmux
-
 cwd=$(pwd)
+
+if ! command -v tmux &> /dev/null; then
+  sudo apt-get install tmux
+fi
+
+if ! command -v tmuxinator &> /dev/null; then
+  sudo gem install tmuxinator
+  tmuxinator doctor
+fi
+mkdir -p "$cwd/.tmuxinator"
 ln -fs "$cwd/.tmux.conf" "$HOME"
+ln -fs "$cwd/.tmuxinator" "$HOME"
+
+COMPLETION_FILE_NAME="$HOME/.tmuxinator/completion/tmuxinator.zsh"
+
+if [ ! -f "$COMPLETION_FILE_NAME" ]; then
+  mkdir -p "$(dirname "$COMPLETION_FILE_NAME")"
+  curl "https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh" -o "$COMPLETION_FILE_NAME"
+fi
+
+source_cmd="source $COMPLETION_FILE_NAME"
+echo "$ZSHRC"
+if ! grep "$source_cmd" .zshrc &> /dev/null; then
+  echo "adding $source_cmd to .zshrc"
+  echo "$source_cmd" | tee -a .zshrc
+fi
+
+
