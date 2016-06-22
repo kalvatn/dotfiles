@@ -1,4 +1,7 @@
 #!/bin/bash
 
-#nmcli con down id betradar
-sudo killall -9 openconnect
+if pgrep openconnect &> /dev/null; then
+  echo "killing all openconnect processes"
+  sudo killall -9 openconnect
+fi
+
