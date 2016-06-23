@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+cwd=$(pwd)
+
+if ! command -v profanity &> /dev/null; then
+  sudo apt-get install profanity
+  rm -Rf "$HOME/.config/profanity"
+fi
+if ! command -v secret-tool &> /dev/null; then
+  sudo apt-get install libsecret-tools
+fi
+
+ACCOUNT="j.kalvatn@jabberd.betradar.com"
+if ! secret-tool lookup xmpp "$ACCOUNT" &> /dev/null; then
+  echo "storing password for $ACCOUNT"
+  secret-tool store --label "$ACCOUNT" xmpp "$ACCOUNT"
+
+  echo "/account set $ACCOUNT eval_password \"secret-tool lookup xmpp $ACCOUNT\""
+fi
+
+ln -fs "$cwd/.config/profanity" "$HOME/.config/profanity"
