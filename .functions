@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cmdpid() {
+  pgrep -f "$1"
+}
+
 function get_script_dir() {
   # http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in/246128#246128 
   # get_script_dir "${BASH_SOURCE[0]}" in calling script

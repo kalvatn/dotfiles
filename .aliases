@@ -42,9 +42,6 @@ wildfly8_jvisualvm() {
 }
 
 
-cmdpid() {
-  pgrep -f "$1"
-}
 alias wflymonitor=wildfly8_jvisualvm
 
 tailF() {
