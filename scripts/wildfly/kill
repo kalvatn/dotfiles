@@ -1,20 +1,16 @@
 #!/bin/bash -l
 
 source "$HOME/.functions"
+cd "$(get_script_dir "${BASH_SOURCE[0]}")"
 
-get_pid() {
-  cmdpid "java.*Standalone.*\-server.*[o]rg.jboss"
-}
-
-while true; do
-  pid="$(get_pid)"
-
-  if [ -z "$pid" ]; then
-    echo "no existing process found"
-    break
-  fi
-
-  echo "killing existing process with id $pid"
-  kill -9 "$pid"
-  sleep 1
-done
+pid="$(./wildfly-pid)"
+if [ -z "$pid" ]; then
+  echo "no existing process found"
+else
+  while [ ! -z "$(./wildfly-pid)" ]; do
+    echo "killing existing process with id $pid"
+    kill -9 "$pid"
+    sleep 1
+  done
+fi
+exit 0

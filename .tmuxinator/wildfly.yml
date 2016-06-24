@@ -13,7 +13,7 @@ windows:
       panes:
         - follow standalone/log/info.log
         - follow standalone/log/debug.log
-        - watch -d -t -c -p -n10 ./read_queues.py
+        - ~/dotfiles/scripts/wildfly/watch-queues
   - files: 
       layout: even-vertical
       panes:

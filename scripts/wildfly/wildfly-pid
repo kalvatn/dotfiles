@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source "$HOME/.functions"
+cmdpid "java.*Standalone.*\-server.*[o]rg.jboss"

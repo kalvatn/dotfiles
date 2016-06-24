@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source "$HOME/.functions"
+cd "$(get_script_dir "${BASH_SOURCE[0]}")"
+
+pid="$(./wildfly-pid)"
+
+if [ ! -z "$pid" ]; then
+  watch -d -t -n10 ./read-queues.py
+else
+  echo "wildfly is not running"
+fi
+
