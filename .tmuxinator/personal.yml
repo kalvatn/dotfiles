@@ -7,4 +7,3 @@ windows:
       layout: even-vertical
       panes:
         - git bst
-        - vim
