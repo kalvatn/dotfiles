@@ -7,7 +7,7 @@ windows:
   - server:
       layout: even-vertical
       panes:
-        - ./clean_and_restart.sh
+        - ~/dotfiles/scripts/wildfly/clean-and-restart
   - logs: 
       layout: even-vertical
       panes:
