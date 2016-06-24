@@ -2,25 +2,32 @@
 
 set -e
 
-cwd=$(pwd)
-./git-setup
+DOTFILE_ROOT="$(pwd)"
+if [ "$DOTFILE_ROOT" != "$HOME/dotfiles" ]; then
+  echo "must be run from $HOME/dotfiles"
+  exit 1
+fi
+source "$DOTFILE_ROOT/.functions"
+cmdpid "Xorg"
+exit
+./scripts/git-setup
 
 git submodule update --init
 ./vim-setup
 ./zsh-setup
 ./tmux-setup
 
-ln -fs "$cwd/bin" "$HOME"
-ln -fs "$cwd/.aliases" "$HOME"
-ln -fs "$cwd/.variables" "$HOME"
-ln -fs "$cwd/.functions" "$HOME"
-ln -fs "$cwd/.gemrc" "$HOME"
-ln -fs "$cwd/.my.cnf" "$HOME"
-ln -fs "$cwd/.notify-osd" "$HOME"
-ln -fs "$cwd/.asoundrc" "$HOME"
-ln -fs "$cwd/.xinitrc" "$HOME"
-ln -fs "$cwd/.Xresources" "$HOME"
-ln -fs "$cwd/.urxvt" "$HOME"
+ln -fs "$DOTFILE_ROOT/bin" "$HOME"
+ln -fs "$DOTFILE_ROOT/.aliases" "$HOME"
+ln -fs "$DOTFILE_ROOT/.variables" "$HOME"
+ln -fs "$DOTFILE_ROOT/.functions" "$HOME"
+ln -fs "$DOTFILE_ROOT/.gemrc" "$HOME"
+ln -fs "$DOTFILE_ROOT/.my.cnf" "$HOME"
+ln -fs "$DOTFILE_ROOT/.notify-osd" "$HOME"
+ln -fs "$DOTFILE_ROOT/.asoundrc" "$HOME"
+ln -fs "$DOTFILE_ROOT/.xinitrc" "$HOME"
+ln -fs "$DOTFILE_ROOT/.Xresources" "$HOME"
+ln -fs "$DOTFILE_ROOT/.urxvt" "$HOME"
 
 
 
