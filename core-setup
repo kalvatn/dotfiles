@@ -13,6 +13,7 @@ git submodule update --init
 ln -fs "$cwd/bin" "$HOME"
 ln -fs "$cwd/.aliases" "$HOME"
 ln -fs "$cwd/.variables" "$HOME"
+ln -fs "$cwd/.functions" "$HOME"
 ln -fs "$cwd/.gemrc" "$HOME"
 ln -fs "$cwd/.my.cnf" "$HOME"
 ln -fs "$cwd/.notify-osd" "$HOME"
