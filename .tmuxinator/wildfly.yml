@@ -7,7 +7,7 @@ windows:
   - server:
       layout: even-vertical
       panes:
-        - ./cleanup.sh && ./bin/standalone.sh
+        - ./clean_and_restart.sh
   - logs: 
       layout: even-vertical
       panes:
@@ -19,3 +19,10 @@ windows:
       panes:
         - follow standalone/log/filesender.log
         - cd /tmp/xmlexport && ls
+  - monitoring:
+      layout: even-vertical
+      panes:
+        #- watch -n1 cat "/proc/$(ps -ef | grep "[o]rg.jboss" | awk '{print $2}')/io"
+        #- watch -n 1 "(ps aux | awk '\$8 ~ /D/  { print \$0 }')"
+        - htop
+        - sudo iotop
