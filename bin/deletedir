@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "missing directory argument"
+  exit 1
+fi
+
+dir="$(readlink -f "$1")"
+
+if [ -z "$dir" ]; then
+  echo "directory $1 does not exist"
+  exit 1
+fi
+
+if [ ! -d "$dir" ]; then
+  echo "directory $dir does not exist"
+  exit 1
+fi
+
+echo "finding inode count for $dir"
+find "$dir" -xdev -printf '%h\n' | sort | uniq -c | sort -k 1 -n
+
+time {
+  echo "deleting all files in all subdirectories of $dir"
+  #find "$dir" -maxdepth 1 -type d -printf "%P\n" -exec find {} -type f -delete \;
+  find "$dir" -maxdepth 1 -type d -exec find {} -type f -delete \;
+
+  echo "removing leftover empty directories in $dir"
+  find "$dir" -type d -empty -delete
+}
