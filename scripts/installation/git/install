@@ -2,11 +2,17 @@
 
 set -e
 
-sudo apt-add-repository ppa:git-core/ppa
-sudo apt-get update
-# git and meld (mergetool)
-sudo apt-get install git meld
+source "$HOME/.functions"
+CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
 
-cwd=$(pwd)
-ln -fs "$cwd/.gitconfig" "$HOME"
-ln -fs "$cwd/.gitignore_global" "$HOME"
+if ! command -v git &> /dev/null; then
+  sudo apt-add-repository ppa:git-core/ppa
+  sudo apt-get update
+  # git and meld (mergetool)
+  sudo apt-get install git meld
+else
+  echo "git is already installed"
+fi
+
+ln -fs "$CWD/.gitconfig" "$HOME"
+ln -fs "$CWD/.gitignore_global" "$HOME"
