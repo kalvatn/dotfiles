@@ -52,15 +52,16 @@ function datetime() {
 function log() {
   color="$1"
   if [ ! -z "$3" ]; then
+    SCRIPT_SOURCE="$(get_script_path "$0"):$LINENO"
     if [ -n "$(tput colors)" ]; then
       message="$GRAY$3$RESET"
       loglevel_style="$color$BOLD$UNDERLINE"
       loglevel="$loglevel_style$2$RESET"
-      printf "%s %-24s - %s\n" "$(datetime)" "$loglevel" "$message"
+      printf "%s %-24s - %s - %s\n" "$(datetime)" "$loglevel" "$SCRIPT_SOURCE" "$message"
     else
       message="$3"
       loglevel="$2"
-      printf "%s %-5s - %s\n" "$(datetime)" "$loglevel" "$message"
+      printf "%s %-5s - %s - %s\n" "$(datetime)" "$loglevel" "$SCRIPT_SOURCE" "$message"
     fi
   fi
 }
@@ -108,6 +109,10 @@ function get_script_dir() {
   done
   DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
   echo "$DIR"
+}
+
+function get_script_path() {
+  echo "$(get_script_dir "$1")/$(basename "$1")"
 }
 
 # test-colors and formatting
