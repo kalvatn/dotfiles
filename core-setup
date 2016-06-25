@@ -15,7 +15,9 @@ cmdpid "Xorg"
 ./scripts/installation/git/install
 
 git submodule update --init
-./vim-setup
+
+exit
+./scripts/installation/vim/install
 ./zsh-setup
 ./tmux-setup
 
