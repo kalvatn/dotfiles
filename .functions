@@ -1,7 +1,131 @@
 #!/bin/bash
 
-cmdpid() {
+function setup_formatting() {
+  RESET=$(format_reset)
+  BOLD=$(format_bold)
+  UNDERLINE=$(format_underline)
+  STANDOUT=$(format_standout)
+
+  RED=$(color 1)
+  GREEN=$(color 2)
+  YELLOW=$(color 3)
+  BLUE=$(color 4)
+  PURPLE=$(color 5)
+  CYAN=$(color 6)
+  WHITE=$(color 7)
+  GRAY=$(color 8)
+  BRIGHT_RED=$(color 9)
+  BRIGHT_YELLOW=$(color 11)
+  BRIGHT_WHITE=$(color 15)
+}
+function format_reset() {
+  tput sgr0
+}
+
+function format_bold() {
+  tput bold
+}
+
+function format_underline() {
+  tput smul
+}
+
+function format_standout() {
+  tput smso
+}
+
+function color() {
+  tput setaf "$1"
+}
+
+
+function datetime() {
+  date +"%Y-%m-%d %H:%M:%S"
+}
+
+function log() {
+  color="$1"
+  if [ ! -z "$3" ]; then
+    if [ -n "$(tput colors)" ]; then
+      message="$GRAY$3$RESET"
+      loglevel_style="$color$BOLD$UNDERLINE"
+      loglevel="$loglevel_style$2$RESET"
+      printf "%s %-24s - %s\n" "$(datetime)" "$loglevel" "$message"
+    else
+      message="$3"
+      loglevel="$2"
+      printf "%s %-5s - %s\n" "$(datetime)" "$loglevel" "$message"
+    fi
+  fi
+}
+
+function info() {
+  log "$BRIGHT_WHITE" "INFO" "$1"
+}
+
+function warn() {
+  log "$BRIGHT_YELLOW" "WARN" "$1"
+}
+
+function error() {
+  log "$BRIGHT_RED" "ERROR" "$1"
+}
+
+function rainbow() {
+  string="$1"
+  color=1
+  for (( i=0; i<${#string}; i++ )); do
+    echo -n "$STANDOUT$(color $color)${string:$i:1}$RESET"
+    if ((++color % 16 == 0)); then
+      color=$((color+1))
+    fi
+    if ((i+1>=${#string}));then
+      echo "\r"
+    fi
+  done
+}
+
+
+function feature_check() {
+  if [ -t 1 ]; then
+    if [ -n "$(tput colors)" ]; then
+      setup_formatting
+    fi
+  fi
+}
+feature_check
+
+function test_colors() {
+  if [ -t 1 ]; then
+    echo "is terminal"
+    num_colors="$(tput colors)"
+    if [ -n "$num_colors" ]; then
+      echo "${UNDERLINE}underline$RESET"
+      echo "${BOLD}bold$RESET"
+      echo "${STANDOUT}standout$RESET"
+      echo -n "$num_colors colors, "$(rainbow "$(echo -e {a..z})$(echo -e {1..10})")"\r\n"
+      for i in $(seq 1 8); do
+        echo "$(color $i)Color $i$RESET"
+      done
+
+      lorem_ipsum="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      info "$lorem_ipsum"
+      warn "$lorem_ipsum"
+      error "$lorem_ipsum"
+    fi
+  else
+    echo "is not a terminal"
+  fi
+}
+
+
+function cmdpid() {
   pgrep -f "$1"
+}
+
+function symlink() {
+  echo "linking $1 -> $2"
+  ln -sf "$1" "$2"
 }
 
 function get_script_dir() {
