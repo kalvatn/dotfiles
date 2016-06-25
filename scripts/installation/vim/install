@@ -2,10 +2,14 @@
 
 set -e
 
+source "$HOME/.functions"
+CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+
 # ruby support (vim-nox), clipboard support (vim-gtk)
-sudo apt-get install vim-nox vim-gtk
+if ! command -v vim &> /dev/null; then
+  sudo apt-get install vim-nox vim-gtk
+fi
 
-cwd=$(pwd)
 
-ln -fs "$cwd/.vim" "$HOME"
-ln -fs "$cwd/.vim/.vimrc" "$HOME"
+ln -fs "$CWD/.vim" "$HOME"
+ln -fs "$CWD/.vim/.vimrc" "$HOME"
