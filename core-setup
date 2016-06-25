@@ -2,6 +2,53 @@
 
 set -e
 
+
+OPT="value"
+opts="fvo:"
+
+# https://thepracticalsysadmin.com/building-a-better-bash-script/
+for pass in 1 2; do
+  while [ -n "$1" ]; do
+    case $1 in
+      --) shift; break;;
+      -*) case $1 in
+          -f|--flag)
+            FLAG=1;;
+          -o|--opt)
+            OPT=$2;
+            shift;;
+          -v|--verbose)
+            VERBOSE=$(($VERBOSE + 1));;
+          --*)           error $1;;
+          -*)            if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
+                         else error $1; fi;;
+          esac;;
+      *)  if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
+          else error $1; fi;;
+    esac
+    shift
+  done
+  if [ $pass -eq 1 ]; then ARGS=`getopt $opts $ARGS`
+      if [ $? != 0 ]; then usage; exit 2; fi; set -- $ARGS
+  fi
+done
+
+if [ -z "$LOGLEVEL" ]; then
+  echo "loglevel not set checking for verbose : $VERBOSE"
+  if [ -n "$VERBOSE" ]; then
+    case "$VERBOSE" in
+      1) LOGLEVEL=WARN;;
+      2) LOGLEVEL=INFO;;
+      *) LOGLEVEL=DEBUG;;
+    esac
+  fi
+fi
+
+if [ -z "$LOGLEVEL" ]; then
+  echo "LOGLEVEL not set, defaulting to ERROR (to set: export LOGLEVEL=[DEBUG|INFO|WARN|ERROR])"
+  LOGLEVEL=ERROR
+fi
+export LOGLEVEL="$LOGLEVEL"
 DOTFILE_ROOT="$(pwd)"
 if [ "$DOTFILE_ROOT" != "$HOME/dotfiles" ]; then
   echo "must be run from $HOME/dotfiles"
