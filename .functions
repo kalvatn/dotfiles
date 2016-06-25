@@ -49,19 +49,69 @@ function datetime() {
   date +"%Y-%m-%d %H:%M:%S"
 }
 
+function abbr_path() {
+  ~/dotfiles/scripts/utilities/abbreviate-directory "$1"
+}
+
+function get_loglevel_intvalue() {
+  case "$1" in
+    DEBUG)
+      echo 0
+      ;;
+    INFO)
+      echo 1
+      ;;
+    WARN)
+      echo 2
+      ;;
+    ERROR)
+      echo 3
+      ;;
+    *)
+      echo -1
+      ;;
+  esac
+}
+
+function should_log() {
+  configured_loglevel="$(get_loglevel_intvalue "$LOGLEVEL")"
+  if [ -z "$LOGLEVEL" -o "$configured_loglevel" -eq -1 ]; then
+    configured_loglevel=100
+  fi
+  loglevel="$(get_loglevel_intvalue "$1")"
+  if [ ! -z "$loglevel" -a "$loglevel" -ge "$configured_loglevel" ]; then
+    return 0
+  fi
+  return 1
+}
+
+function log_unformatted() {
+  level="$1"
+  message="$2"
+  if [ ! -z "$message" ]; then
+    if should_log "$level"; then
+      logger="$(get_script_path "$0"):$LINENO"
+      printf "%s %-5s - %s - %s\n" "$(datetime)" "$level" "$logger" "$message"
+    fi
+  fi
+}
+
 function log() {
   color="$1"
-  if [ ! -z "$3" ]; then
-    SCRIPT_SOURCE="$(get_script_path "$0"):$LINENO"
-    if [ -n "$(tput colors)" ]; then
-      message="$GRAY$3$RESET"
-      loglevel_style="$color$BOLD$UNDERLINE"
-      loglevel="$loglevel_style$2$RESET"
-      printf "%s %-24s - %s - %s\n" "$(datetime)" "$loglevel" "$SCRIPT_SOURCE" "$message"
-    else
-      message="$3"
-      loglevel="$2"
-      printf "%s %-5s - %s - %s\n" "$(datetime)" "$loglevel" "$SCRIPT_SOURCE" "$message"
+  level="$2"
+  message="$3"
+  if [ ! -z "$message" ]; then
+    if should_log "$level"; then
+      logger="$(get_script_path "$0"):$LINENO"
+
+      if [ -n "$(tput colors)" ]; then
+        formatted_logger="$(abbr_path "$logger")"
+        formatted_message="$GRAY$message$RESET"
+        formatted_level="$color$BOLD$UNDERLINE$level$RESET"
+        printf "%s %-24s - %s - %s\n" "$(datetime)" "$formatted_level" "$formatted_logger" "$formatted_message"
+      else
+        log_unformatted "$level" "$message"
+      fi
     fi
   fi
 }
@@ -90,7 +140,7 @@ function cmdpid() {
 }
 
 function symlink() {
-  info "force creating symlink $1 -> $2"
+  info "force creating symlink $(abbr_path $1) -> $(abbr_path $2)"
   ln -sf "$1" "$2"
 }
 
@@ -138,6 +188,11 @@ function test_colors() {
       info "$lorem_ipsum"
       warn "$lorem_ipsum"
       error "$lorem_ipsum"
+
+      log_unformatted "DEBUG" "unformatted"
+      log_unformatted "INFO" "unformatted"
+      log_unformatted "WARN" "unformatted"
+      log_unformatted "ERROR" "unformatted"
     fi
   else
     echo "not a terminal"
