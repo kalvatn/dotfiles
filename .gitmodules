@@ -7,7 +7,7 @@
   url = https://github.com/scrooloose/syntastic
   ignore = dirty
 [submodule ".oh-my-zsh"]
-  path = .oh-my-zsh
+	path = scripts/installation/shell/zsh/.oh-my-zsh
   url = https://github.com/robbyrussell/oh-my-zsh
   ignore = dirty
 [submodule ".vim/bundle/dragvisuals.vim"]

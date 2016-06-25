@@ -18,8 +18,8 @@ git submodule update --init
 
 ./scripts/installation/vim/install
 ./scripts/installation/tmux/install
+./scripts/installation/shell/zsh/install
 exit
-./zsh-setup
 
 ln -fs "$DOTFILE_ROOT/bin" "$HOME"
 ln -fs "$DOTFILE_ROOT/.gemrc" "$HOME"
