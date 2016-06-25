@@ -1,0 +1,67 @@
+#!/bin/bash
+
+set -e
+
+source "$HOME/.functions"
+CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+
+BASHRC="$HOME/.bashrc"
+ZSHRC="$HOME/.zshrc"
+
+if ! command -v tmux &> /dev/null; then
+  info "installing tmux"
+  sudo apt-get install tmux
+else
+  debug "tmux already installed"
+fi
+
+if ! command -v tmuxinator &> /dev/null; then
+  info "installing tmuxinator"
+  sudo gem install tmuxinator
+  tmuxinator doctor
+  rmdir "$HOME/.tmuxinator"
+else
+  debug "tmuxinator already installed"
+fi
+
+if [ ! -d "$CWD/.tmuxinator" ]; then
+  info "creating empty $CWD/.tmuxinator directory"
+  mkdir -p "$CWD/.tmuxinator"
+fi
+
+
+function source_completion_file() {
+  target_dir="$CWD/.tmuxinator/completion"
+  mkdir -p "$target_dir"
+
+  if [ -f "$1" ]; then
+    if [ "$1" == "$BASHRC" ]; then
+      target_filename="tmuxinator.bash"
+    elif [ "$1" == "$ZSHRC" ]; then
+      target_filename="tmuxinator.zsh"
+    fi
+    source_cmd="source $target_dir/$target_filename"
+
+    if [ ! -f "$target_dir/$target_filename" ]; then
+      url="https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/$target_filename"
+      info "downloading $target_filename completion file"
+      curl "$url" -o "$target_dir/$target_filename"
+    fi
+
+    if ! grep -q "$source_cmd" "$1" &> /dev/null; then
+      info "adding $source_cmd to $1"
+      echo "$source_cmd" | tee -a "$1"
+    else
+      debug "$source_cmd already added to $1"
+    fi
+  else
+    error "$1 does not exist, cannot add source command"
+  fi
+}
+
+source_completion_file "$BASHRC"
+source_completion_file "$ZSHRC"
+
+symlink_to_home "$CWD/.tmux.conf"
+symlink_to_home "$CWD/.tmuxinator"
+
