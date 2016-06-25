@@ -7,10 +7,12 @@ if [ "$DOTFILE_ROOT" != "$HOME/dotfiles" ]; then
   echo "must be run from $HOME/dotfiles"
   exit 1
 fi
-source "$DOTFILE_ROOT/.functions"
+ln -fs "$DOTFILE_ROOT/.aliases" "$HOME"
+ln -fs "$DOTFILE_ROOT/.variables" "$HOME"
+ln -fs "$DOTFILE_ROOT/.functions" "$HOME"
+source "$HOME/.functions"
 cmdpid "Xorg"
-exit
-./scripts/git-setup
+./scripts/installation/git/install
 
 git submodule update --init
 ./vim-setup
@@ -18,9 +20,6 @@ git submodule update --init
 ./tmux-setup
 
 ln -fs "$DOTFILE_ROOT/bin" "$HOME"
-ln -fs "$DOTFILE_ROOT/.aliases" "$HOME"
-ln -fs "$DOTFILE_ROOT/.variables" "$HOME"
-ln -fs "$DOTFILE_ROOT/.functions" "$HOME"
 ln -fs "$DOTFILE_ROOT/.gemrc" "$HOME"
 ln -fs "$DOTFILE_ROOT/.my.cnf" "$HOME"
 ln -fs "$DOTFILE_ROOT/.notify-osd" "$HOME"
