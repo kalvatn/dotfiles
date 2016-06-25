@@ -1,27 +1,27 @@
 [submodule ".vim/bundle/ctrlp.vim"]
-	path = scripts/installation/vim/.vim/bundle/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim
-    ignore = dirty
+  path = scripts/installation/vim/.vim/bundle/ctrlp.vim
+  url = https://github.com/kien/ctrlp.vim
+  ignore = dirty
 [submodule ".vim/bundle/syntastic"]
-	path = scripts/installation/vim/.vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic
-    ignore = dirty
+  path = scripts/installation/vim/.vim/bundle/syntastic
+  url = https://github.com/scrooloose/syntastic
+  ignore = dirty
 [submodule ".oh-my-zsh"]
-	path = .oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh
-    ignore = dirty
+  path = .oh-my-zsh
+  url = https://github.com/robbyrussell/oh-my-zsh
+  ignore = dirty
 [submodule ".vim/bundle/dragvisuals.vim"]
-	path = scripts/installation/vim/.vim/bundle/dragvisuals.vim
-	url = https://github.com/gavinbeatty/dragvisuals.vim.git
+  path = scripts/installation/vim/.vim/bundle/dragvisuals.vim
+  url = https://github.com/gavinbeatty/dragvisuals.vim.git
 [submodule ".urxvt/ext/perls"]
-	path = .urxvt/ext/perls
-	url = git://github.com/muennich/urxvt-perls.git
+  path = .urxvt/ext/perls
+  url = git://github.com/muennich/urxvt-perls.git
 [submodule ".vim/bundle/vim-coffee-script"]
-	path = scripts/installation/vim/.vim/bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script.git
+  path = scripts/installation/vim/.vim/bundle/vim-coffee-script
+  url = https://github.com/kchmck/vim-coffee-script.git
 [submodule ".vim/bundle/vim-stylus"]
-	path = scripts/installation/vim/.vim/bundle/vim-stylus
-	url = git://github.com/wavded/vim-stylus.git
+  path = scripts/installation/vim/.vim/bundle/vim-stylus
+  url = git://github.com/wavded/vim-stylus.git
 [submodule ".vim/bundle/vim-pug"]
-	path = scripts/installation/vim/.vim/bundle/vim-pug
-	url = git://github.com/digitaltoad/vim-pug.git
+  path = scripts/installation/vim/.vim/bundle/vim-pug
+  url = git://github.com/digitaltoad/vim-pug.git
