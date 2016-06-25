@@ -90,8 +90,12 @@ function cmdpid() {
 }
 
 function symlink() {
-  echo "linking $1 -> $2"
+  info "force creating symlink $1 -> $2"
   ln -sf "$1" "$2"
+}
+
+function symlink_to_home() {
+  symlink "$1" "$HOME"
 }
 
 function get_script_dir() {
