@@ -92,7 +92,16 @@ au BufRead,BufNewFile *.coffee set filetype=coffee
 "au BufRead,BufNewFile *.styl set filetype=stylus
 "autocmd BufRead,BufNewFile   *.c,*.h,*.java set noic cin noexpandtab
 "autocmd BufRead,BufNewFile   *.pl syntax on
-autocmd FileType sh,puppet,ruby,xml,html,coffee,styl,js set ts=2 sw=2
+autocmd FileType sh,puppet,ruby,xml,html,coffee,styl,js,python set ts=2 sw=2
+
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+" the following pattern will match trailing whitespace, except when typing at
+" the end of a line.
+match ExtraWhitespace /\s\+\%#\@<!$/
+" show leading whitespace that includes spaces, and trailing whitespace.
+"autocmd BufWinEnter * match ExtraWhitespace /^\s* \s*\|\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 
 
 " use different colorscheme when using vimdiff
@@ -119,11 +128,11 @@ endif
 set ignorecase
 set smartcase
 set incsearch
-set hlsearch
+set nohlsearch
 
 " remaps n and N to call custom highlighting function
 " https://docs.google.com/file/d/0Bx3f0gFZh5Jqc0MtcUstV3BKdTQ/edit
-let hlnext_blinktime = 0.0050
+let hlnext_blinktime = 0.0350
 nnoremap <silent> n   n:call HLNext(hlnext_blinktime)<cr>
 nnoremap <silent> N   N:call HLNext(hlnext_blinktime)<cr>
 
@@ -133,11 +142,11 @@ function! HLNext (blinktime)
     let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
     let target_pattern = '\c\%#\%('.@/.'\)'
     let match_indicator = matchadd('WhiteOnRed', target_pattern, 101)
-    set invcursorline " toggle line of match indicator
+    "set invcursorline " toggle line of match indicator
     redraw
     exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
     call matchdelete(match_indicator)
-    set invcursorline " toggle line of match indicator
+    "set invcursorline " toggle line of match indicator
     redraw
 endfunction
 
@@ -265,12 +274,7 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.java :call DeleteTrailingWS()
-autocmd BufWrite *.pp :call DeleteTrailingWS()
-autocmd BufWrite *.md :call DeleteTrailingWS()
-autocmd BufWrite *.sh :call DeleteTrailingWS()
-autocmd BufWrite *.*rc :call DeleteTrailingWS()
+autocmd BufWrite * :call DeleteTrailingWS()
 
 
 
