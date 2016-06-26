@@ -95,6 +95,15 @@ au BufRead,BufNewFile *.coffee set filetype=coffee
 autocmd FileType sh,puppet,ruby,xml,html,coffee,styl,js,python set ts=2 sw=2
 
 
+highlight ExtraWhitespace ctermbg=red guibg=red
+" the following pattern will match trailing whitespace, except when typing at
+" the end of a line.
+match ExtraWhitespace /\s\+\%#\@<!$/
+" show leading whitespace that includes spaces, and trailing whitespace.
+"autocmd BufWinEnter * match ExtraWhitespace /^\s* \s*\|\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+
+
 " use different colorscheme when using vimdiff
 if &diff
     "colorscheme darkblue
