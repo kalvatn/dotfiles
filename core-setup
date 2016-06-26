@@ -2,63 +2,111 @@
 
 set -e
 
+DOTFILE_ROOT="$(pwd)"
+if [ "$DOTFILE_ROOT" != "$HOME/dotfiles" ]; then
+  echo "must be run from $HOME/dotfiles"
+  exit 1
+fi
+ln -sf "$DOTFILE_ROOT/.aliases" "$HOME"
+ln -sf "$DOTFILE_ROOT/.variables" "$HOME"
+ln -sf "$DOTFILE_ROOT/.functions" "$HOME"
+source "$HOME/.functions"
 
-OPT="value"
-opts="fvo:"
+opts="vhlu"
+
+function cmd() {
+  basename "$0"
+}
+
+function usage() {
+  read -r -d '\0' helpstring <<EOM
+$(cmd) [OPTION...]
+  -v, --verbose | enable verbose output
+                | (multiple times for more verbosity,
+                | e.g.  -vv will enable DEBUG logging level)
+  -l, --loglevel| toggle specific log level (valid values : [ DEBUG, INFO, WARN, ERROR ] )
+  -h, --help    | show this help message
+  -u, --usage   | show this help message
+\0
+EOM
+  echo "$helpstring" | column -t -s "|"
+}
+
+function unknown_option_error() {
+  usage
+  printf "\nunknown option '$1'\r\n"
+  exit 1
+}
 
 # https://thepracticalsysadmin.com/building-a-better-bash-script/
+# There's two passes here. The first pass handles the long options and any
+# short option that is already in canonical form. The second pass uses `getopt`
+# to canonicalize any remaining short options and handle them
 for pass in 1 2; do
   while [ -n "$1" ]; do
     case $1 in
       --) shift; break;;
-      -*) case $1 in
-          -f|--flag)
-            FLAG=1;;
-          -o|--opt)
-            OPT=$2;
+      -*)
+        case $1 in
+          -h|--help| \
+          -u|--usage)    usage; exit 0;;
+          -v|--verbose)  VERBOSE="$(($VERBOSE + 1))";;
+          -l|--loglevel)
+            echo "\$1 : $1, \$2 : $2"
+            LOGLEVEL="$2"
             shift;;
-          -v|--verbose)
-            VERBOSE=$(($VERBOSE + 1));;
-          --*)           error $1;;
-          -*)            if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
-                         else error $1; fi;;
+          --*)           unknown_option_error "$1";;
+          -*)
+            if [ $pass -eq 1 ]; then
+              ARGS="$ARGS $1"
+            else
+              unknown_option_error "$1"
+            fi;;
           esac;;
-      *)  if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
-          else error $1; fi;;
+      *)
+        if [ $pass -eq 1 ]; then
+          ARGS="$ARGS $1";
+        else unknown_option_error $1;
+        fi;;
     esac
     shift
   done
-  if [ $pass -eq 1 ]; then ARGS=`getopt $opts $ARGS`
-      if [ $? != 0 ]; then usage; exit 2; fi; set -- $ARGS
+  if [ $pass -eq 1 ]; then
+    ARGS=`getopt $opts $ARGS`
+    if [ $? != 0 ]; then
+      usage;
+      exit 2;
+    fi
+    set -- $ARGS
   fi
 done
 
+# Handle positional arguments
+if [ -n "$*" ]; then
+  usage
+  printf "\n$(cmd): runaway arguments : $*\r\n"
+  exit 1
+fi
+
 if [ -z "$LOGLEVEL" ]; then
-  echo "loglevel not set checking for verbose : $VERBOSE"
   if [ -n "$VERBOSE" ]; then
     case "$VERBOSE" in
-      1) LOGLEVEL=WARN;;
-      2) LOGLEVEL=INFO;;
+      1) LOGLEVEL=INFO;;
       *) LOGLEVEL=DEBUG;;
     esac
   fi
 fi
 
 if [ -z "$LOGLEVEL" ]; then
-  echo "LOGLEVEL not set, defaulting to ERROR (to set: export LOGLEVEL=[DEBUG|INFO|WARN|ERROR])"
-  LOGLEVEL=ERROR
+  #echo "log level not set, defaulting to WARN (to set: export LOGLEVEL=[DEBUG|INFO|WARN|ERROR])"
+  LOGLEVEL=WARN
 fi
 export LOGLEVEL="$LOGLEVEL"
-DOTFILE_ROOT="$(pwd)"
-if [ "$DOTFILE_ROOT" != "$HOME/dotfiles" ]; then
-  echo "must be run from $HOME/dotfiles"
-  exit 1
-fi
-ln -fs "$DOTFILE_ROOT/.aliases" "$HOME"
-ln -fs "$DOTFILE_ROOT/.variables" "$HOME"
-ln -fs "$DOTFILE_ROOT/.functions" "$HOME"
-source "$HOME/.functions"
-cmdpid "Xorg"
+
+debug "loglevel debug"
+info "loglevel debug"
+warn "loglevel debug"
+error "loglevel debug"
 ./scripts/installation/git/install
 
 git submodule update --init
