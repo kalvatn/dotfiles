@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+source "$HOME/.functions"
+CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+
+if ! command -v zsh &> /dev/null; then
+  info "installing zsh"
+  sudo apt-get install zsh
+else
+  debug "zsh already installed"
+fi
+
+symlink_to_home "$CWD/.zshrc"
+symlink_to_home "$CWD/.oh-my-zsh"
+symlink "$CWD/oh-my-zsh-custom-themes/kalvatn.zsh-theme" "$HOME/.oh-my-zsh/themes/"
+
+current_shell="$(getent passwd "$USER" | cut -d: -f7)"
+if [ "$current_shell" != "/bin/zsh" ]; then
+  info "setting default shell to /bin/zsh"
+  chsh -s /bin/zsh
+else
+  debug "/bin/zsh is already the default shell"
+fi
