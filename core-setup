@@ -131,3 +131,6 @@ symlink_to_home "$DOTFILE_ROOT/.urxvt"
 [[ -z "$(which feh)" ]] && warn "sudo apt-get install feh" || debug "feh installed"
 [[ -z "$(which scrot)" ]] && warn "sudo apt-get install scrot" || debug "scrot installed"
 [[ -z "$(which unclutter)" ]] && warn "sudo apt-get install unclutter" || debug "unclutter installed"
+
+
+rainbow "finished setting up dotfiles"

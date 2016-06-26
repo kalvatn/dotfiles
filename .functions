@@ -39,10 +39,8 @@ function rainbow() {
     if ((++color % 16 == 0)); then
       color=$((color+1))
     fi
-    if ((i+1>=${#string}));then
-      echo "\r"
-    fi
   done
+  printf "\r\n"
 }
 
 function datetime() {
@@ -185,7 +183,7 @@ function test_colors() {
       for i in $(seq 1 8); do
         echo "$(color $i)Color $i$RESET"
       done
-      echo -n "$num_colors colors, "$(rainbow "$(echo -e {a..z})$(echo -e {1..10})")"\r\n"
+      echo "$num_colors colors, "$(rainbow "$(echo -e {a..z})$(echo -e {1..10})")""
 
       lorem_ipsum="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       debug "$lorem_ipsum"
