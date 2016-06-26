@@ -265,12 +265,7 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.java :call DeleteTrailingWS()
-autocmd BufWrite *.pp :call DeleteTrailingWS()
-autocmd BufWrite *.md :call DeleteTrailingWS()
-autocmd BufWrite *.sh :call DeleteTrailingWS()
-autocmd BufWrite *.*rc :call DeleteTrailingWS()
+autocmd BufWrite * :call DeleteTrailingWS()
 
 
 
