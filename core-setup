@@ -22,7 +22,7 @@ function show_help_message() {
 $(cmd) [OPTION...]
   -v | increase verbosity (multiple instances will further increase verbosity,
      | e.g. -vv will enable TRACE logging level)
-  -v | increase verbosity (multiple instances will further decrease verbosity,
+  -q | decrease verbosity (multiple instances will further decrease verbosity,
      | e.g.  -qqq will completely disable logging (same as -l DISABLED))
   -l | toggle specific log level, will override verbosity switches
      | (valid values : [ DEBUG, INFO, WARN, ERROR, DISABLED ] )
@@ -40,7 +40,7 @@ while getopts ":huvql:" OPTION; do
   case $OPTION in
     h|u)
       show_help_message
-      exit 2
+      exit 0
       ;;
     q)
       VERBOSE="$(($VERBOSE - 1))"
