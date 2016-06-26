@@ -140,8 +140,12 @@ function cmdpid() {
 }
 
 function symlink() {
-  info "force creating symlink $(abbr_path $1) -> $(abbr_path $2)"
+  info "creating symlink $(abbr_path $1) -> $(abbr_path $2)"
   ln -sf "$1" "$2"
+  exitcode="$?"
+  if [ ! "$exitcode" -eq 0 ]; then
+    error "ln -sf $1 $2 returned non-zero exit code : $exitcode"
+  fi
 }
 
 function symlink_to_home() {

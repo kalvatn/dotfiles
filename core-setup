@@ -33,13 +33,22 @@ EOM
   echo "$helpstring" | column -t -s "|"
 }
 
+function show_usage_message() {
+  echo "usage : $(cmd) [-v] [-q] [-l <LOGLEVEL>] [-u] [-h]"
+  echo "try '$(cmd) -h' for more information"
+}
+
 
 VERBOSE=1
 
 while getopts ":huvql:" OPTION; do
   case $OPTION in
-    h|u)
+    h)
       show_help_message
+      exit 0
+      ;;
+    u)
+      show_usage_message
       exit 0
       ;;
     q)
@@ -50,14 +59,10 @@ while getopts ":huvql:" OPTION; do
       ;;
     l)
       case "$OPTARG" in
-        ERROR|-1)
-          LOGLEVEL=ERROR;;
-        WARN|0)
-          LOGLEVEL=WARN;;
-        INFO|1)
-          LOGLEVEL=INFO;;
-        DEBUG|2)
-          LOGLEVEL=DEBUG;;
+        ERROR|-1) LOGLEVEL=ERROR;;
+        WARN|0) LOGLEVEL=WARN;;
+        INFO|1) LOGLEVEL=INFO;;
+        DEBUG|2) LOGLEVEL=DEBUG;;
         *)
           echo "illegal value '$OPTARG' for option -$OPTION, legal values are [ERROR|-1, WARN|0, INFO|1, DEBUG|2]" >&2
           exit 1
@@ -65,12 +70,13 @@ while getopts ":huvql:" OPTION; do
         esac
       ;;
     \?)
-      show_help_message
-      echo "unknown option -$OPTARG" >&2
+      echo "unrecognized option '-$OPTARG'" >&2
+      show_usage_message
       exit 1
       ;;
     :)
-      echo "option -$OPTARG requires an argument" >&2
+      echo "option '-$OPTARG' requires an argument" >&2
+      show_usage_message
       exit 1
       ;;
   esac
@@ -80,35 +86,31 @@ if [ ! -n "$LOGLEVEL" -a -n "$VERBOSE" ]; then
   case "$VERBOSE" in
     -1) LOGLEVEL=ERROR;;
     -*) LOGLEVEL=DISABLED;;
-    0) LOGLEVEL=WARN;;
-    1) LOGLEVEL=INFO;;
-    *) LOGLEVEL=DEBUG;;
+    0)  LOGLEVEL=WARN;;
+    1)  LOGLEVEL=INFO;;
+    *)  LOGLEVEL=DEBUG;;
   esac
 fi
 
 export LOGLEVEL="$LOGLEVEL"
 
-debug "loglevel debug"
-info "loglevel debug"
-warn "loglevel debug"
-error "loglevel debug"
 ./scripts/installation/git/install
 
+info "updating git modules"
 git submodule update --init
 
 ./scripts/installation/vim/install
 ./scripts/installation/tmux/install
 ./scripts/installation/shell/zsh/install
-exit
 
-ln -fs "$DOTFILE_ROOT/bin" "$HOME"
-ln -fs "$DOTFILE_ROOT/.gemrc" "$HOME"
-ln -fs "$DOTFILE_ROOT/.my.cnf" "$HOME"
-ln -fs "$DOTFILE_ROOT/.notify-osd" "$HOME"
-ln -fs "$DOTFILE_ROOT/.asoundrc" "$HOME"
-ln -fs "$DOTFILE_ROOT/.xinitrc" "$HOME"
-ln -fs "$DOTFILE_ROOT/.Xresources" "$HOME"
-ln -fs "$DOTFILE_ROOT/.urxvt" "$HOME"
+symlink_to_home "$DOTFILE_ROOT/bin"
+symlink_to_home "$DOTFILE_ROOT/.gemrc"
+symlink_to_home "$DOTFILE_ROOT/.my.cnf"
+symlink_to_home "$DOTFILE_ROOT/.notify-osd"
+symlink_to_home "$DOTFILE_ROOT/.asoundrc"
+symlink_to_home "$DOTFILE_ROOT/.xinitrc"
+symlink_to_home "$DOTFILE_ROOT/.Xresources"
+symlink_to_home "$DOTFILE_ROOT/.urxvt"
 
 
 
@@ -117,15 +119,15 @@ ln -fs "$DOTFILE_ROOT/.urxvt" "$HOME"
 # linter packages
 
 # bash
-[[ -z "$(which shellcheck)" ]] && echo "sudo apt-get install shellcheck" || echo "shellcheck installed"
-[[ -z "$(which bashate)" ]] && echo "sudo apt-get install python-pip && sudo pip install bashate" || echo "bashate installed"
+[[ -z "$(which shellcheck)" ]] && warn "sudo apt-get install shellcheck" || debug "shellcheck installed"
+[[ -z "$(which bashate)" ]] && warn "sudo apt-get install python-pip && sudo pip install bashate" || debug "bashate installed"
 # markdown
-[[ -z "$(which mdl)" ]] && echo "sudo gem install mdl" || echo "mdl installed"
+[[ -z "$(which mdl)" ]] && warn "sudo gem install mdl" || debug "mdl installed"
 # pylint
-[[ -z "$(which pylint)" ]] && echo "sudo pip install pylint" || echo "pylint installed"
+[[ -z "$(which pylint)" ]] && warn "sudo pip install pylint" || debug "pylint installed"
 
 
 # various other tools
-[[ -z "$(which feh)" ]] && echo "sudo apt-get install feh" || echo "feh installed"
-[[ -z "$(which scrot)" ]] && echo "sudo apt-get install scrot" || echo "scrot installed"
-[[ -z "$(which unclutter)" ]] && echo "sudo apt-get install unclutter" || echo "unclutter installed"
+[[ -z "$(which feh)" ]] && warn "sudo apt-get install feh" || debug "feh installed"
+[[ -z "$(which scrot)" ]] && warn "sudo apt-get install scrot" || debug "scrot installed"
+[[ -z "$(which unclutter)" ]] && warn "sudo apt-get install unclutter" || debug "unclutter installed"
