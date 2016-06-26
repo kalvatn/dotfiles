@@ -12,95 +12,80 @@ ln -sf "$DOTFILE_ROOT/.variables" "$HOME"
 ln -sf "$DOTFILE_ROOT/.functions" "$HOME"
 source "$HOME/.functions"
 
-opts="vhlu"
 
 function cmd() {
   basename "$0"
 }
 
-function usage() {
+function show_help_message() {
   read -r -d '\0' helpstring <<EOM
 $(cmd) [OPTION...]
-  -v, --verbose | enable verbose output
-                | (multiple times for more verbosity,
-                | e.g.  -vv will enable DEBUG logging level)
-  -l, --loglevel| toggle specific log level (valid values : [ DEBUG, INFO, WARN, ERROR ] )
-  -h, --help    | show this help message
-  -u, --usage   | show this help message
+  -v | increase verbosity (multiple instances will further increase verbosity,
+     | e.g. -vv will enable TRACE logging level)
+  -v | increase verbosity (multiple instances will further decrease verbosity,
+     | e.g.  -qqq will completely disable logging (same as -l DISABLED))
+  -l | toggle specific log level, will override verbosity switches
+     | (valid values : [ DEBUG, INFO, WARN, ERROR, DISABLED ] )
+  -u | show usage example
+  -h | show this help message
 \0
 EOM
   echo "$helpstring" | column -t -s "|"
 }
 
-function unknown_option_error() {
-  usage
-  printf "\nunknown option '$1'\r\n"
-  exit 1
-}
 
-# https://thepracticalsysadmin.com/building-a-better-bash-script/
-# There's two passes here. The first pass handles the long options and any
-# short option that is already in canonical form. The second pass uses `getopt`
-# to canonicalize any remaining short options and handle them
-for pass in 1 2; do
-  while [ -n "$1" ]; do
-    case $1 in
-      --) shift; break;;
-      -*)
-        case $1 in
-          -h|--help| \
-          -u|--usage)    usage; exit 0;;
-          -v|--verbose)  VERBOSE="$(($VERBOSE + 1))";;
-          -l|--loglevel)
-            echo "\$1 : $1, \$2 : $2"
-            LOGLEVEL="$2"
-            shift;;
-          --*)           unknown_option_error "$1";;
-          -*)
-            if [ $pass -eq 1 ]; then
-              ARGS="$ARGS $1"
-            else
-              unknown_option_error "$1"
-            fi;;
-          esac;;
-      *)
-        if [ $pass -eq 1 ]; then
-          ARGS="$ARGS $1";
-        else unknown_option_error $1;
-        fi;;
-    esac
-    shift
-  done
-  if [ $pass -eq 1 ]; then
-    ARGS=`getopt $opts $ARGS`
-    if [ $? != 0 ]; then
-      usage;
-      exit 2;
-    fi
-    set -- $ARGS
-  fi
+VERBOSE=1
+
+while getopts ":huvql:" OPTION; do
+  case $OPTION in
+    h|u)
+      show_help_message
+      exit 2
+      ;;
+    q)
+      VERBOSE="$(($VERBOSE - 1))"
+      ;;
+    v)
+      VERBOSE="$(($VERBOSE + 1))"
+      ;;
+    l)
+      case "$OPTARG" in
+        ERROR|-1)
+          LOGLEVEL=ERROR;;
+        WARN|0)
+          LOGLEVEL=WARN;;
+        INFO|1)
+          LOGLEVEL=INFO;;
+        DEBUG|2)
+          LOGLEVEL=DEBUG;;
+        *)
+          echo "illegal value '$OPTARG' for option -$OPTION, legal values are [ERROR|-1, WARN|0, INFO|1, DEBUG|2]" >&2
+          exit 1
+          ;;
+        esac
+      ;;
+    \?)
+      show_help_message
+      echo "unknown option -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "option -$OPTARG requires an argument" >&2
+      exit 1
+      ;;
+  esac
 done
 
-# Handle positional arguments
-if [ -n "$*" ]; then
-  usage
-  printf "\n$(cmd): runaway arguments : $*\r\n"
-  exit 1
+if [ ! -n "$LOGLEVEL" -a -n "$VERBOSE" ]; then
+  case "$VERBOSE" in
+    -1) LOGLEVEL=ERROR;;
+    -*) LOGLEVEL=DISABLED;;
+    0) LOGLEVEL=WARN;;
+    1) LOGLEVEL=INFO;;
+    *) LOGLEVEL=DEBUG;;
+  esac
 fi
 
-if [ -z "$LOGLEVEL" ]; then
-  if [ -n "$VERBOSE" ]; then
-    case "$VERBOSE" in
-      1) LOGLEVEL=INFO;;
-      *) LOGLEVEL=DEBUG;;
-    esac
-  fi
-fi
-
-if [ -z "$LOGLEVEL" ]; then
-  #echo "log level not set, defaulting to WARN (to set: export LOGLEVEL=[DEBUG|INFO|WARN|ERROR])"
-  LOGLEVEL=WARN
-fi
 export LOGLEVEL="$LOGLEVEL"
 
 debug "loglevel debug"
