@@ -6,11 +6,11 @@ SCRIPT_DIR="$(get_script_dir "${BASH_SOURCE[0]}")"
 cd "$SCRIPT_DIR"
 ./kill
 
-echo "removing tmp and data directories"
-rm -Rf "$WILDFLY_HOME/standalone/tmp"
-rm -Rf "$WILDFLY_HOME/standalone/data"
+info "removing tmp and data directories"
+rm -Rf "$WILDFLY_HOME/standalone/tmp" >2&
+rm -Rf "$WILDFLY_HOME/standalone/data" >2&
 
-echo "removing existing deployments"
+info "removing existing deployments"
 find "$WILDFLY_HOME/standalone/deployments" -type f -name "*.ear" -delete
 find "$WILDFLY_HOME/standalone/log" -type f -name "*.log*" -delete
 
@@ -20,6 +20,6 @@ sed -i '/<deployments/d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
 sed -i '/<\/deployments>/d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
 sed -i '/<content /d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
 
-echo "removing files"
+info "removing files"
 deletedir /tmp/xmlexport/xml
 deletedir /var/log/xmlexport/xml

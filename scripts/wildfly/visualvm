@@ -1,0 +1,17 @@
+#!/bin/bash
+
+export LOGLEVEL=INFO
+source "$HOME/.functions"
+cd "$(get_script_dir "${BASH_SOURCE[0]}")"
+
+pid="$(./wildfly-pid)"
+if [ -z "$pid" ]; then
+  error "wildfly is not running"
+fi
+
+JVISUALVM_ARGS=(--nosplash -cp:a "$WILDFLY_HOME/bin/client/jboss-client.jar" --openpid "$pid")
+if [ ! -z "$(cmdpid " $(join_array " " "${JVISUALVM_ARGS[@]}")")" ]; then
+  error "visualvm already running for $pid"
+fi
+
+jvisualvm "${JVISUALVM_ARGS[@]}" >&2

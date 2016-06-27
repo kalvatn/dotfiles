@@ -6,17 +6,17 @@ function setup_formatting() {
   UNDERLINE=$(tput smul)
   STANDOUT=$(tput smso)
 
-  RED=$(color 1)
-  GREEN=$(color 2)
-  YELLOW=$(color 3)
-  BLUE=$(color 4)
-  PURPLE=$(color 5)
-  CYAN=$(color 6)
+  #RED=$(color 1)
+  #GREEN=$(color 2)
+  #YELLOW=$(color 3)
+  #BLUE=$(color 4)
+  #PURPLE=$(color 5)
+  #CYAN=$(color 6)
   WHITE=$(color 7)
   GRAY=$(color 8)
   BRIGHT_RED=$(color 9)
   BRIGHT_YELLOW=$(color 11)
-  BRIGHT_WHITE=$(color 15)
+  #BRIGHT_WHITE=$(color 15)
 }
 
 function color() {
@@ -49,6 +49,12 @@ function datetime() {
 
 function abbr_path() {
   ~/dotfiles/scripts/utilities/abbreviate-directory "$1"
+}
+
+function join_array {
+  local IFS="$1"
+  shift
+  echo "$*"
 }
 
 function get_loglevel_intvalue() {
@@ -138,7 +144,7 @@ function cmdpid() {
 }
 
 function symlink() {
-  info "creating symlink $(abbr_path $1) -> $(abbr_path $2)"
+  info "creating symlink $(abbr_path "$1") -> $(abbr_path "$2")"
   ln -sf "$1" "$2"
   exitcode="$?"
   if [ ! "$exitcode" -eq 0 ]; then
@@ -181,9 +187,10 @@ function test_colors() {
       echo "${BOLD}bold$RESET"
       echo "${STANDOUT}standout$RESET"
       for i in $(seq 1 8); do
-        echo "$(color $i)Color $i$RESET"
+        echo "$(color "$i")Color $i$RESET"
       done
-      echo "$num_colors colors, "$(rainbow "$(echo -e {a..z})$(echo -e {1..10})")""
+      echo "$num_colors colors"
+      rainbow "$(echo -e {1..30})"
 
       lorem_ipsum="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       debug "$lorem_ipsum"

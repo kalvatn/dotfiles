@@ -52,10 +52,10 @@ while getopts ":huvql:" OPTION; do
       exit 0
       ;;
     q)
-      VERBOSE="$(($VERBOSE - 1))"
+      VERBOSE="$((VERBOSE - 1))"
       ;;
     v)
-      VERBOSE="$(($VERBOSE + 1))"
+      VERBOSE="$((VERBOSE + 1))"
       ;;
     l)
       case "$OPTARG" in
@@ -118,19 +118,29 @@ symlink_to_home "$DOTFILE_ROOT/.urxvt"
 
 # linter packages
 
-# bash
-[[ -z "$(which shellcheck)" ]] && warn "sudo apt-get install shellcheck" || debug "shellcheck installed"
-[[ -z "$(which bashate)" ]] && warn "sudo apt-get install python-pip && sudo pip install bashate" || debug "bashate installed"
-# markdown
-[[ -z "$(which mdl)" ]] && warn "sudo gem install mdl" || debug "mdl installed"
-# pylint
-[[ -z "$(which pylint)" ]] && warn "sudo pip install pylint" || debug "pylint installed"
+if ! command -v shellcheck &>/dev/null; then
+  warn "shell linter 'shellcheck' is not installed, install with 'sudo apt-get install shellcheck'"
+fi
+if ! command -v shellcheck &>/dev/null; then
+  warn "shell linter 'bashate' is not installed, install with 'sudo apt-get install python-pip && sudo pip install bashate'"
+fi
+if ! command -v mdl &>/dev/null; then
+  warn "markdown linter 'mdl' is not installed, install with 'sudo gem install mdl'"
+fi
+if ! command -v mdl &>/dev/null; then
+  warn "python linter 'pylint' is not installed, install with 'sudo pip install python-pip && sudo pip install pylint'"
+fi
 
 
 # various other tools
-[[ -z "$(which feh)" ]] && warn "sudo apt-get install feh" || debug "feh installed"
-[[ -z "$(which scrot)" ]] && warn "sudo apt-get install scrot" || debug "scrot installed"
-[[ -z "$(which unclutter)" ]] && warn "sudo apt-get install unclutter" || debug "unclutter installed"
-
+if ! command -v feh &>/dev/null; then
+  warn "image viewer 'feh' is not installed, install with 'sudo apt-get install feh'"
+fi
+if ! command -v scrot &>/dev/null; then
+  warn "screenshot tool 'scrot' is not installed, install with 'sudo apt-get install scrot'"
+fi
+if ! command -v unclutter &>/dev/null; then
+  warn "mouse pointer hider 'unclutter' is not installed, install with 'sudo apt-get install unclutter'"
+fi
 
 rainbow "finished setting up dotfiles"

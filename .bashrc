@@ -122,3 +122,4 @@ export NVM_DIR="/home/kalvatn/.nvm"
 
 
 stty -ixon
+source /home/kalvatn/dotfiles/scripts/installation/tmux/.tmuxinator/completion/tmuxinator.bash
