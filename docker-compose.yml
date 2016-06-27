@@ -1,0 +1,16 @@
+version: '2'
+services:
+  base:
+    build: ./docker/base/
+    container_name: dotfiles-base
+  test:
+    image: dotfiles_base
+    container_name: dotfiles-test
+    command: sudo -iu kalvatn /bin/bash -l -c 'cd dotfiles; ./core-setup -vvv'
+    environment:
+      TERM: 'screen-256color'
+      DEBIAN_FRONTEND: noninteractive
+    depends_on:
+      - base
+    volumes:
+      - .:/home/kalvatn/dotfiles

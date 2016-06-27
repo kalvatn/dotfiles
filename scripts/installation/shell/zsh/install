@@ -7,7 +7,7 @@ CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
 
 if ! command -v zsh &> /dev/null; then
   info "installing zsh"
-  sudo apt-get install zsh
+  apt_install zsh
 else
   debug "zsh already installed"
 fi
@@ -18,8 +18,8 @@ symlink "$CWD/oh-my-zsh-custom-themes/kalvatn.zsh-theme" "$HOME/.oh-my-zsh/theme
 
 current_shell="$(getent passwd "$USER" | cut -d: -f7)"
 if [ "$current_shell" != "/bin/zsh" ]; then
-  info "setting default shell to /bin/zsh"
-  chsh -s /bin/zsh
+  info "setting default shell to /bin/zsh for user $USER"
+  sudo chsh -s /bin/zsh kalvatn
 else
   debug "/bin/zsh is already the default shell"
 fi
