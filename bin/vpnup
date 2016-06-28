@@ -4,5 +4,5 @@ if ! pgrep openconnect &> /dev/null; then
   sudo openconnect ra1.sportradar.com --user=j.kalvatn -b
 else
   echo "vpn connection already established"
-  ps a | grep "[o]penconnect"
+  pgrep "openconnect"
 fi
