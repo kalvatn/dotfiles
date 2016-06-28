@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ls() {
+function ls() {
     if [[ -t 1 ]]
     then
         #paginate ls output with less

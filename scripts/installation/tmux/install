@@ -19,7 +19,9 @@ if ! command -v tmuxinator &> /dev/null; then
   info "installing tmuxinator"
   gem_install tmuxinator
   tmuxinator doctor
-  rmdir "$HOME/.tmuxinator"
+  if [ -d "$HOME/.tmuxinator" ]; then
+    rmdir "$HOME/.tmuxinator"
+  fi
 else
   debug "tmuxinator already installed"
 fi

@@ -6,7 +6,10 @@ services:
   test:
     image: dotfiles_base
     container_name: dotfiles-test
-    command: sudo -iu kalvatn /bin/bash -l -c 'cd dotfiles; ./core-setup -vvv'
+    hostname: dotfiles-test
+    working_dir: /home/kalvatn/dotfiles
+    user: kalvatn
+    command: sudo -iu kalvatn bash -l
     environment:
       TERM: 'screen-256color'
       DEBIAN_FRONTEND: noninteractive
