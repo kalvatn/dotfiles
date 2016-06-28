@@ -2,9 +2,22 @@ version: '2'
 services:
   base:
     build: ./docker/base/
-    container_name: dotfiles-base
+    container_name: base
+    volumes:
+      - .:/home/kalvatn/dotfiles
+  base-with-dotfiles:
+    build: ./docker/base-with-dotfiles/
+    container_name: dotfiles
+    environment:
+      USER: kalvatn
+      TERM: screen-256color
+      DEBIAN_FRONTEND: noninteractive
+    depends_on:
+      - base
+    volumes_from:
+      - base
   test:
-    image: dotfiles_base
+    image: dotfiles_base-with-dotfiles
     container_name: dotfiles-test
     hostname: dotfiles-test
     working_dir: /home/kalvatn/dotfiles
@@ -14,6 +27,6 @@ services:
       TERM: 'screen-256color'
       DEBIAN_FRONTEND: noninteractive
     depends_on:
-      - base
-    volumes:
-      - .:/home/kalvatn/dotfiles
+      - base-with-dotfiles
+    volumes_from:
+      - base-with-dotfiles
