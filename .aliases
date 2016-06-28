@@ -45,6 +45,7 @@ wildfly8_jvisualvm() {
 alias wflymonitor=wildfly8_jvisualvm
 
 tailF() {
+  clear
   if [ -z "$2" ]; then
     tail -Fn100 "$1" 2> /dev/null
   else
