@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-find "$HOME/dotfiles" -type f -exec ag --hidden --nocolor -s -H "^alias.*$1" {} \;
+find "$HOME/dotfiles" -type f -not -wholename "*.oh-my-zsh*" -exec ag --hidden --nocolor -s -H "^alias.*$1" {} \;
