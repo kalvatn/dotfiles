@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+find "$HOME/dotfiles" -type f -exec ag --hidden --nocolor -s -H "^alias " {} \;
