@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+export LOGLEVEL=INFO
+source "$HOME/.functions"
+SCRIPT_DIR="$(get_script_dir "${BASH_SOURCE[0]}")"
+
+cd "$SCRIPT_DIR"
+./kill
+bash "$WILDFLY_HOME/bin/standalone.sh" & > /dev/null 2>&1

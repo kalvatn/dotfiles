@@ -10,23 +10,20 @@ fi
 
 dir="$(readlink -f "$1")"
 
-if [ -z "$dir" ]; then
-  error "directory $1 does not exist"
-  exit 1
-fi
+if [ -d "$dir" ]; then
+  info "finding inode count for $dir"
+  find "$dir" -xdev -printf '%h\n' | sort | uniq -c | sort -k 1 -n
 
-if [ ! -d "$dir" ]; then
-  error "directory $dir does not exist"
-  exit 1
-fi
-
-info "finding inode count for $dir"
-find "$dir" -xdev -printf '%h\n' | sort | uniq -c | sort -k 1 -n
-
-time {
   info "deleting all files in all subdirectories of $dir"
   find "$dir" -maxdepth 1 -type d -exec find {} -type f -delete \;
 
   info "removing leftover empty directories in $dir"
   find "$dir" -type d -empty -delete
-}
+else
+  if [ -z "$dir" ]; then
+    warn "directory '$1' does not exist"
+  else
+    warn "directory '$dir' does not exist"
+  fi
+fi
+

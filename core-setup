@@ -94,14 +94,22 @@ fi
 
 export LOGLEVEL="$LOGLEVEL"
 
+# prerequisites
+
+if ! command -v apt-add-repository &>/dev/null; then
+  sudo apt-get install -y software-properties-common
+fi
+
+# prerequisites
+
 ./scripts/installation/git/install
 
 info "updating git modules"
 git submodule update --init
 
+./scripts/installation/shell/zsh/install
 ./scripts/installation/vim/install
 ./scripts/installation/tmux/install
-./scripts/installation/shell/zsh/install
 
 symlink_to_home "$DOTFILE_ROOT/bin"
 symlink_to_home "$DOTFILE_ROOT/.gemrc"

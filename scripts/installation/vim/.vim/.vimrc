@@ -68,8 +68,8 @@ endif
 " indentation
 set expandtab " replace tabs with spaces
 " number of spaces in one indent
-set shiftwidth=2
-set tabstop=2
+set sw=2
+set ts=2
 set smarttab " recognizes indentlevel for (de)indenting
 set autoindent " retain indentation on next line
 set smartindent " autoindenting of blocks
@@ -92,7 +92,8 @@ au BufRead,BufNewFile *.coffee set filetype=coffee
 "au BufRead,BufNewFile *.styl set filetype=stylus
 "autocmd BufRead,BufNewFile   *.c,*.h,*.java set noic cin noexpandtab
 "autocmd BufRead,BufNewFile   *.pl syntax on
-autocmd FileType sh,puppet,ruby,xml,html,coffee,styl,js,python set ts=2 sw=2
+autocmd FileType sh,puppet,ruby,xml,html,coffee,styl,js set ts=2 sw=2
+autocmd FileType python setlocal ts=4 sw=4
 
 
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -185,6 +186,7 @@ let g:syntastic_sh_bashate_args=['--ignore E003'] " ignore indent multiple of 4 
 " python
 " disable docstring warn (C0111)
 " disable line too long  (C0301)
+let g:syntastic_python_python_exec = '/usr/bin/python3'
 let g:syntastic_python_pylint_args=['--disable=C0111,C0301']
 
 " latex

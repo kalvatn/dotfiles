@@ -6,12 +6,12 @@ source "$HOME/.functions"
 CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
 
 if ! command -v git &> /dev/null; then
-  sudo apt-add-repository ppa:git-core/ppa
-  sudo apt-get update
-  # git and meld (mergetool)
-  sudo apt-get install git meld
+  apt_add_repository git-core/ppa
+  apt_install git-core
+  #meld (mergetool)
+  #sudo apt-get install -y meld
 else
-  info "git is already installed"
+  debug "git is already installed"
 fi
 
 ln -fs "$CWD/.gitconfig" "$HOME"

@@ -10,16 +10,18 @@ ZSHRC="$HOME/.zshrc"
 
 if ! command -v tmux &> /dev/null; then
   info "installing tmux"
-  sudo apt-get install tmux
+  apt_install tmux
 else
   debug "tmux already installed"
 fi
 
 if ! command -v tmuxinator &> /dev/null; then
   info "installing tmuxinator"
-  sudo gem install tmuxinator
+  gem_install tmuxinator
   tmuxinator doctor
-  rmdir "$HOME/.tmuxinator"
+  if [ -d "$HOME/.tmuxinator" ]; then
+    rmdir "$HOME/.tmuxinator"
+  fi
 else
   debug "tmuxinator already installed"
 fi

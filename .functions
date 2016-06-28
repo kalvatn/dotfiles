@@ -48,7 +48,7 @@ function datetime() {
 }
 
 function abbr_path() {
-  ~/dotfiles/scripts/utilities/abbreviate-directory "$1"
+  ~/dotfiles/scripts/utilities/abbreviate_directory "$1"
 }
 
 function join_array {
@@ -141,6 +141,27 @@ feature_check
 
 function cmdpid() {
   pgrep -f "$1"
+}
+
+function apt_add_repository() {
+  if ! grep -q "^deb.*$1" /etc/apt/sources.list.d/* > /dev/null 2>&1; then
+    info "adding ppa:$1"
+    sudo add-apt-repository -y "ppa:$1"
+    sudo apt-get update -qq
+  else
+    debug "ppa:$1 already added"
+  fi
+}
+function apt_install() {
+  sudo apt-get install -qqy "$@"
+}
+
+function gem_install() {
+  sudo gem install "$@"
+}
+
+function pip_install() {
+  sudo pip install "$@"
 }
 
 function symlink() {
