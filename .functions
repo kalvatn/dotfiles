@@ -181,6 +181,21 @@ function symlink_to_home() {
   symlink "$1" "$HOME"
 }
 
+function append_line_to_file() {
+  line="$1"
+  target_file="$2"
+  if [ ! -z "$line" -a -f "$target_file" -o -h "$target_file" ]; then
+    if ! grep -q "$line" "$target_file" &> /dev/null; then
+      info "adding $line to $target_file"
+      echo "$line" | tee -a "$target_file"
+    else
+      warn "line '$line' already exists in $target_file, skipping"
+    fi
+  else
+    error "could not add '$line' to '$target_file'"
+  fi
+}
+
 function get_script_dir() {
   # http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in/246128#246128
   # get_script_dir "${BASH_SOURCE[0]}" in calling script

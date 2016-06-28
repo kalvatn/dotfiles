@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 function ls() {
     if [[ -t 1 ]]
     then
@@ -17,22 +18,6 @@ alias la='ll -A'
 
 alias grep='grep --color=auto'
 alias igrep='grep -i'
-
-tmux_attach() {
-    tmux attach -dt "$1"
-}
-tmux_new() {
-    tmux new -s "$1"
-}
-tmux_kill_session() {
-    tmux kill-session -t "$1"
-}
-alias ta=tmux_attach
-alias tl="tmux ls"
-alias tn=tmux_new
-alias tk=tmux_kill_session
-
-alias mux=tmuxinator
 
 alias nslisten='netstat -plan | grep LISTEN'
 
@@ -157,3 +142,4 @@ dri() { docker rmi "$(docker images -q)"; }
 dbu() { docker build -t="$1" .; }
 # Show all alias related docker
 dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+source /home/kalvatn/dotfiles/scripts/installation/tmux/aliases
