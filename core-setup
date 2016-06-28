@@ -115,6 +115,9 @@ git submodule update --init
 ./scripts/installation/vim/install
 ./scripts/installation/tmux/install
 
+
+#./scripts/installation/docker/install
+
 symlink_to_home "$DOTFILE_ROOT/bin"
 symlink_to_home "$DOTFILE_ROOT/.gemrc"
 symlink_to_home "$DOTFILE_ROOT/.my.cnf"
