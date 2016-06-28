@@ -250,6 +250,7 @@ nnoremap <silent> <leader>n :next<cr>
 nnoremap <silent> <leader>N :prev<cr>
 " paste from clipboard
 map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
+map <silent> <leader>t :SyntasticToggleMode<cr>
 " quicksave
 nnoremap <leader>w :w<cr>
 " quickreload
