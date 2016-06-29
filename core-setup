@@ -97,11 +97,15 @@ export LOGLEVEL="$LOGLEVEL"
 # prerequisites
 
 if ! command -v apt-add-repository &>/dev/null; then
-  sudo apt-get install -y software-properties-common
+  apt_install software-properties-common
 fi
 
 if ! command -v curl &> /dev/null; then
-  sudo apt-get install curl
+  apt_install curl
+fi
+
+if ! command -v bzip2 &> /dev/null; then
+  apt_install bzip2
 fi
 
 # prerequisites
