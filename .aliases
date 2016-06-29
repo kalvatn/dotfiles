@@ -13,7 +13,7 @@ alias ls=_ls
 alias sl='ls'
 alias ll='ls -l'
 alias la='ll -A'
-alias l='ls -CF'
+alias lc='ls -CF'
 
 alias grep='grep --color=always'
 alias igrep='grep -i'
