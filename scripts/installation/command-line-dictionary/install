@@ -17,7 +17,9 @@ else
 	debug "sdcv (stardict console version) already installed"
 fi
 
-sudo mkdir -p "$DICT_DIR"
+if [ ! -d "$DICT_DIR" ]; then
+  sudo mkdir -p "$DICT_DIR"
+fi
 mkdir -p "$TMP_DICT_DIR"
 
 # CIDE (https://en.wikipedia.org/wiki/Collaborative_International_Dictionary_of_English)
