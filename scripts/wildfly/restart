@@ -7,4 +7,4 @@ SCRIPT_DIR="$(get_script_dir "${BASH_SOURCE[0]}")"
 
 cd "$SCRIPT_DIR"
 ./kill
-bash "$WILDFLY_HOME/bin/standalone.sh" & > /dev/null 2>&1
+bash "$WILDFLY_HOME/bin/standalone.sh" > "$WILDFLY_HOME/standalone/log/all.log" 2>&1 &

@@ -97,7 +97,15 @@ export LOGLEVEL="$LOGLEVEL"
 # prerequisites
 
 if ! command -v apt-add-repository &>/dev/null; then
-  sudo apt-get install -y software-properties-common
+  apt_install software-properties-common
+fi
+
+if ! command -v curl &> /dev/null; then
+  apt_install curl
+fi
+
+if ! command -v bzip2 &> /dev/null; then
+  apt_install bzip2
 fi
 
 # prerequisites
@@ -110,6 +118,11 @@ git submodule update --init
 ./scripts/installation/shell/zsh/install
 ./scripts/installation/vim/install
 ./scripts/installation/tmux/install
+
+
+
+#./scripts/installation/docker/install
+./scripts/installation/command-line-dictionary/install
 
 symlink_to_home "$DOTFILE_ROOT/bin"
 symlink_to_home "$DOTFILE_ROOT/.gemrc"

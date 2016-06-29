@@ -1,99 +1,49 @@
 #!/bin/bash
 
-function ls() {
-    if [[ -t 1 ]]
-    then
-        #paginate ls output with less
-        command ls -F --color=always "$@" | less -XFR
-    else
-        # don't pipe to less if piping output to something else
-        command ls -F --color=always "$@"
-    fi
+function _ls() {
+  if [[ -t 1 ]]; then
+    # paginate output
+    command ls -F --color=always "$@" | less -XFR
+  else
+    # do not paginate if piping output to something else
+    command ls -F --color=always "$@"
+  fi
 }
-alias ls=ls
+alias ls=_ls
 alias sl='ls'
 alias ll='ls -l'
 alias la='ll -A'
+alias l='ls -CF'
 
-alias grep='grep --color=auto'
+alias grep='grep --color=always'
 alias igrep='grep -i'
+alias fgrep='fgrep --color=always'
+alias egrep='egrep --color=always'
 
-tmux_attach() {
-    tmux attach -dt "$1"
-}
-tmux_new() {
-    tmux new -s "$1"
-}
-tmux_kill_session() {
-    tmux kill-session -t "$1"
-}
-alias ta=tmux_attach
-alias tl="tmux ls"
-alias tn=tmux_new
-alias tk=tmux_kill_session
-
-alias mux=tmuxinator
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 alias nslisten='netstat -plan | grep LISTEN'
 
-wildfly8_jvisualvm() {
-  source "$HOME"/.variables
-  "$JBOSS_HOME"/bin/jvisualvm
-}
-
-
-alias wflymonitor=wildfly8_jvisualvm
-
-tailF() {
+_follow() {
   clear
   if [ -z "$2" ]; then
-    tail -Fn100 "$1" 2> /dev/null
+    tail -F -n100 "$1" 2> /dev/null
   else
-    tail -F -n "$2" "$1" 2> /dev/null
+    tail -F -n "$1" "$2" 2> /dev/null
   fi
 }
-alias follow=tailF
+alias follow=_follow
 
-
+# TODO: move
 alias xup='xrdb ~/.Xresources'
 
-spellcheck_word() {
-  # pipe word(s) to aspell and omit first line of result
-  spelling="$(echo "$@" | aspell -a | sed -n '1!p')"
-  correct=true
-  for i in $(echo "$spelling" | tr "\r" "\n"); do
-    if [ "$i" != "*" ]; then
-      correct=false
-      break
-    fi
-  done
-  if ! $correct; then
-    echo "'$@' is incorrectly spelled"
-    echo "$spelling"
-  else
-    echo "'$@' is correctly spelled"
-  fi
-}
-
-lookup_word() {
-  sdcv -0cn "$@" | less -XFR
-}
-
-spellcheck_and_lookup_word() {
-  spellcheck_word "$@"
-  lookup_word "$@"
-}
-
-alias dict=lookup_word
-alias spell=spellcheck_word
-alias spelldict=spellcheck_and_lookup_word
-
-
+# TODO: move
 alias ag='ag --path-to-agignore ~/.agignore'
 
 # custom launchers
 
 # work
+# TODO: move
 alias sqlyog='wine "C:\Program Files (x86)\SQLyog\SQLyog.exe"'
 #alias idea='/work/tools/ide/intellij/idea-IU-141.713.2/bin/idea.sh'
 #alias idea='/work/tools/ide/intellij/idea-IU-143.381.42/bin/idea.sh'
@@ -105,55 +55,30 @@ alias eclipse='/work/tools/ide/eclipse/eclipse-java-mars-2-linux-gtk-x86_64/ecli
 alias datagrip='/work/tools/ide/datagrip/DataGrip-1.0.3/bin/datagrip.sh'
 
 # javascript console
+# TODO: move/remove
 alias jsc='java -cp /work/tools/shell/jline2-jline-2.14.1/target/jline-2.14.1.jar:/work/tools/shell/rhino1.7.7.1/lib/rhino-1.7.7.1.jar org.mozilla.javascript.tools.shell.Main'
 
 # ssh aliases
+# TODO: move
 if which autossh > /dev/null; then
-    alias ssh="autossh"
+  alias ssh="autossh"
 fi
 
-# work
+# work-workstations
+# TODO: move
 alias workstation="ssh kalvatn@10.12.121.13"
 alias hans="ssh hans@10.12.100.220"
 
+# work-servers
+# TODO: move
 alias xmlexport-zrh1="ssh j.kalvatn@10.200.4.11"
 alias xmlexport-zrh2="ssh j.kalvatn@10.200.4.12"
 alias xmlexport-zrh-test="ssh j.kalvatn@10.200.4.12"
-alias xmlexport-trd-test="ssh jboss@172.17.22.53"
 
-# other
+# other-servers
 alias northrend="ssh kalvatn@northrend.bitnexus.net"
 
-
-
-
-# docker
-
-# Get latest container ID
-alias dl="docker ps -l -q"
-# Get container process
-alias dps="docker ps"
-# Get process included stop container
-alias dpa="docker ps -a"
-# Get images
-alias di="docker images"
-# Get container IP
-alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-# Run deamonized container, e.g., $dkd base /bin/echo hello
-alias dkd="docker run -d -P"
-# Run interactive container, e.g., $dki base /bin/bash
-alias dki="docker run -i -t -P"
-# Execute interactive container, e.g., $dex base /bin/bash
-alias dex="docker exec -i -t"
-# Stop all containers
-dstop() { docker stop "$(docker ps -a -q)"; }
-# Remove all containers
-drm() { docker rm "$(docker ps -a -q)"; }
-# Stop and Remove all containers
-alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
-# Remove all images
-dri() { docker rmi "$(docker images -q)"; }
-# Dockerfile build, e.g., $dbu tcnksm/test
-dbu() { docker build -t="$1" .; }
-# Show all alias related docker
-dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+# added by installer scripts
+source /home/kalvatn/dotfiles/scripts/installation/tmux/aliases
+source /home/kalvatn/dotfiles/scripts/installation/docker/aliases
+source /home/kalvatn/dotfiles/scripts/installation/command-line-dictionary/aliases

@@ -9,7 +9,7 @@ function setup_formatting() {
   #RED=$(color 1)
   #GREEN=$(color 2)
   #YELLOW=$(color 3)
-  #BLUE=$(color 4)
+  BLUE=$(color 4)
   #PURPLE=$(color 5)
   #CYAN=$(color 6)
   WHITE=$(color 7)
@@ -78,12 +78,16 @@ function get_loglevel_intvalue() {
 }
 
 function should_log() {
-  configured_loglevel="$(get_loglevel_intvalue "$LOGLEVEL")"
-  if [ -z "$LOGLEVEL" -o "$configured_loglevel" -eq -1 ]; then
-    configured_loglevel=100
+  if [ -z "$LOGLEVEL" ];then
+    configured_loglevel="$(get_loglevel_intvalue "DEBUG")"
+  else
+    configured_loglevel="$(get_loglevel_intvalue "$LOGLEVEL")"
+    if [ "$configured_loglevel" -eq -1 ]; then
+      configured_loglevel=100
+    fi
   fi
-  loglevel="$(get_loglevel_intvalue "$1")"
-  if [ ! -z "$loglevel" -a "$loglevel" -ge "$configured_loglevel" ]; then
+  candidate_loglevel="$(get_loglevel_intvalue "$1")"
+  if [ ! -z "$candidate_loglevel" -a "$candidate_loglevel" -ge "$configured_loglevel" ]; then
     return 0
   fi
   return 1
@@ -95,7 +99,7 @@ function log_unformatted() {
   if [ ! -z "$message" ]; then
     if should_log "$level"; then
       logger="$(get_script_path "$0"):$LINENO"
-      printf "%s %-5s - %s - %s\n" "$(datetime)" "$level" "$logger" "$message"
+      printf "%s %5s - %s - %s\n" "$(datetime)" "$level" "$logger" "$message"
     fi
   fi
 }
@@ -175,6 +179,21 @@ function symlink() {
 
 function symlink_to_home() {
   symlink "$1" "$HOME"
+}
+
+function append_line_to_file() {
+  line="$1"
+  target_file="$2"
+  if [ ! -z "$line" -a -f "$target_file" -o -h "$target_file" ]; then
+    if ! grep -q "$line" "$target_file" &> /dev/null; then
+      info "adding $line to $target_file"
+      echo "$line" | tee -a "$target_file"
+    else
+      warn "line '$line' already exists in $target_file, skipping"
+    fi
+  else
+    error "could not add '$line' to '$target_file'"
+  fi
 }
 
 function get_script_dir() {
