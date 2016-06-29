@@ -15,7 +15,8 @@ if [ -d "$dir" ]; then
   find "$dir" -xdev -printf '%h\n' | sort | uniq -c | sort -k 1 -n
 
   info "deleting all files in all subdirectories of $dir"
-  find "$dir" -maxdepth 1 -type d -exec find {} -type f -delete \;
+  #find "$dir" -maxdepth 1 -type d -exec find {} -type f -delete \;
+  find "$dir" -type f -print0 | xargs -0 rm
 
   info "removing leftover empty directories in $dir"
   find "$dir" -type d -empty -delete

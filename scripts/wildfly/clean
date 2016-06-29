@@ -20,6 +20,6 @@ sed -i '/<deployments/d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
 sed -i '/<\/deployments>/d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
 sed -i '/<content /d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
 
-info "removing files"
-deletedir /tmp/xmlexport/xml
-deletedir /var/log/xmlexport/xml
+#info "removing files"
+#deletedir /tmp/xmlexport/xml
+#deletedir /var/log/xmlexport/xml

@@ -14,4 +14,4 @@ if [ ! -z "$(cmdpid " $(join_array " " "${JVISUALVM_ARGS[@]}")")" ]; then
   error "visualvm already running for $pid"
 fi
 
-jvisualvm "${JVISUALVM_ARGS[@]}" >&2
+jvisualvm "${JVISUALVM_ARGS[@]}" >&2 &
