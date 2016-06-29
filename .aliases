@@ -2,43 +2,44 @@
 
 
 function ls() {
-    if [[ -t 1 ]]
-    then
-        #paginate ls output with less
-        command ls -F --color=always "$@" | less -XFR
-    else
-        # don't pipe to less if piping output to something else
-        command ls -F --color=always "$@"
-    fi
+  if [[ -t 1 ]]; then
+    #paginate ls output with less
+    command ls -F --color=auto "$@" | less -XFR
+  else
+    # don't pipe to less if piping output to something else
+    command ls -F --color=auto "$@"
+  fi
 }
 alias ls=ls
 alias sl='ls'
 alias ll='ls -l'
 alias la='ll -A'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 alias grep='grep --color=auto'
 alias igrep='grep -i'
 
 alias nslisten='netstat -plan | grep LISTEN'
 
-wildfly8_jvisualvm() {
-  source "$HOME"/.variables
-  "$JBOSS_HOME"/bin/jvisualvm
-}
-
-
-alias wflymonitor=wildfly8_jvisualvm
-
-tailF() {
+follow() {
   clear
   if [ -z "$2" ]; then
-    tail -Fn100 "$1" 2> /dev/null
+    tail -F -n100 "$1" 2> /dev/null
   else
-    tail -F -n "$2" "$1" 2> /dev/null
+    tail -F -n "$1" "$2" 2> /dev/null
   fi
 }
-alias follow=tailF
-
+alias follow=follow
 
 alias xup='xrdb ~/.Xresources'
 
@@ -53,10 +54,10 @@ spellcheck_word() {
     fi
   done
   if ! $correct; then
-    echo "'$@' is incorrectly spelled"
+    echo "'$*' is incorrectly spelled"
     echo "$spelling"
   else
-    echo "'$@' is correctly spelled"
+    echo "'$*' is correctly spelled"
   fi
 }
 
@@ -72,7 +73,6 @@ spellcheck_and_lookup_word() {
 alias dict=lookup_word
 alias spell=spellcheck_word
 alias spelldict=spellcheck_and_lookup_word
-
 
 alias ag='ag --path-to-agignore ~/.agignore'
 
@@ -108,8 +108,6 @@ alias xmlexport-trd-test="ssh jboss@172.17.22.53"
 
 # other
 alias northrend="ssh kalvatn@northrend.bitnexus.net"
-
-
 
 
 source /home/kalvatn/dotfiles/scripts/installation/tmux/aliases
