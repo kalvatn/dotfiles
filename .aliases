@@ -4,10 +4,10 @@
 function ls() {
   if [[ -t 1 ]]; then
     #paginate ls output with less
-    command ls -F --color=auto "$@" | less -XFR
+    command ls -F --color=always "$@" | less -XFR
   else
     # don't pipe to less if piping output to something else
-    command ls -F --color=auto "$@"
+    command ls -F --color=always "$@"
   fi
 }
 alias ls=ls
@@ -82,3 +82,4 @@ alias northrend="ssh kalvatn@northrend.bitnexus.net"
 
 source /home/kalvatn/dotfiles/scripts/installation/tmux/aliases
 source /home/kalvatn/dotfiles/scripts/installation/docker/aliases
+source /home/kalvatn/dotfiles/scripts/installation/command-line-dictionary/aliases
