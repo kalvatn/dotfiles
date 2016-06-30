@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function _ls() {
+function ls_paginate() {
   if [[ -t 1 ]]; then
     # paginate output
     command ls -F --color=always "$@" | less -XFR
@@ -9,7 +9,7 @@ function _ls() {
     command ls -F --color=always "$@"
   fi
 }
-alias ls=_ls
+alias ls=ls_paginate
 alias sl='ls'
 alias ll='ls -l'
 alias la='ll -A'
