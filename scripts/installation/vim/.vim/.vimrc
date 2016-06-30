@@ -18,6 +18,7 @@ set history=700 " lines to remember
 set nobackup
 set nowb
 set noswapfile
+let g:netrw_dirhistmax = 0 "disable creation of .netrwhist files
 " copy/paste to/from system clipboard registers
 set clipboard+=unnamed
 set clipboard+=unnamedplus
