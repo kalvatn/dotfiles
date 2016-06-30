@@ -1,24 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import urllib
+from urllib.request import urlopen
 import json
 def main():
-    # http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=chauney&api_key=dea841e75b7c112bb48959f7c1738f80&limit=1&extended=0
-    # http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=chauney&api_key=dea841e75b7c112bb48959f7c1738f80&limit=1&extended=0&format=json
-
-
-    #json_data_string = """
-#{"recenttracks":{"track":[{"artist":{"#text":"Trepalium","mbid":"4559acbe-bb8d-4ad0-a483-de96eeaa4d47"},"name":"Escape To Death","streamable":"0","mbid":"b2a14582-8e99-4b00-b3c1-6040365366af","album":{"#text":"Through the Absurd","mbid":"4fd9bc8f-77f2-426c-81f9-b35945a0413e"},"url":"http://www.last.fm/music/Trepalium/_/Escape+To+Death","image":[{"#text":"http://img2-ak.lst.fm/i/u/34s/1868f69827924775a76bcec881641121.png","size":"small"},{"#text":"http://img2-ak.lst.fm/i/u/64s/1868f69827924775a76bcec881641121.png","size":"medium"},{"#text":"http://img2-ak.lst.fm/i/u/174s/1868f69827924775a76bcec881641121.png","size":"large"},{"#text":"http://img2-ak.lst.fm/i/u/300x300/1868f69827924775a76bcec881641121.png","size":"extralarge"}],"date":{"uts":"1440751333","#text":"28 Aug 2015, 08:42"}}],"@attr":{"user":"chauney","page":"1","perPage":"1","totalPages":"90185","total":"90185"}}}
-    #"""
-    #json_data = json.loads(json_data_string)
-    json_data_url = urllib.urlopen("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=chauney&api_key=dea841e75b7c112bb48959f7c1738f80&limit=1&extended=0&format=json")
-    json_data = json.loads(json_data_url.read())
+    json_data_url = urlopen("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=chauney&api_key=dea841e75b7c112bb48959f7c1738f80&limit=1&extended=0&format=json")
+    data = json_data_url.readall().decode("utf-8")
+    json_data = json.loads(data)
 
     last_track = json_data['recenttracks']['track'][0]
     artist = last_track['artist']['#text']
     album = last_track['album']['#text']
     title = last_track['name']
-    print "%s - %s - %s" % (artist, album, title)
+    print("%s - %s - %s" % (artist, album, title))
 
 if __name__ == '__main__':
     main()
