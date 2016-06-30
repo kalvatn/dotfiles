@@ -4,25 +4,23 @@ name: wildfly
 root: <%= ENV["WILDFLY_HOME"] %>
 
 windows:
-  - server:
+  - conf:
       layout: even-vertical
       panes:
         - ~/dotfiles/scripts/wildfly/clean-and-restart
-  - logs: 
+        - follow 100 standalone/log/all.log
+  - logs:
       layout: even-vertical
       panes:
         - follow standalone/log/info.log
         - follow standalone/log/debug.log
-        - ~/dotfiles/scripts/wildfly/watch-queues
-  - files: 
-      layout: even-vertical
-      panes:
-        - follow standalone/log/filesender.log
-        - cd /tmp/xmlexport && ls
   - monitoring:
       layout: even-vertical
       panes:
-        #- watch -n1 cat "/proc/$(ps -ef | grep "[o]rg.jboss" | awk '{print $2}')/io"
-        #- watch -n 1 "(ps aux | awk '\$8 ~ /D/  { print \$0 }')"
         - htop
-        - sudo iotop
+        - ~/dotfiles/scripts/wildfly/watch-queues
+        - follow standalone/log/filesender.log
+  - files:
+      layout: even-vertical
+      panes:
+        - cd /tmp/xmlexport && ls
