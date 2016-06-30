@@ -6,11 +6,11 @@ function setup_formatting() {
   UNDERLINE=$(tput smul)
   STANDOUT=$(tput smso)
 
-  #RED=$(color 1)
-  #GREEN=$(color 2)
-  #YELLOW=$(color 3)
+  RED=$(color 1)
+  GREEN=$(color 2)
+  YELLOW=$(color 3)
   BLUE=$(color 4)
-  #PURPLE=$(color 5)
+  PURPLE=$(color 5)
   #CYAN=$(color 6)
   WHITE=$(color 7)
   GRAY=$(color 8)
@@ -113,10 +113,10 @@ function log() {
       logger="$(get_script_path "$0"):$LINENO"
 
       if [ -n "$(tput colors)" ]; then
-        formatted_logger="$(abbr_path "$logger")"
-        formatted_message="$GRAY$message$RESET"
-        formatted_level="$color$BOLD$UNDERLINE$level$RESET"
-        printf "%s %-24s - %s - %s\n" "$(datetime)" "$formatted_level" "$formatted_logger" "$formatted_message"
+        formatted_logger="$PURPLE$(abbr_path "$logger")$RESET"
+        formatted_level="$BOLD$UNDERLINE$level$RESET$color"
+        #printf "$color%s %-24s - %s - %s$RESET\n" "$(datetime)" "$formatted_level" "$formatted_logger" "$message"
+        printf "%-45s - $color%s$RESET\n" "$formatted_logger" "$message"
       else
         log_unformatted "$level" "$message"
       fi
@@ -137,7 +137,7 @@ function error() {
 }
 
 function debug() {
-  log "$WHITE" "DEBUG" "$1"
+  log "$GREEN" "DEBUG" "$1"
 }
 
 

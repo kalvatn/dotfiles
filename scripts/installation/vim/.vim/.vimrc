@@ -182,6 +182,7 @@ let g:syntastic_puppet_puppetlint_args=['--no-80chars-check']
 " bash
 let g:syntastic_sh_checkers=['sh', 'shellcheck', 'bashate']
 let g:syntastic_sh_bashate_args=['--ignore E003'] " ignore indent multiple of 4 warning
+let g:syntastic_sh_shellcheck_args=['--exclude=SC2034'] " exclude 'X appears unused' warnings
 
 " python
 " disable docstring warn (C0111)
