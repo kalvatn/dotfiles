@@ -242,7 +242,6 @@ map q :q!
 let mapleader = ','
 let g:mapleader = ','
 " reload vimrc
-"nnoremap <leader>r :so $MYVIMRC<cr>
 nnoremap <leader>r :call ReloadVimConfig()<cr>
 " toggle list mode
 nnoremap <silent> <leader>l :set list!<cr>
@@ -250,6 +249,8 @@ nnoremap <silent> <leader>l :set list!<cr>
 "nnoremap <silent> <leader>n :set nu!<cr>
 nnoremap <silent> <leader>n :next<cr>
 nnoremap <silent> <leader>N :prev<cr>
+nnoremap <silent> <leader>v :vsplit<cr>
+nnoremap <silent> <leader>- :split<cr>
 " paste from clipboard
 map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
 map <silent> <leader>t :SyntasticToggleMode<cr>

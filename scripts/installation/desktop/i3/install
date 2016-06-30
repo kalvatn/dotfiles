@@ -1,28 +1,34 @@
 #!/bin/bash
 
-sudo apt-get install i3
+source "$HOME/.functions"
+CWD="$(get_script_dir "$0")"
 
-# install i3blocks
-if command -v i3blocks &> /dev/null;then
-  echo "i3blocks is already installed"
+if ! command_exists i3; then
+  apt_install i3
 else
-  sudo apt-get install ruby-ronn
+  debug "i3 already installed"
+fi
+
+if ! command_exists i3blocks; then
+  apt_install ruby-ronn
   cd /tmp
   git clone git://github.com/vivien/i3blocks
   cd i3blocks
   make clean all
   sudo make install
+else
+  debug "i3blocks is already installed"
 fi
-cwd=$(pwd)
-ln -fs "$cwd/.i3" "$HOME"
 
-grep "workspace \$workspace_\d" "$HOME/.i3/config"
-# find monitors
+symlink_to_home "$CWD/.i3"
+
+ag "workspace \$workspace_\d" "$HOME/.i3/config"
+
 connected_outputs="$(xrandr -q | grep -w connected | cut -d ' ' -f1)"
 if [ "$(echo "$connected_outputs" | wc -l)" -gt 1 ]; then
-  echo "more than one connected outputs : $connected_outputs"
+  debug "more than one connected outputs : $connected_outputs"
 else
-  echo "only one connected output : $connected_outputs"
+  debug "only one connected output : $connected_outputs"
 fi
 
 
