@@ -106,8 +106,10 @@ bindsym $super+r mode "resize"
 
 set $volumestep 5
 mode "volume" {
-	bindsym k exec volume + $volumestep
-	bindsym j exec volume - $volumestep
+	#bindsym k exec volume + $volumestep
+	#bindsym j exec volume - $volumestep
+	bindsym k exec amixer -q -D pulse sset Master $volumestep%+ && pkill -RTMIN+1 i3blocks
+	bindsym j exec amixer -q -D pulse sset Master $volumestep%- && pkill -RTMIN+1 i3blocks
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -130,7 +132,7 @@ bindsym $super+Shift+End exec spotifyctrl PlayPause
 # signal i3blocks on these keys
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-bindsym --release Insert exec pkill -SIGRTMIN+11 i3blocks
+#bindsym --release Insert exec pkill -SIGRTMIN+11 i3blocks
 
 bar {
     workspace_buttons no
@@ -142,7 +144,7 @@ bar {
     }
 }
 bar {
-    status_command i3blocks -c ~/.i3/i3blocks.conf
+    status_command SCRIPT_DIR=~/.i3/blocklets i3blocks -c ~/.i3/i3blocks.conf
     workspace_buttons yes
     position bottom
     colors {
