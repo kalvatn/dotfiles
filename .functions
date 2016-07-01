@@ -11,12 +11,12 @@ function setup_formatting() {
   YELLOW=$(color 3)
   BLUE=$(color 4)
   PURPLE=$(color 5)
-  #CYAN=$(color 6)
+  CYAN=$(color 6)
   WHITE=$(color 7)
   GRAY=$(color 8)
   BRIGHT_RED=$(color 9)
   BRIGHT_YELLOW=$(color 11)
-  #BRIGHT_WHITE=$(color 15)
+  BRIGHT_WHITE=$(color 15)
 }
 
 function color() {
@@ -145,6 +145,10 @@ feature_check
 
 function cmdpid() {
   pgrep -f "$1"
+}
+
+function pidcmd() {
+  ps -p "$1" -ho command
 }
 
 function command_exists() {

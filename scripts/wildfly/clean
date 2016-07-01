@@ -3,23 +3,35 @@
 source "$HOME/.functions"
 SCRIPT_DIR="$(get_script_dir "${BASH_SOURCE[0]}")"
 
+ROOT_DIR="$WILDFLY_HOME/standalone"
+CONFIGURATION_FILE="$ROOT_DIR/configuration/standalone.xml"
+DEPLOYMENT_DIR="$ROOT_DIR/deployments"
+LOG_DIR="$ROOT_DIR/log"
+LOG_DIR_BACKUP="$LOG_DIR/backup/$(date +"%Y-%m-%d_%H%M")"
 cd "$SCRIPT_DIR"
+
 ./kill
 
 info "removing tmp and data directories"
-rm -Rf "$WILDFLY_HOME/standalone/tmp" >2&
-rm -Rf "$WILDFLY_HOME/standalone/data" >2&
+rm -Rf "$ROOT_DIR/tmp" > /dev/null 2>&1
+rm -Rf "$ROOT_DIR/data" > /dev/null 2>&1
+
+
+info "moving logs to '$LOG_DIR_BACKUP'"
+find "$LOG_DIR" -maxdepth 1 -type f -name "*.log*" -print0 | while read -d '' -r logfile; do
+  if [ ! -d "$LOG_DIR_BACKUP" ]; then
+    mkdir -p "$LOG_DIR_BACKUP"
+  fi
+  mv -v "$logfile" "$LOG_DIR_BACKUP"
+done
 
 info "removing existing deployments"
-find "$WILDFLY_HOME/standalone/deployments" -type f -name "*.ear" -delete
-find "$WILDFLY_HOME/standalone/log" -type f -name "*.log*" -delete
-
-sed -i '/<deployment /d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
-sed -i '/<\/deployment>/d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
-sed -i '/<deployments/d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
-sed -i '/<\/deployments>/d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
-sed -i '/<content /d' "$WILDFLY_HOME/standalone/configuration/standalone.xml"
+find "$DEPLOYMENT_DIR" -type f -name "*.ear*" -delete > /dev/null 2>&1
+sed -i '/<deployment /d' "$CONFIGURATION_FILE"
+sed -i '/<\/deployment>/d' "$CONFIGURATION_FILE"
+sed -i '/<deployments/d' "$CONFIGURATION_FILE"
+sed -i '/<\/deployments>/d' "$CONFIGURATION_FILE"
+sed -i '/<content /d' "$CONFIGURATION_FILE"
 
 #info "removing files"
 #deletedir /tmp/xmlexport/xml
-#deletedir /var/log/xmlexport/xml
