@@ -33,6 +33,7 @@ _follow() {
   fi
 }
 alias follow=_follow
+alias xerrors="follow ~/.xsession-errors"
 
 # TODO: move
 alias xup='xrdb ~/.Xresources'

@@ -5,9 +5,9 @@ set -e
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
-if ! command_exists vim; then
-  # ruby support (vim-nox), clipboard support (vim-gtk)
-  apt_install vim-nox vim-gtk
+if needs_install vim vim-nox; then
+  # ruby support (vim-nox)
+  apt_install vim-nox
 else
   debug "vim is already installed"
 fi

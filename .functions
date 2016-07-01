@@ -152,7 +152,40 @@ function pidcmd() {
 }
 
 function command_exists() {
-  command -v "$@" &> /dev/null
+  command -v "$1" > /dev/null
+}
+
+function dpkg_is_package_installed() {
+  dpkg -s "$1" | grep -q "Status: install ok installed" > /dev/null 2>&1
+  if [ "$?" -eq 0 ]; then
+    return 0
+  fi
+  return 1
+}
+
+function needs_install() {
+  needs_install=0
+  for i in "$@"; do
+    needs_install=0
+    if command_exists "$i" > /dev/null; then
+      needs_install=1
+      continue
+    elif dpkg_is_package_installed "$i" > /dev/null 2>&1; then
+      needs_install=1
+      continue
+    elif gem list | grep -q "$i"; then
+      needs_install=1
+      continue
+    elif pip freeze | grep -q "$i"; then
+      needs_install=1
+      continue
+    fi
+    warn "'$i' not installed"
+  done
+  if [ $needs_install -eq 0 ]; then
+    return 0
+  fi
+  return 1
 }
 
 function apt_add_repository() {

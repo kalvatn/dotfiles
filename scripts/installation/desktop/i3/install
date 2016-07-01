@@ -3,13 +3,13 @@
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
-if ! command_exists i3; then
+if needs_install i3; then
   apt_install i3
 else
   debug "i3 already installed"
 fi
 
-if ! command_exists i3blocks; then
+if needs_install i3blocks ruby-ronn; then
   apt_install ruby-ronn
   cd /tmp
   git clone git://github.com/vivien/i3blocks
@@ -21,10 +21,10 @@ else
 fi
 
 
-if ! command_exists xautolock; then
-  apt_install xautolock
+if needs_install xautolock mpstat sysstat acpi; then
+  apt_install xautolock sysstat acpi
 else
-  debug "xautolock already installed"
+  debug "xautolock mpstat sysstat acpi already installed"
 fi
 
 symlink_to_home "$CWD/.i3"

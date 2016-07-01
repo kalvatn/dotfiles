@@ -28,3 +28,4 @@
 [submodule "scripts/installation/desktop/i3/.i3/i3blocklets/contrib"]
 	path = scripts/installation/desktop/i3/.i3/blocklets/contrib
 	url = git://github.com/vivien/i3blocks-contrib.git
+  ignore = dirty
