@@ -2,8 +2,9 @@
 
 set -e
 
-cwd=$(pwd)
-source "$cwd/.config/user-dirs.dirs"
+source "$HOME/.functions"
+CWD="$(get_script_dir "$0")"
+source "$CWD/.config/user-dirs.dirs"
 
 if [ -f "$HOME/examples.desktop" ];then
   rm "$HOME/examples.desktop"
@@ -43,5 +44,6 @@ if [ -d "$HOME/Public" ];then
 fi
 
 
-ln -fs "$cwd/.config/user-dirs.dirs" "$HOME/.config/user-dirs.dirs"
+symlink "$CWD/.config/user-dirs.dirs" "$HOME/.config/user-dirs.dirs"
+info "running xdg-user-dirs-update"
 xdg-user-dirs-update
