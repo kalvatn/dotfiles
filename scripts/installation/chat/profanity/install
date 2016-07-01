@@ -2,22 +2,33 @@
 
 set -e
 
-cwd=$(pwd)
+source "$HOME/.functions"
+CWD="$(get_script_dir "$0")"
 
-if ! command -v profanity &> /dev/null; then
-  sudo apt-get install profanity
+if needs_install profanity; then
+  #curl -s -L "https://raw.githubusercontent.com/boothj5/profanity/master/install-all.sh" | sudo -E bash -
+  git clone https://github.com/boothj5/profanity.git
+  cd profanity
+  sudo ./install-all.sh
   rm -Rf "$HOME/.config/profanity"
 fi
-if ! command -v secret-tool &> /dev/null; then
-  sudo apt-get install libsecret-tools
+
+if needs_install secret-tool libsecret-tools; then
+  info "installing libsecret-tools"
+  apt_install libsecret-tools
+else
+  debug "secret-tool already installed"
 fi
-ln -fs "$cwd/.config/profanity" "$HOME/.config/profanity"
+
+symlink "$CWD/.config/profanity" "$HOME/.config/profanity"
 
 ACCOUNT="j.kalvatn@jabberd.betradar.com"
 if ! secret-tool lookup xmpp "$ACCOUNT" &> /dev/null; then
-  echo "storing password for $ACCOUNT"
+  info "storing password for $ACCOUNT"
   secret-tool store --label "$ACCOUNT" xmpp "$ACCOUNT"
 
-  echo "/account set $ACCOUNT eval_password \"secret-tool lookup xmpp $ACCOUNT\""
+  info "copy paste in profanity client : /account set $ACCOUNT eval_password \"secret-tool lookup xmpp $ACCOUNT\""
+else
+  info "copy paste in profanity client : /account set $ACCOUNT eval_password \"secret-tool lookup xmpp $ACCOUNT\""
 fi
 

@@ -125,6 +125,8 @@ git submodule update --init
 ./scripts/installation/command-line-dictionary/install
 ./scripts/installation/desktop/i3/install
 
+./scripts/installation/chat/profanity/install
+
 symlink_to_home "$DOTFILE_ROOT/bin"
 symlink_to_home "$DOTFILE_ROOT/.gemrc"
 symlink_to_home "$DOTFILE_ROOT/.my.cnf"

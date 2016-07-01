@@ -35,6 +35,6 @@ policy=manual
 
 [presence]
 autoaway.mode=away
-autoaway.time=15
-autoaway.message=AFK
 autoaway.check=true
+autoaway.awaytime=15
+autoaway.awaymessage=AFK
