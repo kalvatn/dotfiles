@@ -1,8 +1,11 @@
 #!/bin/bash
 
 set -e
-
 source "$HOME/.functions"
-CWD="$(get_script_dir "$0")"
 
+if needs_install ruby gem; then
+  apt_install ruby
+fi
+
+CWD="$(get_script_dir "$0")"
 symlink_to_home "$CWD/.gemrc"

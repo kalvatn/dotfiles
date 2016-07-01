@@ -9,14 +9,10 @@ BASHRC="$HOME/.bashrc"
 ZSHRC="$HOME/.zshrc"
 
 if needs_install tmux; then
-  info "installing tmux"
   apt_install tmux
-else
-  debug "tmux already installed"
 fi
 
 if needs_install tmuxinator; then
-  info "installing tmuxinator"
   gem_install tmuxinator
   tmuxinator doctor
   if [ -d "$HOME/.tmuxinator" ]; then

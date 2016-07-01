@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+source "$HOME/.functions"
+
+if needs_install python python-pip; then
+	apt_install python python-pip
+fi

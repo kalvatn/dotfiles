@@ -7,11 +7,11 @@ CWD="$(get_script_dir "$0")"
 
 packages=(mopidy mopidy-alsamixer mopidy-spotify mopidy-spotify-tunigo mopidy-scrobbler)
 if needs_install "${packages[@]}"; then
-  if sudo apt-key list | grep -q mopidy; then
-    info "mopidy gpg already added"
-  else
+  if ! apt_has_key mopidy; then
     info "adding mopidy gpg key"
     wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
+  else
+    info "mopidy gpg already added"
   fi
 
   if [ -f /etc/apt/sources.list.d/mopidy.list ]; then
@@ -56,7 +56,4 @@ fi
 
 mkdir -p "$HOME/.config/mopidy"
 symlink "$CWD/.config/mopidy/mopidy.conf" "$HOME/.config/mopidy/mopidy.conf"
-
-
-
 

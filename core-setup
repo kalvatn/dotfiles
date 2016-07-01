@@ -115,6 +115,7 @@ fi
 info "updating git modules"
 git submodule update --init
 
+./scripts/installation/tools/environments/python/install
 ./scripts/installation/tools/environments/ruby/install
 ./scripts/installation/tools/environments/mysql/install
 ./scripts/installation/tools/search/silversearcher/install

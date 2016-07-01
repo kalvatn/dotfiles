@@ -1,15 +1,14 @@
 #!/bin/bash
 
 set -e
+source "$HOME/.functions"
 
-if command -v castnow &>/dev/null; then
-  echo "castnow already installed"
-  which castnow
-  exit
+if needs_install npm; then
+  error "run npm setup first"
+  exit 1
 fi
 
-if ! command -v npm &>/dev/null; then
-  ./nodejs-setup
+if needs_install castnow; then
+  info "installing castnow"
+  sudo npm install castnow -g
 fi
-
-sudo npm install castnow -g
