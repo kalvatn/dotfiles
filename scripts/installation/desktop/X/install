@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+source "$HOME/.functions"
+CWD="$(get_script_dir "$0")"
+
+symlink_to_home "$CWD/.xinitrc"
+symlink_to_home "$CWD/.Xresources"
+

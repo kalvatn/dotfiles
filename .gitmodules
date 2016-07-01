@@ -14,7 +14,7 @@
   path = scripts/installation/vim/.vim/bundle/dragvisuals.vim
   url = https://github.com/gavinbeatty/dragvisuals.vim.git
 [submodule ".urxvt/ext/perls"]
-  path = .urxvt/ext/perls
+	path = scripts/installation/misc/urxvt/.urxvt/ext/perls
   url = git://github.com/muennich/urxvt-perls.git
 [submodule ".vim/bundle/vim-coffee-script"]
   path = scripts/installation/vim/.vim/bundle/vim-coffee-script
