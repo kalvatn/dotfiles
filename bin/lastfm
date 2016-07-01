@@ -4,7 +4,7 @@ from urllib.request import urlopen
 import json
 def main():
     json_data_url = urlopen("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=chauney&api_key=dea841e75b7c112bb48959f7c1738f80&limit=1&extended=0&format=json")
-    data = json_data_url.readall().decode("utf-8")
+    data = json_data_url.read().decode("utf-8")
     json_data = json.loads(data)
 
     last_track = json_data['recenttracks']['track'][0]

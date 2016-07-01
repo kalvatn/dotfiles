@@ -1,0 +1,172 @@
+# 'leader' key (windows/super key)
+set $super Mod4
+
+#font pango:DejaVu Sans Mono 8
+#font pango:DejaVu Sans Mono 11
+font pango: Monospace Bold 9
+
+# Use Mouse+$super to drag floating windows to their wanted position
+floating_modifier $super
+
+bindsym $super+Return exec i3-sensible-terminal
+
+bindsym $super+m exec toggle-touchpad
+
+bindsym $super+Shift+q kill
+
+bindsym $super+d exec my_dmenu_run
+
+bindsym $super+h focus left
+bindsym $super+j focus down
+bindsym $super+k focus up
+bindsym $super+l focus right
+focus_follows_mouse no
+
+bindsym $super+Shift+h move left
+bindsym $super+Shift+j move down
+bindsym $super+Shift+k move up
+bindsym $super+Shift+l move right
+
+bindsym $super+v split v
+bindsym $super+Shift+v split h
+
+bindsym $super+f fullscreen
+
+bindsym $super+s layout stacking
+bindsym $super+w layout tabbed
+bindsym $super+e layout toggle split
+
+bindsym $super+Shift+space floating toggle
+bindsym $super+space focus mode_toggle
+
+set $workspace_1 1
+set $workspace_2 2
+set $workspace_3 3
+set $workspace_4 4
+set $workspace_5 5
+set $workspace_6 6
+set $workspace_7 7
+set $workspace_8 8
+set $workspace_9 9
+set $workspace_0 0
+
+#workspace $workspace_1 output DVI-0
+#workspace $workspace_2 output DVI-0
+#workspace $workspace_3 output DVI-0
+#workspace $workspace_4 output DVI-0
+#workspace $workspace_5 output DVI-0
+#
+#workspace $workspace_6 output DVI-1
+#workspace $workspace_7 output DVI-1
+#workspace $workspace_8 output DVI-1
+#workspace $workspace_9 output DVI-1
+#workspace $workspace_0 output DVI-1
+
+bindsym $super+1 workspace $workspace_1
+bindsym $super+2 workspace $workspace_2
+bindsym $super+3 workspace $workspace_3
+bindsym $super+4 workspace $workspace_4
+bindsym $super+5 workspace $workspace_5
+bindsym $super+6 workspace $workspace_6
+bindsym $super+7 workspace $workspace_7
+bindsym $super+8 workspace $workspace_8
+bindsym $super+9 workspace $workspace_9
+bindsym $super+0 workspace $workspace_0
+
+bindsym $super+Shift+1 move container to workspace $workspace_1
+bindsym $super+Shift+2 move container to workspace $workspace_2
+bindsym $super+Shift+3 move container to workspace $workspace_3
+bindsym $super+Shift+4 move container to workspace $workspace_4
+bindsym $super+Shift+5 move container to workspace $workspace_5
+bindsym $super+Shift+6 move container to workspace $workspace_6
+bindsym $super+Shift+7 move container to workspace $workspace_7
+bindsym $super+Shift+8 move container to workspace $workspace_8
+bindsym $super+Shift+9 move container to workspace $workspace_9
+bindsym $super+Shift+0 move container to workspace $workspace_0
+
+bindsym $super+Shift+c reload
+bindsym $super+Shift+r restart
+bindsym $super+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $super+Ctrl+Shift+Escape exec i3-msg exit
+
+set $lockscript /home/kalvatn/bin/lock
+bindsym $super+Ctrl+Shift+l exec $lockscript
+
+set $sizestep 0
+mode "resize" {
+    bindsym h resize shrink width $sizestep px or $sizestep ppt
+    bindsym j resize grow height $sizestep px or $sizestep ppt
+    bindsym k resize shrink height $sizestep px or $sizestep ppt
+    bindsym l resize grow width $sizestep px or $sizestep ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $super+r mode "resize"
+
+set $volumestep 5
+mode "volume" {
+	#bindsym k exec volume + $volumestep
+	#bindsym j exec volume - $volumestep
+	bindsym k exec amixer -q -D pulse sset Master $volumestep%+ && pkill -RTMIN+1 i3blocks
+	bindsym j exec amixer -q -D pulse sset Master $volumestep%- && pkill -RTMIN+1 i3blocks
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $super+Shift+s mode "volume"
+
+set $lightstep 10
+mode "backlight" {
+  bindsym k exec xbacklight + $lightstep
+  bindsym j exec xbacklight - $lightstep
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $super+Shift+t mode "backlight"
+
+bindsym $super+Shift+Prior exec spotifyctrl Next
+bindsym $super+Shift+Next exec spotifyctrl Previous
+bindsym $super+Shift+End exec spotifyctrl PlayPause
+
+# signal i3blocks on these keys
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+#bindsym --release Insert exec pkill -SIGRTMIN+11 i3blocks
+
+bar {
+    workspace_buttons no
+    tray_output primary
+    position top
+    colors {
+        background #000000
+        statusline #ffffff
+    }
+}
+bar {
+    status_command SCRIPT_DIR=~/.i3/blocklets i3blocks -c ~/.i3/i3blocks.conf
+    workspace_buttons yes
+    position bottom
+    colors {
+        background #000000
+        statusline #ffffff
+    }
+}
+
+
+for_window [class="Thunderbird" instance="Msgcompose"] floating enable
+#for_window [class="^Spotify$"] floating enable
+
+assign [class="Thunderbird"] $workspace_6
+assign [class="Spotify" ] $workspace_0
+
+# startup
+exec xautolock -time 5 -locker $lockscript &
+#exec --no-startup-id spotify
+exec --no-startup-id nm-applet
+
+
+
+# reload desktop-background on startup to fix jagging/tearing issue
+exec /home/kalvatn/bin/reload-desktop-background
+

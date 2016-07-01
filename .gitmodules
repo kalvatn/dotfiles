@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/vim-pug"]
   path = scripts/installation/vim/.vim/bundle/vim-pug
   url = git://github.com/digitaltoad/vim-pug.git
+[submodule "scripts/installation/desktop/i3/.i3/i3blocklets/contrib"]
+	path = scripts/installation/desktop/i3/.i3/blocklets/contrib
+	url = git://github.com/vivien/i3blocks-contrib.git
