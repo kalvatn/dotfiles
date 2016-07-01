@@ -3,15 +3,13 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+CWD="$(get_script_dir "$0")"
 
-# ruby support (vim-nox), clipboard support (vim-gtk)
-if ! command -v vim &> /dev/null; then
-  sudo apt-get install -y vim-nox vim-gtk
+if ! command_exists vim; then
+  # ruby support (vim-nox), clipboard support (vim-gtk)
+  apt_install vim-nox vim-gtk
 else
-  info "vim is already installed"
+  debug "vim is already installed"
 fi
 
-
-ln -fs "$CWD/.vim" "$HOME"
-ln -fs "$CWD/.vim/.vimrc" "$HOME"
+symlink_to_home "$CWD/.vim"

@@ -17,7 +17,14 @@ if ! command_exists i3blocks; then
   make clean all
   sudo make install
 else
-  debug "i3blocks is already installed"
+  debug "i3blocks already installed"
+fi
+
+
+if ! command_exists xautolock; then
+  apt_install xautolock
+else
+  debug "xautolock already installed"
 fi
 
 symlink_to_home "$CWD/.i3"

@@ -161,24 +161,36 @@ function apt_add_repository() {
   fi
 }
 function apt_install() {
+  info "sudo apt-get install -qqy $*"
   sudo apt-get install -qqy "$@"
 }
 
 function gem_install() {
+  info "sudo gem install $*"
   sudo gem install "$@"
 }
 
 function pip_install() {
+  info "sudo pip install $*"
   sudo pip install "$@"
 }
 
 function symlink() {
-  info "creating symlink $(abbr_path "$1") -> $(abbr_path "$2")"
-  ln -sf "$1" "$2"
-  exitcode="$?"
-  if [ ! "$exitcode" -eq 0 ]; then
-    error "ln -sf $1 $2 returned non-zero exit code : $exitcode"
+  if [ -f "$1" -o -d "$1" ]; then
+    if [ ! -h "$2/$(basename "$1")" ]; then
+      info "creating symlink $(abbr_path "$1") -> $(abbr_path "$2")"
+      ln -sf "$1" "$2"
+      exitcode="$?"
+      if [ ! "$exitcode" -eq 0 ]; then
+        error "ln -sf $1 $2 returned non-zero exit code : $exitcode"
+      fi
+    else
+      debug "symlink $(abbr_path "$1") -> $(abbr_path "$2") already exists"
+    fi
+  else
+    error "source to symlink '$1' is neither file nor directory"
   fi
+
 }
 
 function symlink_to_home() {
@@ -193,7 +205,7 @@ function append_line_to_file() {
       info "adding $line to $target_file"
       echo "$line" | tee -a "$target_file"
     else
-      warn "line '$line' already exists in $target_file, skipping"
+      debug "line '$line' already exists in $target_file, skipping"
     fi
   else
     error "could not add '$line' to '$target_file'"
