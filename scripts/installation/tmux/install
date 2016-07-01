@@ -3,19 +3,19 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+CWD="$(get_script_dir "$0")"
 
 BASHRC="$HOME/.bashrc"
 ZSHRC="$HOME/.zshrc"
 
-if ! command -v tmux &> /dev/null; then
+if needs_install tmux; then
   info "installing tmux"
   apt_install tmux
 else
   debug "tmux already installed"
 fi
 
-if ! command -v tmuxinator &> /dev/null; then
+if needs_install tmuxinator; then
   info "installing tmuxinator"
   gem_install tmuxinator
   tmuxinator doctor

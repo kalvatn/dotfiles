@@ -3,9 +3,9 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+CWD="$(get_script_dir "$0")"
 
-if ! command -v zsh &> /dev/null; then
+if needs_install zsh; then
   info "installing zsh"
   apt_install zsh
 else

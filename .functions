@@ -192,6 +192,7 @@ function apt_add_repository() {
   if ! grep -q "^deb.*$1" /etc/apt/sources.list.d/* > /dev/null 2>&1; then
     info "adding ppa:$1"
     sudo add-apt-repository -y "ppa:$1"
+    info "updating packages (quiet)"
     sudo apt-get update -qq
   else
     debug "ppa:$1 already added"

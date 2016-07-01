@@ -5,4 +5,11 @@ set -e
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
+if needs_install urxvt rxvt-unicode; then
+  info "installing urxvt (rxvt-unicode)"
+  apt_install rxvt-unicode
+else
+  debug "urxvt already installed"
+fi
+
 symlink_to_home "$CWD/.urxvt"

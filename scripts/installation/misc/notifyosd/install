@@ -4,16 +4,20 @@ set -e
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
-# patched notify-osd
-sudo add-apt-repository ppa:leolik/leolik
-# configure patched notify-osd
-sudo add-apt-repository ppa:amandeepgrewal/notifyosdconfig
+if needs_install libnotify-bin notifyosdconfig; then
+  info "adding patched notify-osd repository"
+  apt_add_repository leolik/leolik
 
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install libnotify-bin notifyosdconfig
+  info "adding patched notify-osd configuratation tool repository"
+  apt_add_repository amandeepgrewal/notifyosdconfig
 
-# kill running notify-osd
-pkill notify-osd
+  sudo apt-get upgrade
+  apt_install libnotify-bin notifyosdconfig
+
+  warn "killing running notify-osd"
+  pkill notify-osd > /dev/null 2>&1
+else
+  debug "libnotify-bin notifyosdconfig already installed"
+fi
 
 symlink_to_home "$CWD/.notify-osd"

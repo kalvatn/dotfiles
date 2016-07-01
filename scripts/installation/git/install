@@ -3,7 +3,7 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+CWD="$(get_script_dir "$0")"
 
 if ! command -v git &> /dev/null; then
   apt_add_repository git-core/ppa

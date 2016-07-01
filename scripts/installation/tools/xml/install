@@ -2,7 +2,12 @@
 
 set -e
 
+source "$HOME/.functions"
+CWD="$(get_script_dir "$0")"
 
-# xmllint
-sudo apt-get install libxml2-utils
-#sudo apt-get install xmlstarlet
+if needs_install xmllint libxml2-utils; then
+  info "installing libxml2-utils"
+  apt_install libxml2-utils
+else
+  debug "xmllint already installed"
+fi

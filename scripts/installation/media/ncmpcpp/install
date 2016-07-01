@@ -6,10 +6,9 @@ source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
 if needs_install ncmpcpp; then
-  # ruby support (vim-nox)
-  apt_install vim-nox
+  apt_install ncmpcpp
 else
-  debug "vim is already installed"
+  debug "ncmpcpp is already installed"
 fi
 
-symlink_to_home "$CWD/.vim"
+symlink_to_home "$CWD/.ncmpcpp"
