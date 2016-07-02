@@ -15,11 +15,11 @@ if command_exists glib-compile-schemas; then
   fi
 fi
 
-if command_exists gsettings; then
+if command_exists gsettings && [ ! -z "$DISPLAY" ]; then
   # disable gnome locking defaults
-  gsettings set org.gnome.desktop.screensaver lock-enabled false
-  gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
-  gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+  gsettings set "org.gnome.desktop.screensaver" "lock-enabled" false > /dev/null 2>&1
+  gsettings set "org.gnome.desktop.screensaver" "idle-activation-enabled" false > /dev/null 2>&1
+  gsettings set "org.gnome.desktop.screensaver" "ubuntu-lock-on-suspend" false > /dev/null 2>&1
 fi
 
 if command_exists gnome-screensaver-command; then

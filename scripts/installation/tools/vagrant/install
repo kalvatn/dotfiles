@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+source "$HOME/.functions"
+
+deb_file_url="$(curl -sL "https://www.vagrantup.com/downloads.html" | xmllint --nonet --nowarning --html --noout --xpath "//a[contains(@href, 'x86_64.deb')]/@href" - | cut -d '"' -f2 > /dev/null 2>&1)"
+
+echo "deb_file_url : $deb_file_url"

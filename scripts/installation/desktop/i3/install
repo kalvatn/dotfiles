@@ -23,15 +23,17 @@ fi
 
 symlink_to_home "$CWD/.i3"
 
-connected_outputs="$(xrandr -q | grep -w connected | cut -d ' ' -f1)"
-if [ "$(echo "$connected_outputs" | wc -l)" -gt 1 ]; then
-  debug "more than one connected outputs : $connected_outputs"
-else
-  debug "only one connected output : $connected_outputs"
+if [ ! -z "$DISPLAY" ]; then
+  connected_outputs="$(xrandr -q | grep -w connected | cut -d ' ' -f1)"
+  if [ "$(echo "$connected_outputs" | wc -l)" -gt 1 ]; then
+    debug "more than one connected outputs : $connected_outputs"
+  else
+    debug "only one connected output : $connected_outputs"
+  fi
 fi
 
 
-if command_exists gsettings; then
+if command_exists gsettings && [ ! -z "$DISPLAY" ]; then
   # fix nautilus desktop
-  gsettings set org.gnome.desktop.background show-desktop-icons false
+  gsettings set "org.gnome.desktop.background" "show-desktop-icons" false > /dev/null 2>&1
 fi

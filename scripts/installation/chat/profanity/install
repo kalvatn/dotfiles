@@ -23,7 +23,7 @@ fi
 mkdir -p "$HOME/.config"
 symlink "$CWD/.config/profanity" "$HOME/.config/"
 
-if [ -t 1 ]; then
+if [ -t 1 -a ! -z "$DISPLAY" ]; then
   ACCOUNT="j.kalvatn@jabberd.betradar.com"
   if ! secret-tool lookup xmpp "$ACCOUNT" &> /dev/null; then
     info "storing password for $ACCOUNT"

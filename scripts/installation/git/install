@@ -5,7 +5,7 @@ set -e
 source "$HOME/.functions"
 
 if needs_install git git-core; then
-  apt_add_repository git-core/ppa
+  apt_add_repository ppa:git-core/ppa
   apt_install git-core
   #meld (mergetool)
   #sudo apt-get install -y meld

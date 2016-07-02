@@ -3,8 +3,8 @@
 set -e
 source "$HOME/.functions"
 if needs_install java maven; then
-  # set silence to accepted
-  echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-  apt_add_repository webupd8team/java
+  # set license to accepted
+  echo "debconf shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
+  apt_add_repository ppa:webupd8team/java
   apt_install oracle-java8-installer maven
 fi
