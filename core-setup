@@ -140,7 +140,7 @@ git submodule update --init
 
 ./scripts/installation/chat/profanity/install
 ./scripts/installation/misc/urxvt/install
-./scripts/installation/misc/notify-osd/install
+./scripts/installation/misc/notifyosd/install
 ./scripts/installation/misc/alsa/install
 
 ./scripts/installation/docker/install
