@@ -11,3 +11,4 @@ fi
 
 CWD="$(get_script_dir "$0")"
 symlink_to_home "$CWD/.vim"
+symlink_to_home "$CWD/.vim/.vimrc"

@@ -5,10 +5,10 @@ source "$HOME/.functions"
 
 if needs_install libnotify-bin notifyosdconfig; then
   info "adding patched notify-osd repository"
-  apt_add_repository leolik/leolik
+  apt_add_repository ppa:leolik/leolik
 
   info "adding patched notify-osd configuratation tool repository"
-  apt_add_repository amandeepgrewal/notifyosdconfig
+  apt_add_repository ppa:amandeepgrewal/notifyosdconfig
 
   apt_install libnotify-bin notifyosdconfig
 

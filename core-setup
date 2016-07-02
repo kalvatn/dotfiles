@@ -128,7 +128,6 @@ git submodule update --init
 ./scripts/installation/desktop/xbacklight/install
 
 
-
 ./scripts/installation/chat/profanity/install
 ./scripts/installation/misc/urxvt/install
 #./scripts/installation/misc/notifyosd/install
