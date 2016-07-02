@@ -16,10 +16,9 @@ if needs_install tmuxinator; then
   gem_install tmuxinator
   tmuxinator doctor
   if [ -d "$HOME/.tmuxinator" ]; then
+    info "removing default config"
     rmdir "$HOME/.tmuxinator"
   fi
-else
-  debug "tmuxinator already installed"
 fi
 
 if [ ! -d "$CWD/.tmuxinator" ]; then

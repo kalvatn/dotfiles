@@ -3,16 +3,14 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "$0")"
 
-if ! command -v git &> /dev/null; then
+if needs_install git git-core; then
   apt_add_repository git-core/ppa
   apt_install git-core
   #meld (mergetool)
   #sudo apt-get install -y meld
-else
-  debug "git is already installed"
 fi
 
-ln -fs "$CWD/.gitconfig" "$HOME"
-ln -fs "$CWD/.gitignore_global" "$HOME"
+CWD="$(get_script_dir "$0")"
+symlink_to_home "$CWD/.gitconfig"
+symlink_to_home "$CWD/.gitignore_global"

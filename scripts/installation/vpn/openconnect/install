@@ -1,3 +1,8 @@
 #!/bin/bash
 
-sudo apt-get install openconnect network-manager-openconnect
+set -e
+source "$HOME/.functions"
+
+if needs_install openconnect network-manager-openconnect; then
+  apt_install openconnect network-manager-openconnect
+fi

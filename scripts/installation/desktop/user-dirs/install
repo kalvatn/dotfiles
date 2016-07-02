@@ -43,7 +43,7 @@ if [ -d "$HOME/Public" ];then
   mv -T "$HOME/Public" "$XDG_PUBLICSHARE_DIR"
 fi
 
-
+mkdir -p "$HOME/.config"
 symlink "$CWD/.config/user-dirs.dirs" "$HOME/.config/user-dirs.dirs"
 info "running xdg-user-dirs-update"
 xdg-user-dirs-update

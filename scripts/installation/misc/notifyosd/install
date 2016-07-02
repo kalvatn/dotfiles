@@ -2,7 +2,6 @@
 
 set -e
 source "$HOME/.functions"
-CWD="$(get_script_dir "$0")"
 
 if needs_install libnotify-bin notifyosdconfig; then
   info "adding patched notify-osd repository"
@@ -11,13 +10,11 @@ if needs_install libnotify-bin notifyosdconfig; then
   info "adding patched notify-osd configuratation tool repository"
   apt_add_repository amandeepgrewal/notifyosdconfig
 
-  sudo apt-get upgrade
   apt_install libnotify-bin notifyosdconfig
 
   warn "killing running notify-osd"
   pkill notify-osd > /dev/null 2>&1
-else
-  debug "libnotify-bin notifyosdconfig already installed"
 fi
 
+CWD="$(get_script_dir "$0")"
 symlink_to_home "$CWD/.notify-osd"

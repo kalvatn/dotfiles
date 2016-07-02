@@ -2,4 +2,7 @@
 
 set -e
 
-sudo apt-get install xbacklight
+source "$HOME/.functions"
+if needs_install xbacklight; then
+  apt_install xbacklight
+fi

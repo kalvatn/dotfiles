@@ -3,15 +3,12 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "$0")"
 
 if needs_install zsh; then
-  info "installing zsh"
   apt_install zsh
-else
-  debug "zsh already installed"
 fi
 
+CWD="$(get_script_dir "$0")"
 symlink_to_home "$CWD/.zshrc"
 symlink_to_home "$CWD/.oh-my-zsh"
 symlink "$CWD/oh-my-zsh-custom-themes/kalvatn.zsh-theme" "$HOME/.oh-my-zsh/themes/"

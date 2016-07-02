@@ -1,18 +1,28 @@
 #!/bin/bash
 
-source "$HOME/.functions"
-UNITY_GREETER_SCHEMA_OVERRIDE="/usr/share/glib-2.0/schemas/50_unity-greeter.gschema.override"
-if [ ! -f "$UNITY_GREETER_SCHEMA_OVERRIDE" ] && ! grep -q "play-ready-sound" "$UNITY_GREETER_SCHEMA_OVERRIDE" ; then
-  # disable greeter sound (annoying drum on login)
-  sudo sh -c "echo '[com.canonical.unity-greeter]\nplay-ready-sound = false' > $UNITY_GREETER_SCHEMA_OVERRIDE"
-  sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
-else
-  debug "greeter ready sound already disabled"
-fi
-# disable gnome locking defaults
-gsettings set org.gnome.desktop.screensaver lock-enabled false
-gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
-gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+set -e
 
-# disable gnome-screensaver
-gnome-screensaver-command -d
+source "$HOME/.functions"
+
+if command_exists glib-compile-schemas; then
+  UNITY_GREETER_SCHEMA_OVERRIDE="/usr/share/glib-2.0/schemas/50_unity-greeter.gschema.override"
+  if [ ! -f "$UNITY_GREETER_SCHEMA_OVERRIDE" ] || ! grep -q "play-ready-sound" "$UNITY_GREETER_SCHEMA_OVERRIDE" ; then
+    # disable greeter sound (annoying drum on login)
+    sudo sh -c "echo '[com.canonical.unity-greeter]\nplay-ready-sound = false' > $UNITY_GREETER_SCHEMA_OVERRIDE"
+    sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+  else
+    debug "greeter ready sound already disabled"
+  fi
+fi
+
+if command_exists gsettings; then
+  # disable gnome locking defaults
+  gsettings set org.gnome.desktop.screensaver lock-enabled false
+  gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
+  gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+fi
+
+if command_exists gnome-screensaver-command; then
+  # disable gnome-screensaver
+  gnome-screensaver-command -d
+fi
