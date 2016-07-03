@@ -1,11 +1,30 @@
 #!/bin/bash
 
 set -e
-TARGET_ZIPFILE="$HOME/media/pictures/chromecast_background_images.zip"
+source "$HOME/.functions"
+source "$HOME/.config/user-dirs.dirs"
 
-if [ -f "$TARGET_ZIPFILE" ]; then
-  echo "$TARGET_ZIPFILE already exists"
+ZIP_FILE="/tmp/images.zip"
+ZIP_URL="https://dl.dropboxusercontent.com/u/535060/chromecast1080_4.zip"
+TARGET_FOLDER="$XDG_PICTURES_DIR/background_images"
+
+function download() {
+  info "(resuming) download '$ZIP_URL' -> '$ZIP_FILE'"
+  curl -L -C - "$ZIP_URL" -o "$ZIP_FILE"
+}
+
+if [ -f "$ZIP_FILE" ]; then
+  info "file '$ZIP_FILE' already exists, checking size"
+  local_size="$(stat -c"%s" "$ZIP_FILE")"
+  remote_size="$(curl -s -L -I "$ZIP_URL" | grep "^Content\-Length: " | cut -d ' ' -f2 | tr -d '\r')"
+
+  if [ "$local_size" != "$remote_size" ]; then
+    warn "local_size : '$local_size' != remote_size : '$remote_size'"
+    download
+  fi
 else
-  wget https://dl.dropboxusercontent.com/u/535060/chromecast1080_4.zip -O "$TARGET_ZIPFILE"
+  download
 fi
-unzip "$TARGET_ZIPFILE" -d "$HOME/media/pictures/chromecast_background_images"
+mkdir -p "$TARGET_FOLDER"
+info "extracting '$ZIP_FILE' to '$TARGET_FOLDER'"
+unzip -n "$ZIP_FILE" -d "$TARGET_FOLDER"
