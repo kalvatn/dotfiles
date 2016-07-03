@@ -1,10 +1,16 @@
 #!/bin/bash
+
+set -e
+source "$HOME/.functions"
+
 if [ -z "$1" ]; then
   image_file="$(random_image)"
 else
   image_file="$1"
 fi
-sudo cp "$image_file" /usr/share/backgrounds/background.jpg #copy wallpaper into system hierarchy
+
+#copy wallpaper into system hierarchy
+sudo cp "$image_file" /usr/share/backgrounds/background.jpg
 
 #configure lightdm
 sudo xhost +SI:localuser:lightdm

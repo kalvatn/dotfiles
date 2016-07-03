@@ -1,5 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+set -e
+source "$HOME/.functions"
 image_file="$(random_image)"
-ln -sf "$image_file" /home/kalvatn/current-desktop-background
+symlink "$image_file" "$HOME/.current-desktop-background"
 switch-greeter-background "$image_file"
-feh --no-fehbg --bg-fill "$image_file" 
+feh --no-fehbg --bg-fill "$image_file"
