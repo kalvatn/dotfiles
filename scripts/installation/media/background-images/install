@@ -28,3 +28,17 @@ fi
 mkdir -p "$TARGET_FOLDER"
 info "extracting '$ZIP_FILE' to '$TARGET_FOLDER'"
 unzip -n "$ZIP_FILE" -d "$TARGET_FOLDER"
+
+if ! xhost | grep -q "SI:localuser:lightdm"; then
+  info "allow lightdm to connect to x"
+	sudo xhost +SI:localuser:lightdm
+
+  info "set lightdm background settings"
+  sudo su lightdm -s /bin/bash <<HERE
+gsettings set com.canonical.unity-greeter draw-user-backgrounds 'false' #eliminates display of other users wallpaper at login
+gsettings set com.canonical.unity-greeter background '$BACKGROUND_IMAGE_LINK' #set login wallpaper
+gsettings set com.canonical.unity-greeter draw-grid 'false' #removes dots on background
+gsettings set com.canonical.unity-greeter background-color '#000000' #eliminates purple screen before background loads
+exit
+HERE
+fi

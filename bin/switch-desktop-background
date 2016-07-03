@@ -2,7 +2,13 @@
 
 set -e
 source "$HOME/.functions"
-image_file="$(random_image)"
-symlink "$image_file" "$HOME/.current-desktop-background"
-switch-greeter-background "$image_file"
+BACKGROUND_IMAGE_LINK="$HOME/.current-desktop-background"
+
+if [ -z "$1" ]; then
+	image_file="$(random_image)"
+else
+	image_file="$1"
+fi
+symlink "$image_file" "$BACKGROUND_IMAGE_LINK"
+
 feh --no-fehbg --bg-fill "$image_file"
