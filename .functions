@@ -227,15 +227,11 @@ function pip_install() {
 
 function symlink() {
   if [ -f "$1" -o -d "$1" ]; then
-    if [ ! -h "$2/$(basename "$1")" ]; then
-      info "creating symlink $(abbr_path "$1") -> $(abbr_path "$2")"
-      ln -sf "$1" "$2"
-      exitcode="$?"
-      if [ ! "$exitcode" -eq 0 ]; then
-        error "ln -sf $1 $2 returned non-zero exit code : $exitcode"
-      fi
-    else
-      debug "symlink $(abbr_path "$1") -> $(abbr_path "$2") already exists"
+    info "creating symlink $(abbr_path "$1") -> $(abbr_path "$2")"
+    ln -sf "$1" "$2"
+    exitcode="$?"
+    if [ ! "$exitcode" -eq 0 ]; then
+      error "ln -sf $1 $2 returned non-zero exit code : $exitcode"
     fi
   else
     error "source to symlink '$1' is neither file nor directory"
