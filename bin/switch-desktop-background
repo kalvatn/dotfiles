@@ -5,7 +5,7 @@ source "$HOME/.functions"
 BACKGROUND_IMAGE_LINK="$HOME/.current-desktop-background"
 
 if [ -z "$1" ]; then
-	image_file="$(random_image)"
+	image_file="$(random-image)"
 else
 	image_file="$1"
 fi
