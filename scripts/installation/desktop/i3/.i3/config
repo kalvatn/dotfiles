@@ -14,7 +14,7 @@ bindsym $super+m exec toggle-touchpad
 
 bindsym $super+Shift+q kill
 
-bindsym $super+d exec my_dmenu_run
+bindsym $super+d exec my-dmenu-run
 
 bindsym $super+h focus left
 bindsym $super+j focus down
