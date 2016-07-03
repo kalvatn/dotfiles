@@ -203,7 +203,7 @@ function apt_add_repository() {
   if ! grep -q "^deb.*$repository_name" /etc/apt/sources.list.d/* > /dev/null 2>&1; then
     info "adding repository $1"
     sudo add-apt-repository -y "$1"
-    #sudo apt-key update
+    sudo apt-key update
     info "updating packages (quiet)"
     sudo apt-get update -qq
   else
