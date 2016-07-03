@@ -121,6 +121,7 @@ git submodule update --init
 ./scripts/installation/vim/install
 ./scripts/installation/tmux/install
 
+
 ./scripts/installation/desktop/user-dirs/install
 ./scripts/installation/desktop/X/install
 ./scripts/installation/desktop/gnome/install
@@ -139,6 +140,7 @@ git submodule update --init
 ./scripts/installation/media/ncmpcpp/install
 ./scripts/installation/media/mopidy/install
 ./scripts/installation/media/pipelight/install
+./scripts/installation/media/background-images/install
 
 
 symlink_to_home "$DOTFILE_ROOT/bin"
