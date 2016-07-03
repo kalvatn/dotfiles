@@ -1,4 +1,10 @@
-#!/bin/sh
-IMAGE_FOLDER="$HOME/media/pictures/"
+#!/bin/bash
+
+set -e
+
+source "$HOME/.functions"
+source "$HOME/.config/user-dirs.dirs"
+
+IMAGE_FOLDER="$XDG_PICTURES_DIR/background_images"
 image=$(find "$IMAGE_FOLDER" -type f -iname '*.png' -o -type f -iname '*.jpg' | shuf -n1)
 echo "$image"

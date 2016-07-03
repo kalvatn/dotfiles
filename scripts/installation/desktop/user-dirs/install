@@ -2,8 +2,18 @@
 
 set -e
 
-cwd=$(pwd)
-source "$cwd/.config/user-dirs.dirs"
+source "$HOME/.functions"
+CWD="$(get_script_dir "$0")"
+source "$CWD/.config/user-dirs.dirs"
+
+mkdir -p "$XDG_DESKTOP_DIR"
+mkdir -p "$XDG_DOWNLOAD_DIR"
+mkdir -p "$XDG_TEMPLATES_DIR"
+mkdir -p "$XDG_PUBLICSHARE_DIR"
+mkdir -p "$XDG_DOCUMENTS_DIR"
+mkdir -p "$XDG_MUSIC_DIR"
+mkdir -p "$XDG_PICTURES_DIR"
+mkdir -p "$XDG_VIDEOS_DIR"
 
 if [ -f "$HOME/examples.desktop" ];then
   rm "$HOME/examples.desktop"
@@ -42,6 +52,7 @@ if [ -d "$HOME/Public" ];then
   mv -T "$HOME/Public" "$XDG_PUBLICSHARE_DIR"
 fi
 
-
-ln -fs "$cwd/.config/user-dirs.dirs" "$HOME/.config/user-dirs.dirs"
+mkdir -p "$HOME/.config"
+symlink "$CWD/.config/user-dirs.dirs" "$HOME/.config/user-dirs.dirs"
+info "running xdg-user-dirs-update"
 xdg-user-dirs-update

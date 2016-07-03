@@ -174,5 +174,5 @@ exec --no-startup-id nm-applet
 
 
 # reload desktop-background on startup to fix jagging/tearing issue
-exec /home/kalvatn/bin/reload-desktop-background
+#exec /home/kalvatn/bin/reload-desktop-background
 

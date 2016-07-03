@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+source "$HOME/.functions"
+CWD="$(get_script_dir "$0")"
+
+if needs_install ncmpcpp; then
+  apt_install ncmpcpp
+else
+  debug "ncmpcpp is already installed"
+fi
+
+symlink_to_home "$CWD/.ncmpcpp"

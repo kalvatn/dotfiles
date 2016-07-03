@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+source "$HOME/.functions"
+
+if needs_install virtualbox dkms virtualbox-dkms; then
+  info "adding virtualbox repository"
+  sudo apt-add-repository -y "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+  info "updating packages (quiet)"
+  curl -s -L "https://www.virtualbox.org/download/oracle_vbox_2016.asc" | sudo apt-key add
+  sudo apt-get update -qq
+  apt_install virtualbox dkms virtualbox-dkms
+fi
+
+if needs_install vagrant; then
+  TMP_DEB="/tmp/vagrant.deb"
+  deb_file_url="$(curl -sL "https://www.vagrantup.com/downloads.html" | xmllint --html --xpath "//a[contains(@href, 'x86_64.deb')]/@href" - 2> /dev/null | cut -d '"' -f2)"
+
+  info "downloading '$deb_file_url' -> '$TMP_DEB'"
+  curl -s -L "$deb_file_url" -o "$TMP_DEB"
+  info "installing '$TMP_DEB'"
+  sudo dpkg -i "$TMP_DEB"
+fi
+
+if ! vagrant plugin list | grep -q "vbguest"; then
+  info "installing vagrant-vbguest plugin"
+  # https://github.com/dotless-de/vagrant-vbguest
+  vagrant plugin install vagrant-vbguest
+else
+  info "vagrant-vbguest plugin already installed"
+fi

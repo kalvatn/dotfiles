@@ -1,14 +1,20 @@
 #!/bin/bash
-# fixes notify-send configurable timeout
 
-# patched notify-osd
-sudo add-apt-repository ppa:leolik/leolik
-# configure patched notify-osd
-sudo add-apt-repository ppa:amandeepgrewal/notifyosdconfig
+set -e
+source "$HOME/.functions"
 
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install libnotify-bin notifyosdconfig
+if needs_install libnotify-bin notifyosdconfig; then
+  info "adding patched notify-osd repository"
+  apt_add_repository ppa:leolik/leolik
 
-# kill running notify-osd
-pkill notify-osd
+  info "adding patched notify-osd configuratation tool repository"
+  apt_add_repository ppa:amandeepgrewal/notifyosdconfig
+
+  apt_install libnotify-bin notifyosdconfig
+
+  warn "killing running notify-osd"
+  pkill notify-osd > /dev/null 2>&1
+fi
+
+CWD="$(get_script_dir "$0")"
+symlink_to_home "$CWD/.notify-osd"

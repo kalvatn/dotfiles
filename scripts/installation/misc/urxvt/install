@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+source "$HOME/.functions"
+
+if needs_install urxvt rxvt-unicode; then
+  apt_install rxvt-unicode
+fi
+
+CWD="$(get_script_dir "$0")"
+symlink_to_home "$CWD/.urxvt"

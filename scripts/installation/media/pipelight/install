@@ -1,23 +1,44 @@
 #!/bin/bash
 
 set -e
+source "$HOME/.functions"
 
-# http://www.ubuntuupdates.org/ppa/google_chrome
-if sudo apt-key list | grep pipelight &> /dev/null; then
-  echo "gpg already added"
-else
-  echo "adding repo"
-  sudo add-apt-repository ppa:pipelight/stable
+
+#class unifocus-context::msfonts {
+#  exec { "accept-msttcorefonts-license":
+#    command => "/bin/sh -c \"echo ttf-mscorefonts-installer msttcorefonts/accepted-     mscorefonts-eula select true | debconf-set-selections\""
+#  }
+#
+#  package { "msttcorefonts":
+#    ensure  => installed,
+#    require => Exec['accept-msttcorefonts-license']
+#  }
+#}
+
+if needs_install pipelight-plugin; then
+
+  apt_add_repository ppa:pipelight/stable
+  if [ "$(sudo dpkg --print-architecture)" == "amd64" -a -z "$(sudo dpkg --print-foreign-architectures)" ]; then
+    # wine requires i386 libs
+    sudo dpkg --add-architecture i386
+    sudo apt-get update -qq
+  fi
+
+  if needs_install ttf-mscorefonts-installer; then
+    apt_add_repository multiverse
+    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+    apt_install ttf-mscorefonts-installer
+  fi
+  #apt_install --install-recommends pipelight-multi wine-staging
+  sudo apt-get install -y --install-recommends pipelight-multi wine-staging
 fi
 
-sudo apt-get update
-sudo apt-get install --install-recommends pipelight-multi
+info "enabling pipelight-plugins"
+sudo pipelight-plugin --accept --enable flash
+sudo pipelight-plugin --accept --enable widevine
+sudo pipelight-plugin --accept --enable silverlight
 
-echo "enabling plugins"
-sudo pipelight-plugin --enable flash
-sudo pipelight-plugin --enable widevine
-sudo pipelight-plugin --enable silverlight
-
-echo "create mozilla plugins"
+info "update/create pipelight mozilla plugins"
 sudo pipelight-plugin --update
 sudo pipelight-plugin --create-mozilla-plugins
+

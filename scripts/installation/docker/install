@@ -3,25 +3,22 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "$0")"
 
-if ! command -v docker &> /dev/null; then
+if needs_install docker; then
   info "installing docker"
   curl -L https://get.docker.com/ | sudo sh
   sudo usermod -aG docker "$USER"
   #sudo service docker restart
-else
-  debug "docker already installed"
 fi
 
-if ! command -v docker-compose &> /dev/null; then
+if needs_install docker-compose; then
 	info "installing docker-compose as a container"
 	curl -L https://github.com/docker/compose/releases/download/1.7.1/run.sh | sudo tee /usr/local/bin/docker-compose > /dev/null
 	sudo chmod +x /usr/local/bin/docker-compose
 else
-	debug "docker-compose installed (/usr/local/bin/docker-compose)"
+	debug "docker-compose already installed as a container (/usr/local/bin/docker-compose)"
 fi
 
-
+CWD="$(get_script_dir "$0")"
 append_line_to_file "source $CWD/aliases" "$HOME/.aliases"
 

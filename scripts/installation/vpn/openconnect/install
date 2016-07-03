@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# install "cisco anyconnect"
-sudo apt-get install openconnect network-manager-openconnect
+set -e
+source "$HOME/.functions"
 
-openconnect ra1.sportradar.ag -b
+if needs_install openconnect network-manager-openconnect; then
+  apt_install openconnect network-manager-openconnect
+fi

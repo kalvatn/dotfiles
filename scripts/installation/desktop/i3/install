@@ -1,12 +1,11 @@
 #!/bin/bash
 
+set -e
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
 if needs_install i3; then
   apt_install i3
-else
-  debug "i3 already installed"
 fi
 
 if needs_install i3blocks ruby-ronn; then
@@ -16,28 +15,25 @@ if needs_install i3blocks ruby-ronn; then
   cd i3blocks
   make clean all
   sudo make install
-else
-  debug "i3blocks already installed"
 fi
-
 
 if needs_install xautolock mpstat sysstat acpi; then
   apt_install xautolock sysstat acpi
-else
-  debug "xautolock mpstat sysstat acpi already installed"
 fi
 
 symlink_to_home "$CWD/.i3"
 
-ag "workspace \$workspace_\d" "$HOME/.i3/config"
-
-connected_outputs="$(xrandr -q | grep -w connected | cut -d ' ' -f1)"
-if [ "$(echo "$connected_outputs" | wc -l)" -gt 1 ]; then
-  debug "more than one connected outputs : $connected_outputs"
-else
-  debug "only one connected output : $connected_outputs"
+if [ ! -z "$DISPLAY" ]; then
+  connected_outputs="$(xrandr -q | grep -w connected | cut -d ' ' -f1)"
+  if [ "$(echo "$connected_outputs" | wc -l)" -gt 1 ]; then
+    debug "more than one connected outputs : $connected_outputs"
+  else
+    debug "only one connected output : $connected_outputs"
+  fi
 fi
 
 
-# fix nautilus desktop
-gsettings set org.gnome.desktop.background show-desktop-icons false
+if command_exists gsettings && [ ! -z "$DISPLAY" ]; then
+  # fix nautilus desktop
+  gsettings set "org.gnome.desktop.background" "show-desktop-icons" false > /dev/null 2>&1
+fi

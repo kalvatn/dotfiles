@@ -1,5 +1,14 @@
-#!/bin/sh
-image_file="$(random_image)"
-ln -sf "$image_file" /home/kalvatn/current-desktop-background
-switch-greeter-background "$image_file"
-feh --no-fehbg --bg-fill "$image_file" 
+#!/bin/bash
+
+set -e
+source "$HOME/.functions"
+BACKGROUND_IMAGE_LINK="$HOME/.current-desktop-background"
+
+if [ -z "$1" ]; then
+	image_file="$(random_image)"
+else
+	image_file="$1"
+fi
+symlink "$image_file" "$BACKGROUND_IMAGE_LINK"
+
+feh --no-fehbg --bg-fill "$image_file"

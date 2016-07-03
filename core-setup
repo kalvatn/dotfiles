@@ -96,45 +96,54 @@ export LOGLEVEL="$LOGLEVEL"
 
 # prerequisites
 
-if ! command -v apt-add-repository &>/dev/null; then
-  apt_install software-properties-common
+if needs_install curl bzip2 apt-add-repository wget; then
+  apt_install curl bzip2 software-properties-common wget
 fi
-
-if ! command -v curl &> /dev/null; then
-  apt_install curl
-fi
-
-if ! command -v bzip2 &> /dev/null; then
-  apt_install bzip2
-fi
-
-# prerequisites
 
 ./scripts/installation/git/install
 
 info "updating git modules"
 git submodule update --init
 
+./scripts/installation/tools/environments/python/install
+./scripts/installation/tools/environments/ruby/install
+./scripts/installation/tools/environments/mysql/install
+./scripts/installation/tools/environments/java/install
+./scripts/installation/tools/search/silversearcher/install
+./scripts/installation/tools/xml/install
+./scripts/installation/vpn/openconnect/install
+
+./scripts/installation/shell/bash/install
 ./scripts/installation/shell/zsh/install
+
+./scripts/installation/browser/google-chrome/install
+
 ./scripts/installation/vim/install
 ./scripts/installation/tmux/install
 
 
-
-#./scripts/installation/docker/install
-./scripts/installation/command-line-dictionary/install
+./scripts/installation/desktop/user-dirs/install
+./scripts/installation/desktop/X/install
+./scripts/installation/desktop/gnome/install
 ./scripts/installation/desktop/i3/install
+./scripts/installation/desktop/xbacklight/install
+
 
 ./scripts/installation/chat/profanity/install
+./scripts/installation/misc/urxvt/install
+#./scripts/installation/misc/notifyosd/install
+./scripts/installation/misc/alsa/install
+
+./scripts/installation/docker/install
+./scripts/installation/command-line-dictionary/install
+
+./scripts/installation/media/ncmpcpp/install
+./scripts/installation/media/mopidy/install
+./scripts/installation/media/pipelight/install
+./scripts/installation/media/background-images/install
+
 
 symlink_to_home "$DOTFILE_ROOT/bin"
-symlink_to_home "$DOTFILE_ROOT/.gemrc"
-symlink_to_home "$DOTFILE_ROOT/.my.cnf"
-symlink_to_home "$DOTFILE_ROOT/.notify-osd"
-symlink_to_home "$DOTFILE_ROOT/.asoundrc"
-symlink_to_home "$DOTFILE_ROOT/.xinitrc"
-symlink_to_home "$DOTFILE_ROOT/.Xresources"
-symlink_to_home "$DOTFILE_ROOT/.urxvt"
 
 
 

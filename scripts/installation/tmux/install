@@ -3,27 +3,22 @@
 set -e
 
 source "$HOME/.functions"
-CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+CWD="$(get_script_dir "$0")"
 
 BASHRC="$HOME/.bashrc"
 ZSHRC="$HOME/.zshrc"
 
-if ! command -v tmux &> /dev/null; then
-  info "installing tmux"
+if needs_install tmux; then
   apt_install tmux
-else
-  debug "tmux already installed"
 fi
 
-if ! command -v tmuxinator &> /dev/null; then
-  info "installing tmuxinator"
+if needs_install tmuxinator; then
   gem_install tmuxinator
   tmuxinator doctor
   if [ -d "$HOME/.tmuxinator" ]; then
+    info "removing default config"
     rmdir "$HOME/.tmuxinator"
   fi
-else
-  debug "tmuxinator already installed"
 fi
 
 if [ ! -d "$CWD/.tmuxinator" ]; then

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 set -e
+source "$HOME/.functions"
 
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get install -y nodejs
+if needs_install nodejs npm; then
+  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  apt_install -y nodejs
+fi
