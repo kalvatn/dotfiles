@@ -5,9 +5,11 @@ cd "$(get_script_dir "${BASH_SOURCE[0]}")"
 
 pid="$(./wildfly-pid)"
 
-if [ ! -z "$pid" ]; then
-  watch -d -t -n10 ./read-queues.py
-else
+while [ -z "$pid" ]; do
   echo "wildfly is not running"
-fi
+  sleep 5
+  pid="$(./wildfly-pid)"
+done
+
+watch -d -t -n10 ./read-queues.py
 
