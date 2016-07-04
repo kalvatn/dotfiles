@@ -5,9 +5,31 @@ set -e
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
-if needs_install nvim neovim python-dev python-pip python3-dev python3-pip; then
+DEIN_INSTALL_PATH="$CWD/.config/nvim/dein"
+
+packages=(xsel neovim python-dev python-pip python3-dev python3-pip)
+if needs_install "${packages[@]}"; then
   apt_add_repository "ppa:neovim-ppa/unstable"
-  apt_install neovim python-dev python-pip python3-dev python3-pip
+  apt_install "${packages[@]}"
+  sudo pip2 install --upgrade neovim
+  sudo pip3 install --upgrade neovim
 fi
+
+if [ ! -d "$DEIN_INSTALL_PATH" ]; then
+  # https://github.com/Shougo/dein.vim, vim package/plugin manager
+  curl -s -L https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s "$DEIN_INSTALL_PATH"
+fi
+
+FONT_DIR="/usr/share/fonts/truetype/sourcecodepro"
+FONT_FILE="Sauce Code Pro Medium Nerd Font Complete Mono.ttf"
+if [ ! -f "$FONT_DIR/$FONT_FILE" ]; then
+  if [ ! -d "$FONT_DIR" ]; then
+    sudo mkdir -p "$FONT_DIR"
+  fi
+  sudo curl -s -L "https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/SourceCodePro/Medium/complete/$FONT_FILE" -o "$FONT_DIR/$FONT_FILE"
+  #gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Sauce Code Pro Medium Nerd Font Complete Mono"
+fi
+
+
 
 symlink "$CWD/.config/nvim" "$HOME/.config"
