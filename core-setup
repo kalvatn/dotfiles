@@ -119,6 +119,7 @@ git submodule update --init
 ./scripts/installation/browser/google-chrome/install
 
 ./scripts/installation/vim/install
+./scripts/installation/nvim/install
 ./scripts/installation/tmux/install
 
 
