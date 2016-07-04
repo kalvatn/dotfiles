@@ -27,9 +27,8 @@ if [ ! -f "$FONT_DIR/$FONT_FILE" ]; then
     sudo mkdir -p "$FONT_DIR"
   fi
   sudo curl -s -L "https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/SourceCodePro/Medium/complete/$FONT_FILE" -o "$FONT_DIR/$FONT_FILE"
-  #gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Sauce Code Pro Medium Nerd Font Complete Mono"
 fi
-
-
+gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type=boolean false
+gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Sauce Code Pro Medium Nerd Font Plus Font Awesome Plus Octicons Mono Medium 11"
 
 symlink "$CWD/.config/nvim" "$HOME/.config"
