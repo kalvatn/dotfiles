@@ -2,3 +2,4 @@
 .ncmpcpp/*
 !.ncmpcpp/config
 .vim/.netrwhist
+scripts/installation/nvim/.config/nvim/dein/
