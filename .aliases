@@ -15,10 +15,10 @@ alias ll='ls -l'
 alias la='ll -A'
 alias lc='ls -CF'
 
-alias grep='grep --color=always'
+alias grep='grep --color=auto'
 alias igrep='grep -i'
-alias fgrep='fgrep --color=always'
-alias egrep='egrep --color=always'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
