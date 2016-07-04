@@ -111,7 +111,7 @@ git submodule update --init
 ./scripts/installation/tools/environments/java/install
 ./scripts/installation/tools/search/silversearcher/install
 ./scripts/installation/tools/xml/install
-./scripts/installation/vpn/openconnect/install
+#./scripts/installation/vpn/openconnect/install
 
 ./scripts/installation/shell/bash/install
 ./scripts/installation/shell/zsh/install
@@ -132,7 +132,7 @@ git submodule update --init
 ./scripts/installation/chat/profanity/install
 ./scripts/installation/misc/urxvt/install
 #./scripts/installation/misc/notifyosd/install
-./scripts/installation/misc/alsa/install
+#./scripts/installation/misc/alsa/install
 
 ./scripts/installation/docker/install
 ./scripts/installation/command-line-dictionary/install
