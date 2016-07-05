@@ -31,14 +31,20 @@ if needs_install pipelight-plugin; then
   fi
   #apt_install --install-recommends pipelight-multi wine-staging
   sudo apt-get install -y --install-recommends pipelight-multi wine-staging
+  info "enabling pipelight-plugins"
+  if ! pipelight-plugin --list-enabled-all | grep -q "flash"; then
+    sudo pipelight-plugin --accept --enable flash
+  fi
+  if ! pipelight-plugin --list-enabled-all | grep -q "widevine"; then
+    sudo pipelight-plugin --accept --enable widevine
+  fi
+  if ! pipelight-plugin --list-enabled-all | grep -q "silverlight"; then
+    sudo pipelight-plugin --accept --enable silverlight
+  fi
+
+  info "update/create pipelight mozilla plugins"
+  sudo pipelight-plugin --update
+  sudo pipelight-plugin --create-mozilla-plugins
 fi
 
-info "enabling pipelight-plugins"
-sudo pipelight-plugin --accept --enable flash
-sudo pipelight-plugin --accept --enable widevine
-sudo pipelight-plugin --accept --enable silverlight
-
-info "update/create pipelight mozilla plugins"
-sudo pipelight-plugin --update
-sudo pipelight-plugin --create-mozilla-plugins
 
