@@ -1,5 +1,5 @@
 .vagrant
-.ncmpcpp/*
-!.ncmpcpp/config
-.vim/.netrwhist
 scripts/installation/nvim/.config/nvim/dein/
+scripts/installation/nvim/.config/nvim/.cache
+scripts/installation/nvim/.config/nvim/.undo
+
