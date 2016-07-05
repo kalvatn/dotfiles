@@ -27,14 +27,14 @@ else
 fi
 mkdir -p "$TARGET_FOLDER"
 info "extracting '$ZIP_FILE' to '$TARGET_FOLDER'"
-unzip -n "$ZIP_FILE" -d "$TARGET_FOLDER"
+unzip -q -n "$ZIP_FILE" -d "$TARGET_FOLDER"
 
 
 if [ ! -z "$DISPLAY" ]; then
   BACKGROUND_IMAGE_LINK="$HOME/.current-desktop-background"
 
   info "allow lightdm to connect to x"
-  sudo xhost +SI:localuser:lightdm
+  sudo xhost +SI:localuser:lightdm > /dev/null 2>&1
 
   info "set lightdm background settings"
   sudo su lightdm -s /bin/bash <<EOM
