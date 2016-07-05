@@ -1,15 +1,7 @@
 #!/bin/bash
 
-function ls_paginate() {
-  if [[ -t 1 ]]; then
-    # paginate output
-    command ls -F --color=auto "$@" | less -XFR
-  else
-    # do not paginate if piping output to something else
-    command ls -F --color=auto "$@"
-  fi
-}
-alias ls=ls_paginate
+alias ls='ls --color=auto'
+alias l='ls'
 alias sl='ls'
 alias ll='ls -l'
 alias la='ll -A'
