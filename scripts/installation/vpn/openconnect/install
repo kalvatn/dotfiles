@@ -6,3 +6,20 @@ source "$HOME/.functions"
 if needs_install openconnect network-manager-openconnect; then
   apt_install openconnect network-manager-openconnect
 fi
+
+if needs_install secret-tool libsecret-tools; then
+  apt_install libsecret-tools
+fi
+
+if [ -t 1 -a ! -z "$DISPLAY" ]; then
+  ACCOUNT="j.kalvatn@sportradar.com"
+  SERVICE="openconnect"
+  if ! secret-tool lookup $SERVICE "$ACCOUNT" &> /dev/null; then
+    info "storing password for $ACCOUNT"
+    secret-tool store --label "$ACCOUNT" $SERVICE "$ACCOUNT"
+    info "to use: secret-tool lookup $SERVICE $ACCOUNT"
+  else
+    info "to use: secret-tool lookup $SERVICE $ACCOUNT"
+  fi
+fi
+

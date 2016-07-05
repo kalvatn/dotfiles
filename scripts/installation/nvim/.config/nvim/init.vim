@@ -8,8 +8,8 @@ call dein#begin(expand('~/.config/nvim/dein'))
 call dein#add('Shougo/dein.vim')
 
 " plugins
-"call dein#add('Shougo/neosnippet.vim')
-"call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
 
 " ui
 call dein#add('vim-airline/vim-airline')
@@ -29,6 +29,12 @@ call dein#add('Shougo/unite.vim')
 " completion
 call dein#add('Shougo/deoplete.nvim')
 
+
+" comments
+call dein#add('tpope/vim-commentary')
+
+" surround
+call dein#add('tpope/vim-surround')
 
 " git
 call dein#add('tpope/vim-fugitive')
@@ -128,7 +134,6 @@ augroup AutoMkdir
   autocmd  BufNewFile  *  :call EnsureDirExists()
 augroup END
 autocmd BufReadPost * :call LastPos()
-autocmd! BufWritePost * Neomake
 highlight ExtraWhitespace ctermbg=red guibg=red
 " the following pattern will match trailing whitespace, except when typing at
 " the end of a line.
@@ -215,6 +220,10 @@ call deoplete#custom#set('file', 'mark', 'file')
 let g:deoplete#omni_patterns = {}
 let g:deoplete#omni_patterns.html = ''
 
+" neomake
+autocmd! BufWritePost * Neomake
+let g:neomake_open_list = 2
+
 " NERDTree
 let g:NERDTreeShowHidden=1
 let g:NERDTreeWinSize=45
@@ -242,6 +251,7 @@ nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright fi
 let mapleader = ','
 let g:mapleader = ','
 
+
 " disable ex mode
 nnoremap Q <nop>
 " remap q from recording to :q
@@ -257,6 +267,9 @@ inoremap <c-d> <esc>ddi
 " align blocks of text and keep them selected
 vmap < <gv
 vmap > >gv
+
+" toggle comment
+nnoremap <leader>c gc<cr>
 
 " map CTRL+k/j to move up/down in popupmenu
 inoremap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"

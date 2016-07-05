@@ -1,7 +1,9 @@
 #!/bin/bash
 
+USER="j.kalvatn"
 if ! pgrep openconnect &> /dev/null; then
-  sudo openconnect ra1.sportradar.com --user=j.kalvatn -b
+  info "connecting $USER@ra1.sportradar.com"
+  secret-tool lookup openconnect "$USER@sportradar.com" | sudo openconnect ra1.sportradar.com -b --user=$USER --passwd-on-stdin
 else
   echo "vpn connection already established"
   pgrep "openconnect"
