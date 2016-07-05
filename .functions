@@ -170,9 +170,9 @@ function needs_install() {
       continue
     elif dpkg_is_package_installed "$i" > /dev/null 2>&1; then
       continue
-    elif command_exists gem && gem list | grep -q "$i"; then
+    elif command_exists gem && gem list | grep -q "$i "; then
       continue
-    elif command_exists pip && pip freeze | grep -q "$i"; then
+    elif command_exists pip && pip freeze | grep -q "$i="; then
       continue
     elif command_exists npm && npm list -g | grep -q "$i"; then
       continue
