@@ -15,6 +15,8 @@ alias ll='ls -l'
 alias la='ll -A'
 alias lc='ls -CF'
 
+alias vim='nvim'
+
 alias grep='grep --color=auto'
 alias igrep='grep -i'
 alias fgrep='fgrep --color=auto'
