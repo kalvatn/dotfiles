@@ -29,7 +29,7 @@ fi
 
 FONT_DIR="/usr/share/fonts/truetype/sourcecodepro"
 FONT_FILE="Sauce Code Pro Medium Nerd Font Complete Mono.ttf"
-FONT_SIZE="9"
+FONT_SIZE="11"
 if [ ! -f "$FONT_DIR/$FONT_FILE" ]; then
   if [ ! -d "$FONT_DIR" ]; then
     sudo mkdir -p "$FONT_DIR"

@@ -235,7 +235,7 @@ autocmd FileType unite call s:unite_settings()
 nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
 "nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
 
-" bindings (https://neovim.io/doc/user/intro.html#key-notation)
+" mappings/keybindings (https://neovim.io/doc/user/intro.html#key-notation)
 
 
 " set <leader> key
@@ -257,6 +257,10 @@ inoremap <c-d> <esc>ddi
 " align blocks of text and keep them selected
 vmap < <gv
 vmap > >gv
+
+" map CTRL+k/j to move up/down in popupmenu
+inoremap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
+inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<C-k>"
 
 " reload vimrc
 nnoremap <leader>r :call ReloadVimConfig()<cr>
