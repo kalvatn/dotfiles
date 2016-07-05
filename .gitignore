@@ -1,4 +1,6 @@
 .vagrant
-.ncmpcpp/*
-!.ncmpcpp/config
-.vim/.netrwhist
+dein/
+.cache
+.undo
+*/.vim/bundle
+

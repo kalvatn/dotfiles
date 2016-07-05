@@ -164,29 +164,24 @@ function dpkg_is_package_installed() {
 }
 
 function needs_install() {
-  needs_install=0
+  needs_install=()
   for i in "$@"; do
-    needs_install=0
     if command_exists "$i" > /dev/null; then
-      needs_install=1
       continue
     elif dpkg_is_package_installed "$i" > /dev/null 2>&1; then
-      needs_install=1
       continue
-    elif command_exists gem && gem list | grep -q "$i"; then
-      needs_install=1
+    elif command_exists gem && gem list | grep -q "$i "; then
       continue
-    elif command_exists pip && pip freeze | grep -q "$i"; then
-      needs_install=1
+    elif command_exists pip && pip freeze | grep -q "$i="; then
       continue
     elif command_exists npm && npm list -g | grep -q "$i"; then
-      needs_install=1
       continue
     fi
     warn "'$i' is not installed"
+    needs_install+=("$i")
   done
-  if [ $needs_install -eq 0 ]; then
-    warn "package(s) '$*' are not installed"
+  if [ ${#needs_install[@]} -gt 0 ]; then
+    warn "package(s) '${needs_install[*]}' are not installed"
     return 0
   fi
   debug "package(s) '$*' already installed"
