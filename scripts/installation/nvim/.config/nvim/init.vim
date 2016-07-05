@@ -152,6 +152,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set termguicolors
 set background=dark
 colorscheme solarized
+"colorscheme default
 
 " search
 set ignorecase
@@ -199,9 +200,9 @@ let g:NERDTreeAutoDeleteBuffer=1
 let g:unite_data_directory='~/.config/nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
 let g:unite_prompt='❯ '
-"let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
-let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden']
-let g:unite_source_rec_neovim_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden']
+let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
+"let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden']
+"let g:unite_source_rec_neovim_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden']
 " custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 

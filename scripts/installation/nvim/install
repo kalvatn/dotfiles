@@ -13,7 +13,14 @@ if needs_install "${packages[@]}"; then
   apt_install "${packages[@]}"
   sudo pip2 install --upgrade neovim
   sudo pip3 install --upgrade neovim
+
+
+  # https://askubuntu.com/questions/512525/how-to-enable-24bit-true-color-support-in-gnome-terminal
+  apt_add_repository ppa:gnome3-team/gnome3-staging
+  apt_install gnome-terminal
+  #sudo add-apt-repository -r ppa:gnome3-team/gnome3-staging
 fi
+
 
 if [ ! -d "$DEIN_INSTALL_PATH" ]; then
   # https://github.com/Shougo/dein.vim, vim package/plugin manager
@@ -22,7 +29,7 @@ fi
 
 FONT_DIR="/usr/share/fonts/truetype/sourcecodepro"
 FONT_FILE="Sauce Code Pro Medium Nerd Font Complete Mono.ttf"
-FONT_SIZE="11"
+FONT_SIZE="9"
 if [ ! -f "$FONT_DIR/$FONT_FILE" ]; then
   if [ ! -d "$FONT_DIR" ]; then
     sudo mkdir -p "$FONT_DIR"

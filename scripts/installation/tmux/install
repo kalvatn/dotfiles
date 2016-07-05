@@ -9,7 +9,18 @@ BASHRC="$HOME/.bashrc"
 ZSHRC="$HOME/.zshrc"
 
 if needs_install tmux; then
-  apt_install tmux
+  TMUX_INSTALL_TMP="/tmp/tmux_install"
+  #apt_install tmux
+  info "installing tmux build dependencies"
+  apt_install libevent-dev libncurses5-dev
+  if [ -d "$TMUX_INSTALL_TMP" ]; then
+    rm -Rf "$TMUX_INSTALL_TMP"
+  fi
+  info "installing tmux from source"
+  git clone https://github.com/tmux/tmux.git "$TMUX_INSTALL_TMP"
+  cd "$TMUX_INSTALL_TMP"
+  sh autogen.sh
+  ./configure && sudo make install
 fi
 
 if needs_install tmuxinator; then
