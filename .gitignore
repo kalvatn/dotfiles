@@ -1,5 +1,5 @@
 .vagrant
-scripts/installation/nvim/.config/nvim/dein/
-scripts/installation/nvim/.config/nvim/.cache
-scripts/installation/nvim/.config/nvim/.undo
+*/**/.config/nvim/dein/
+*/**/.config/nvim/.cache
+*/**/.config/nvim/.undo
 

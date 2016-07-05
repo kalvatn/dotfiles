@@ -126,6 +126,9 @@ function! s:unite_settings()
   imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
 
+" autocmd
+autocmd! BufWritePost * Neomake
+
 " buffer/file settings
 set history=10000
 set nobackup
@@ -200,9 +203,16 @@ let g:NERDTreeAutoDeleteBuffer=1
 let g:unite_data_directory='~/.config/nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
 let g:unite_prompt='❯ '
-let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
-"let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden']
-"let g:unite_source_rec_neovim_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden']
+if executable('ag')
+  let g:unite_source_grep_command='ag'
+  let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
+  let g:unite_source_grep_recursive_opt=''
+  "let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
+  let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
+endif
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async','sorters','sorter_rank')
 " custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 
@@ -263,8 +273,8 @@ map <A-1> :NERDTreeToggle<cr>
 
 nnoremap <silent> <leader>u :call dein#update()<CR>
 
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim<CR>
-"nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
+"nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim<CR>
+nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
 "nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
 
 nmap <leader>1 <Plug>AirlineSelectTab1
