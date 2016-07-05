@@ -3,10 +3,10 @@
 function ls_paginate() {
   if [[ -t 1 ]]; then
     # paginate output
-    command ls -F --color=always "$@" | less -XFR
+    command ls -F --color=auto "$@" | less -XFR
   else
     # do not paginate if piping output to something else
-    command ls -F --color=always "$@"
+    command ls -F --color=auto "$@"
   fi
 }
 alias ls=ls_paginate
@@ -39,7 +39,7 @@ alias xerrors="follow ~/.xsession-errors"
 alias xup='xrdb ~/.Xresources'
 
 # TODO: move
-alias ag='ag --path-to-agignore ~/.agignore'
+#alias ag='ag --path-to-agignore ~/.agignore'
 
 # custom launchers
 

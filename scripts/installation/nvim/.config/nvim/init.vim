@@ -1,4 +1,4 @@
-"start dein setup {
+" dein plugin manager setup
 if &compatible
   set nocompatible
 endif
@@ -45,7 +45,8 @@ endif
 
 call dein#end()
 filetype plugin indent on
-"} end dein setup
+
+" end dein plugin manager setup
 
 " functions
 
@@ -55,7 +56,6 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-autocmd BufWrite * :call DeleteTrailingWS()
 
 function! AskQuit (msg, options, quit_option)
   if confirm(a:msg, a:options) == a:quit_option
@@ -78,10 +78,6 @@ function! EnsureDirExists ()
   endif
 endfunction
 
-augroup AutoMkdir
-  autocmd!
-  autocmd  BufNewFile  *  :call EnsureDirExists()
-augroup END
 
 
 function! LastPos()
@@ -93,7 +89,6 @@ function! LastPos()
     exe "normal! g`\"" |
   endif
 endfunction
-autocmd BufReadPost * :call LastPos()
 
 if !exists("*ReloadVimConfig")
   function! ReloadVimConfig ()
@@ -105,19 +100,19 @@ if !exists("*ReloadVimConfig")
   command! Recfg call ReloadVimConfig()
 endif
 
-
 function! HLNext (blinktime)
-		highlight WhiteOnRed ctermfg=white ctermbg=red
-		let [bufnum, lnum, col, off] = getpos('.')
-		let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-		let target_pattern = '\c\%#\%('.@/.'\)'
-		let match_indicator = matchadd('WhiteOnRed', target_pattern, 101)
-		"set invcursorline " toggle line of match indicator
-		redraw
-		exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-		call matchdelete(match_indicator)
-		"set invcursorline " toggle line of match indicator
-		redraw
+  set hlsearch
+  highlight WhiteOnRed ctermfg=white ctermbg=red
+  let [bufnum, lnum, col, off] = getpos('.')
+  let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+  let target_pattern = '\c\%#\%('.@/.'\)'
+  let match_indicator = matchadd('WhiteOnRed', target_pattern, 101)
+  "set invcursorline " toggle line of match indicator
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(match_indicator)
+  "set invcursorline " toggle line of match indicator
+  redraw
 endfunction
 
 function! s:unite_settings()
@@ -127,7 +122,20 @@ function! s:unite_settings()
 endfunction
 
 " autocmd
+autocmd BufWrite * :call DeleteTrailingWS()
+augroup AutoMkdir
+  autocmd!
+  autocmd  BufNewFile  *  :call EnsureDirExists()
+augroup END
+autocmd BufReadPost * :call LastPos()
 autocmd! BufWritePost * Neomake
+highlight ExtraWhitespace ctermbg=red guibg=red
+" the following pattern will match trailing whitespace, except when typing at
+" the end of a line.
+match ExtraWhitespace /\s\+\%#\@<!$/
+" show leading whitespace that includes spaces, and trailing whitespace.
+"autocmd BufWinEnter * match ExtraWhitespace /^\s* \s*\|\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 
 " buffer/file settings
 set history=10000
@@ -138,10 +146,6 @@ set undofile
 set undodir=$HOME/.config/nvim/.undo
 " disable creation of .netwrhist files
 let g:netrw_dirhistmax = 0
-
-
-
-
 
 " clipboard
 set clipboard+=unnamed
@@ -157,6 +161,7 @@ set background=dark
 colorscheme solarized
 "colorscheme default
 
+
 " search
 set ignorecase
 set smartcase
@@ -167,18 +172,24 @@ set nohlsearch
 set ts=2
 set sw=2
 set expandtab
+set smarttab
+set autoindent
+set smartindent
 set wildmenu
 set wildmode=full
+set wildignore+=*.o,*.out,*.obj,*.class,*.pyc,*.swp
+set wildignore+=*.git,*.svn
 set laststatus=2
 set nu
 set hidden
+set ruler
+set nowrap
+set lazyredraw
+set so=10
 syntax on
-filetype on
 
-" block select not limited by shortest line
-set virtualedit=
+set virtualedit=block
 
-" remember info about open buffers on close
 set viminfo^=%
 
 " plugin settings
@@ -191,30 +202,32 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " indentline
 let g:indentLine_char='│'
+
 " gitgutter
 let g:gitgutter_max_signs = 1000  " default value
+
 " deoplete
 let g:deoplete#enable_at_startup = 1
+
 " NERDTree
 let g:NERDTreeShowHidden=1
 let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
+
 " unite
 let g:unite_data_directory='~/.config/nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
 let g:unite_prompt='❯ '
-if executable('ag')
-  let g:unite_source_grep_command='ag'
-  let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
-  let g:unite_source_grep_recursive_opt=''
-  "let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
-  let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
-endif
+"let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
+let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file_rec/async','sorters','sorter_rank')
 " custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
+"nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim<CR>
+nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
+"nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
 
 " bindings (https://neovim.io/doc/user/intro.html#key-notation)
 
@@ -273,9 +286,6 @@ map <A-1> :NERDTreeToggle<cr>
 
 nnoremap <silent> <leader>u :call dein#update()<CR>
 
-"nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim<CR>
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
-"nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2

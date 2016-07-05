@@ -109,6 +109,7 @@ git submodule update --init
 ./scripts/installation/tools/environments/ruby/install
 ./scripts/installation/tools/environments/mysql/install
 ./scripts/installation/tools/environments/java/install
+./scripts/installation/tools/environments/node/install
 ./scripts/installation/tools/search/silversearcher/install
 ./scripts/installation/tools/xml/install
 #./scripts/installation/vpn/openconnect/install

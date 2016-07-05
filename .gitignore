@@ -1,5 +1,6 @@
 .vagrant
-*/**/.config/nvim/dein/
-*/**/.config/nvim/.cache
-*/**/.config/nvim/.undo
+dein/
+.cache
+.undo
+*/.vim/bundle
 
