@@ -12,6 +12,13 @@ set sort_aux=last-date-received
 set fast_reply=yes
 set include=yes
 
+# speed up folder switch
+set sleep_time = 0
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+set mailcap_path 	= ~/.mutt/mailcap
+
 folder-hook imaps://imap.gmail.com/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
 folder-hook imaps://mail.sportradar.com/ "source ~/.mutt/accounts/sportradar"
 

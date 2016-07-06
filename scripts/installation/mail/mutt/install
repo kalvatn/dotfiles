@@ -2,8 +2,8 @@
 
 source "$HOME/.functions"
 
-if needs_install mutt secret-tool libsecret-tools; then
-  apt_install mutt libsecret-tools
+if needs_install mutt secret-tool libsecret-tools w3m; then
+  apt_install mutt libsecret-tools w3m
 fi
 
 if [ -t 1 -a ! -z "$DISPLAY" ]; then
