@@ -11,55 +11,76 @@ set mailcap_path = ~/.mutt/mailcap
 # speed up folder switch
 set sleep_time = 0
 
-# options
-set quit=ask-no
-
-
 # imap
 unset imap_passive
 set imap_keepalive = 300
 set mail_check = 30
+set timeout=10
 
-
-
-# pager
-#set pager_index_lines=20
-set sort=threads
-set sort_aux=last-date-received
+# options
+set quit=ask-no
+set postpone=ask-yes
+set prompt_after=no
+set wait_key=no
 
 # colors
 source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
 
-# sidebar
-set sidebar_visible = yes
-set sidebar_width = 50
-bind index,pager K sidebar-prev
-bind index,pager J sidebar-next
-bind index,pager O sidebar-open
+# browser / select folder
+bind browser gg first-entry
+bind browser G last-entry
+bind browser h exit
+bind browser l select-entry
+bind browser L view-file
+
+# index / message list
+#set sort=date-received
+set sort=threads
+set sort_aux=last-date-received
+set thread_received=yes
 bind index gg first-entry
 bind index G last-entry
 bind index h noop
-bind pager h exit
 bind index l display-message
+bind index N search-opposite
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
 
-bind pager j next-line
+# sidebar
+set sidebar_visible = yes
+set sidebar_width = 50
+bind index K sidebar-prev
+bind index J sidebar-next
+bind index O sidebar-open
+
+# pager / view messge
+set pager_index_lines=10 # split index and pager when viewing messages
+ignore *
+unignore from: date subject to cc list-unsubscribe
+hdr_order Date: From: To: Cc: Subject:
+set edit_headers=yes
+set smart_wrap
+set pager_context=2
+set pager_stop=yes
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+bind pager h exit
 bind pager k previous-line
+bind pager j next-line
+bind pager K previous-page
+bind pager J next-page
+bind pager gg top
+bind pager G bottom
+bind pager N search-opposite
+macro attach 'V' "<pipe-entry>cat >/tmp/mail.html && google-chrome /tmp/mail.html && rm /tmp/mail.html<enter>"
 
-#macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
-#macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
-
-# compose / reply
+# compose / send/forward/reply
 set editor = `echo \$EDITOR`
 set send_charset="utf-8"
 set realname = "Jon Terje Tvergrov Kalvatn"
 set signature = "$realname"
 set fast_reply=yes
 set include=yes
-
-# view
-auto_view text/html
-alternative_order text/plain text/enriched text/html
-macro attach 'V' "<pipe-entry>cat >/tmp/mail.html && google-chrome /tmp/mail.html && rm /tmp/mail.html<enter>"
 
 # accounts
 folder-hook imaps://imap.gmail.com/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
