@@ -29,3 +29,6 @@
 	path = scripts/installation/desktop/i3/.i3/blocklets/contrib
 	url = git://github.com/vivien/i3blocks-contrib.git
   ignore = dirty
+[submodule "scripts/installation/mail/mutt/.mutt/colorschemes/mutt-colors-solarized"]
+	path = scripts/installation/mail/mutt/.mutt/colorschemes/mutt-colors-solarized
+	url = https://github.com/altercation/mutt-colors-solarized
