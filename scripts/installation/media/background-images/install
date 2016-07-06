@@ -4,7 +4,7 @@ set -e
 source "$HOME/.functions"
 source "$HOME/.config/user-dirs.dirs"
 
-ZIP_FILE="/tmp/images.zip"
+ZIP_FILE="$XDG_DOWNLOAD_DIR/background-images.zip"
 ZIP_URL="https://dl.dropboxusercontent.com/u/535060/chromecast1080_4.zip"
 TARGET_FOLDER="$XDG_PICTURES_DIR/background_images"
 
