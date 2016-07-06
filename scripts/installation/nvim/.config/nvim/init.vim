@@ -127,6 +127,10 @@ function! s:unite_settings()
   imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
 
+augroup filetypedetect
+  autocmd BufRead,BufNewFile *mutt-* setfiletype mail
+augroup END
+
 " autocmd
 autocmd BufWrite * :call DeleteTrailingWS()
 augroup AutoMkdir
