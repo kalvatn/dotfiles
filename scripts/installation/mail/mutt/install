@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source "$HOME/.functions"
+
+if needs_install mutt secret-tool libsecret-tools; then
+  apt_install mutt libsecret-tools
+fi
+
+if [ -t 1 -a ! -z "$DISPLAY" ]; then
+	ACCOUNT="jonterje.kalvatn@gmail.com"
+  SERVICE="mail"
+	if ! secret-tool lookup "$SERVICE" "$ACCOUNT" > /dev/null; then
+    info "storing password for $ACCOUNT (https://security.google.com/settings/security/apppasswords)"
+		secret-tool store --label "$ACCOUNT" "$SERVICE" "$ACCOUNT"
+
+		info "secret-tool lookup $SERVICE $ACCOUNT"
+	else
+		info "secret-tool lookup $SERVICE $ACCOUNT"
+	fi
+
+	ACCOUNT="j.kalvatn@sportradar.com"
+	if ! secret-tool lookup "$SERVICE" "$ACCOUNT" > /dev/null; then
+		info "storing password for $ACCOUNT"
+		secret-tool store --label "$ACCOUNT" "$SERVICE" "$ACCOUNT"
+
+		info "secret-tool lookup $SERVICE $ACCOUNT"
+	else
+		info "secret-tool lookup $SERVICE $ACCOUNT"
+	fi
+fi
+
+
+CWD="$(get_script_dir "$0")"
+symlink_to_home "$CWD/.mutt"

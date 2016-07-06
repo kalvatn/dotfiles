@@ -1,0 +1,20 @@
+set folder = "imaps://mail.sportradar.com:993"
+set imap_user = "j.kalvatn"
+set imap_pass = `secret-tool lookup mail j.kalvatn@sportradar.com`
+
+set spoolfile = +INBOX
+mailboxes = +INBOX
+set postponed = +Drafts
+set record = +Sent
+
+set smtp_url = "smtp://j.kalvatn@mail.sportradar.com:587"
+set smtp_pass = `secret-tool lookup mail j.kalvatn@sportradar.com`
+set from = "j.kalvatn@sportradar.com"
+set hostname = "sportradar.com"
+#set ssl_force_tls = yes
+set ssl_starttls = yes
+#unset ssl_starttls
+
+# needs to be called
+account-hook $folder "set imap_user = $imap_user imap_pass = $imap_pass"
+account-hook $smtp_url "set smtp_url = $smtp_url smtp_pass = $smtp_pass

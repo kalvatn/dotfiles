@@ -1,0 +1,22 @@
+set editor = `echo \$EDITOR`
+set header_cache = ~/.cache/mutt/header_cache/
+set message_cachedir = ~/.cache/mutt/message_cachedir/
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 120
+
+set realname = "Jon Terje Tvergrov Kalvatn"
+set signature = "$realname"
+set sort=threads
+set sort_aux=last-date-received
+set fast_reply=yes
+set include=yes
+
+folder-hook imaps://imap.gmail.com/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
+folder-hook imaps://mail.sportradar.com/ "source ~/.mutt/accounts/sportradar"
+
+source ~/.mutt/accounts/gmail_jonterje_kalvatn
+source ~/.mutt/accounts/sportradar
+
+macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/sportradar<enter><change-folder>!<enter>'
