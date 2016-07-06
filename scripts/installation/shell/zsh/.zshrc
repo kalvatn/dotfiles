@@ -108,11 +108,11 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 [[ -f $HOME/.functions ]] && source $HOME/.functions
 
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # use vim as pager
 export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+nvim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
 -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
 -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
