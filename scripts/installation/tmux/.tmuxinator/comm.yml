@@ -1,6 +1,10 @@
-name: chat
-root: ~/.local/share/profanity/chatlogs/j.kalvatn_at_jabberd.betradar.com
+name: comm
 
 windows:
   - profanity: profanity
+  - mail: mutt
   - logs:
+      layout: even-vertical
+      panes:
+        - cd ~/.mutt
+        - cd ~/.local/share/profanity/chatlogs/j.kalvatn_at_jabberd.betradar.com
