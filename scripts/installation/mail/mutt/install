@@ -6,15 +6,15 @@ source "$HOME/.functions"
 # if needs_install mutt-patched secret-tool libsecret-tools w3m urlview; then
 #   apt_install libsecret-tools w3m mutt-patched urlview
 # fi
-CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
-NEOMUTT_TMP_INSTALL=/tmp/neomutt
-OFFLINEIMAP_TMP_INSTALL=/tmp/offlineimap
-packages=(libsecret-tools w3m urlview openssl libsasl2-modules libsasl2-dev libssl-dev libssl1.0.0 libnotmuch-dev )
+CWD="$(get_script_dir "$0")"
 
+
+packages=(checkinstall autoconf libsecret-tools w3m urlview openssl libsasl2-modules libsasl2-dev libssl-dev libssl1.0.0 libnotmuch-dev notmuch libncurses5-dev libtokyocabinet-dev libkrb5-dev)
 if needs_install "${packages[@]}"; then
   apt_install "${packages[@]}"
 fi
 
+NEOMUTT_TMP_INSTALL=/tmp/neomutt
 if needs_install neomutt; then
   info "building neomutt from source"
   if [ -d "$NEOMUTT_TMP_INSTALL" ]; then
@@ -28,8 +28,9 @@ if needs_install neomutt; then
   cd "$CWD"
 fi
 
+OFFLINEIMAP_TMP_INSTALL=/tmp/offlineimap
 if needs_install offlineimap; then
-
+  info "building offlineimap from source"
   if [ -d "$OFFLINEIMAP_TMP_INSTALL" ]; then
     rm -Rf "$OFFLINEIMAP_TMP_INSTALL"
   fi
@@ -63,5 +64,6 @@ if [ -t 1 -a ! -z "$DISPLAY" ]; then
 	fi
 fi
 
-
 symlink_to_home "$CWD/.mutt"
+symlink_to_home "$CWD/.notmuch-config"
+symlink_to_home "$CWD/.offlineimaprc"
