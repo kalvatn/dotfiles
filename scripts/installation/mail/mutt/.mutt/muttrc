@@ -3,8 +3,8 @@
 macro index,pager <f5> '<enter-command>source ~/.mutt/muttrc<enter>'
 
 # folders
-set mbox_type=Maildir
-set folder=$HOME/mail
+set mbox_type = Maildir
+set folder = ~/.mail
 set spoolfile=+/
 set header_cache = ~/.cache/mutt/header_cache/
 set message_cachedir = ~/.cache/mutt/message_cachedir/
@@ -16,13 +16,19 @@ set sleep_time = 0
 unset imap_passive
 set imap_keepalive = 300
 set mail_check = 30
-set timeout=10
-
-# options
+set wait_key = no        # shut up, mutt
+set mbox_type = Maildir  # mailbox type
+set timeout = 3          # idle time before scanning
+set mail_check = 0       # minimum time between scans
+set delete               # don't ask, just do
+unset confirmappend      # don't ask, just do!
+unset mark_old           # read/new is good enough for me
+set beep_new             # bell on new mails
+set pipe_decode          # strip headers and eval mimes when piping
+set thorough_search      # strip headers and eval mimes before searching
 set quit=ask-no
 set postpone=ask-yes
 set prompt_after=no
-set wait_key=no
 
 # colors
 #source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
@@ -52,7 +58,7 @@ bind index N search-opposite
 
 # sidebar
 set sidebar_visible = yes
-set sidebar_width = 50
+set sidebar_width = 24
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index O sidebar-open
@@ -66,6 +72,7 @@ set pager_stop=yes
 set edit_headers=yes
 ignore *
 unignore from: date subject to cc list-unsubscribe
+unhdr_order *
 hdr_order Date: From: To: Cc: Subject:
 
 auto_view text/html

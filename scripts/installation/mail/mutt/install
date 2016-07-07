@@ -8,6 +8,7 @@ source "$HOME/.functions"
 # fi
 CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
 NEOMUTT_TMP_INSTALL=/tmp/neomutt
+OFFLINEIMAP_TMP_INSTALL=/tmp/offlineimap
 packages=(libsecret-tools w3m urlview openssl libsasl2-modules libsasl2-dev libssl-dev libssl1.0.0 libnotmuch-dev )
 
 if needs_install "${packages[@]}"; then
@@ -24,6 +25,18 @@ if needs_install neomutt; then
   cd "$NEOMUTT_TMP_INSTALL"
   ./prepare --enable-imap --enable-smtp --enable-sidebar --enable-notmuch --enable-hcache --with-gss --with-ssl --with-sasl
   make && sudo checkinstall -y --pkgname=neomutt --pkgversion=1.6.2 --deldoc=yes --delspec=yes --deldesc=yes
+  cd "$CWD"
+fi
+
+if needs_install offlineimap; then
+
+  if [ -d "$OFFLINEIMAP_TMP_INSTALL" ]; then
+    rm -Rf "$OFFLINEIMAP_TMP_INSTALL"
+  fi
+  git clone https://github.com/OfflineIMAP/offlineimap "$OFFLINEIMAP_TMP_INSTALL"
+  cd "$OFFLINEIMAP_TMP_INSTALL"
+  make clean && make
+  sudo python setup.py install
   cd "$CWD"
 fi
 
