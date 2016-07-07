@@ -20,9 +20,9 @@ if command_exists gsettings && [ ! -z "$DISPLAY" ]; then
   gsettings set "org.gnome.desktop.screensaver" "lock-enabled" false > /dev/null 2>&1
   gsettings set "org.gnome.desktop.screensaver" "idle-activation-enabled" false > /dev/null 2>&1
   gsettings set "org.gnome.desktop.screensaver" "ubuntu-lock-on-suspend" false > /dev/null 2>&1
+  if command_exists gnome-screensaver-command; then
+    # disable gnome-screensaver
+    gnome-screensaver-command -d
+  fi
 fi
 
-if command_exists gnome-screensaver-command; then
-  # disable gnome-screensaver
-  gnome-screensaver-command -d
-fi
