@@ -24,7 +24,8 @@ set prompt_after=no
 set wait_key=no
 
 # colors
-source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 
 # browser / select folder
 bind browser gg first-entry
