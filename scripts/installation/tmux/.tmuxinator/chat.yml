@@ -1,6 +1,0 @@
-name: chat
-root: ~/.local/share/profanity/chatlogs/j.kalvatn_at_jabberd.betradar.com
-
-windows:
-  - profanity: profanity
-  - logs:

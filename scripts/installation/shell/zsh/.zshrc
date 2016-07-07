@@ -108,7 +108,7 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 [[ -f $HOME/.functions ]] && source $HOME/.functions
 
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # use vim as pager
 export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \

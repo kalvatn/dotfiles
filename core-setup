@@ -132,6 +132,7 @@ git submodule update --init
 
 
 ./scripts/installation/chat/profanity/install
+./scripts/installation/mail/mutt/install
 ./scripts/installation/misc/urxvt/install
 #./scripts/installation/misc/notifyosd/install
 #./scripts/installation/misc/alsa/install
@@ -140,6 +141,7 @@ git submodule update --init
 ./scripts/installation/command-line-dictionary/install
 
 ./scripts/installation/media/ncmpcpp/install
+./scripts/installation/media/spotify/install
 ./scripts/installation/media/mopidy/install
 ./scripts/installation/media/pipelight/install
 ./scripts/installation/media/background-images/install

@@ -1,0 +1,94 @@
+# reload config
+macro index,pager <f5> '<enter-command>source ~/.mutt/muttrc<enter>'
+
+# folders
+set mbox_type=Maildir
+set folder=$HOME/mail
+set spoolfile=+/
+set header_cache = ~/.cache/mutt/header_cache/
+set message_cachedir = ~/.cache/mutt/message_cachedir/
+set mailcap_path = ~/.mutt/mailcap
+# speed up folder switch
+set sleep_time = 0
+
+# imap
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 30
+set timeout=10
+
+# options
+set quit=ask-no
+set postpone=ask-yes
+set prompt_after=no
+set wait_key=no
+
+# colors
+#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+
+# browser / select folder
+bind browser gg first-entry
+bind browser G last-entry
+bind browser h exit
+bind browser l select-entry
+bind browser L view-file
+
+# index / message list
+#set sort=date-received
+set sort=threads
+set sort_aux=last-date-received
+set thread_received=yes
+bind index gg first-entry
+bind index G last-entry
+bind index h noop
+bind index l display-message
+bind index N search-opposite
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# sidebar
+set sidebar_visible = yes
+set sidebar_width = 50
+bind index K sidebar-prev
+bind index J sidebar-next
+bind index O sidebar-open
+
+# pager / view messge
+set pager_index_lines=10 # split index and pager when viewing messages
+ignore *
+unignore from: date subject to cc list-unsubscribe
+hdr_order Date: From: To: Cc: Subject:
+set edit_headers=yes
+set smart_wrap
+set pager_context=2
+set pager_stop=yes
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+bind pager h exit
+bind pager k previous-line
+bind pager j next-line
+bind pager K previous-page
+bind pager J next-page
+bind pager gg top
+bind pager G bottom
+bind pager N search-opposite
+macro attach 'V' "<pipe-entry>cat >/tmp/mail.html && google-chrome /tmp/mail.html && rm /tmp/mail.html<enter>"
+
+# compose / send/forward/reply
+set editor = `echo \$EDITOR`
+set send_charset="utf-8"
+set realname = "Jon Terje Tvergrov Kalvatn"
+set signature = "$realname"
+set fast_reply=yes
+set include=yes
+
+# accounts
+folder-hook imaps://imap.gmail.com/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
+folder-hook imaps://mail.sportradar.com/ "source ~/.mutt/accounts/sportradar"
+
+source ~/.mutt/accounts/gmail_jonterje_kalvatn
+#source ~/.mutt/accounts/sportradar
+
+macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/sportradar<enter><change-folder>!<enter>'
