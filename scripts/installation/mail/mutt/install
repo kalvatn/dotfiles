@@ -1,9 +1,30 @@
 #!/bin/bash
 
+set -e
 source "$HOME/.functions"
 
-if needs_install mutt mutt-patched secret-tool libsecret-tools w3m urlview; then
-  apt_install mutt libsecret-tools w3m mutt-patched urlview
+# if needs_install mutt-patched secret-tool libsecret-tools w3m urlview; then
+#   apt_install libsecret-tools w3m mutt-patched urlview
+# fi
+CWD="$(get_script_dir "${BASH_SOURCE[0]}")"
+NEOMUTT_TMP_INSTALL=/tmp/neomutt
+packages=(libsecret-tools w3m urlview openssl libsasl2-modules libsasl2-dev libssl-dev libssl1.0.0 libnotmuch-dev )
+
+if needs_install "${packages[@]}"; then
+  apt_install "${packages[@]}"
+fi
+
+if needs_install neomutt; then
+  info "building neomutt from source"
+  if [ -d "$NEOMUTT_TMP_INSTALL" ]; then
+    rm -Rf "$NEOMUTT_TMP_INSTALL"
+  fi
+  git clone https://github.com/neomutt/neomutt "$NEOMUTT_TMP_INSTALL"
+
+  cd "$NEOMUTT_TMP_INSTALL"
+  ./prepare --enable-imap --enable-smtp --enable-sidebar --enable-notmuch --enable-hcache --with-gss --with-ssl --with-sasl
+  make && sudo checkinstall -y --pkgname=neomutt --pkgversion=1.6.2 --deldoc=yes --delspec=yes --deldesc=yes
+  cd "$CWD"
 fi
 
 if [ -t 1 -a ! -z "$DISPLAY" ]; then
@@ -30,5 +51,4 @@ if [ -t 1 -a ! -z "$DISPLAY" ]; then
 fi
 
 
-CWD="$(get_script_dir "$0")"
 symlink_to_home "$CWD/.mutt"
