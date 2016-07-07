@@ -1,9 +1,11 @@
+# vim: filetype=muttrc
 set folder = "imaps://mail.sportradar.com:993"
 set imap_user = "j.kalvatn"
 set imap_pass = `secret-tool lookup mail j.kalvatn@sportradar.com`
 
 set spoolfile = +INBOX
 mailboxes = +INBOX
+set imap_check_subscribed
 set postponed = +Drafts
 set record = +Sent
 

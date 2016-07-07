@@ -110,7 +110,7 @@ function log() {
   message="$3"
   if [ ! -z "$message" ]; then
     if should_log "$level"; then
-      logger="$(get_script_path "$0"):$LINENO"
+      logger="$(get_script_path "$(readlink -f "$0")"):$LINENO"
 
       if [ -n "$(tput colors)" ]; then
         formatted_logger="$PURPLE$(abbr_path "$logger")$RESET"
