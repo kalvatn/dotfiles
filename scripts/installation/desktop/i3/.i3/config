@@ -160,7 +160,7 @@ bar {
 
 #for_window [class="^Spotify$"] floating enable
 
-assign [class="Thunderbird"] $workspace_6
+#assign [class="Thunderbird"] $workspace_6
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 assign [class="jetbrains-idea"] $workspace_1
 assign [class="google-chrome"] $workspace_8

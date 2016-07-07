@@ -25,8 +25,10 @@ set prompt_after=no
 set wait_key=no
 
 # colors
-source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-256.muttrc
 #source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
 
 # browser / select folder
 bind browser gg first-entry
@@ -36,17 +38,17 @@ bind browser l select-entry
 bind browser L view-file
 
 # index / message list
-#set sort=date-received
 set sort=threads
 set sort_aux=last-date-received
 set thread_received=yes
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
 bind index gg first-entry
 bind index G last-entry
 bind index h noop
 bind index l display-message
 bind index N search-opposite
-set status_chars  = " *%A"
-set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
 
 # sidebar
 set sidebar_visible = yes
@@ -57,15 +59,18 @@ bind index O sidebar-open
 
 # pager / view messge
 set pager_index_lines=10 # split index and pager when viewing messages
-ignore *
-unignore from: date subject to cc list-unsubscribe
-hdr_order Date: From: To: Cc: Subject:
-set edit_headers=yes
 set smart_wrap
 set pager_context=2
 set pager_stop=yes
+
+set edit_headers=yes
+ignore *
+unignore from: date subject to cc list-unsubscribe
+hdr_order Date: From: To: Cc: Subject:
+
 auto_view text/html
 alternative_order text/plain text/enriched text/html
+
 bind pager h exit
 bind pager k previous-line
 bind pager j next-line
@@ -85,11 +90,11 @@ set fast_reply=yes
 set include=yes
 
 # accounts
-folder-hook imaps://imap.gmail.com/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
+#folder-hook imaps://imap.gmail.com/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
 folder-hook imaps://mail.sportradar.com/ "source ~/.mutt/accounts/sportradar"
 
-source ~/.mutt/accounts/gmail_jonterje_kalvatn
-#source ~/.mutt/accounts/sportradar
+#source ~/.mutt/accounts/gmail_jonterje_kalvatn
+source ~/.mutt/accounts/sportradar
 
-macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
+#macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/sportradar<enter><change-folder>!<enter>'

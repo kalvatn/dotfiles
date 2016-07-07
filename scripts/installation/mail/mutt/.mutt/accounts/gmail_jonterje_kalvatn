@@ -1,8 +1,14 @@
 # vim: filetype=muttrc
+unset postponed record hostname from folder imap_user imap_pass smtp_url smtp_pass hostname spoolfile imap_check_subscribed postponed mbox
+
 # receive
 set folder = "imaps://imap.gmail.com/"
 set imap_user = "jonterje.kalvatn@gmail.com"
 set imap_pass = `secret-tool lookup mail jonterje.kalvatn@gmail.com`
+set spoolfile = +INBOX
+mailboxes = "+[Gmail]/All Mail"
+set mbox="+[Gmail]/All Mail"
+set imap_check_subscribed
 
 # send
 set smtp_url = "smtps://jonterje.kalvatn@smtp.gmail.com"
@@ -10,18 +16,11 @@ set smtp_pass = `secret-tool lookup mail jonterje.kalvatn@gmail.com`
 set from = "jonterje.kalvatn@gmail.com"
 set hostname = "gmail.com"
 set ssl_force_tls = yes
-
-# mailboxes
-set spoolfile = +INBOX
-mailboxes = "+[Gmail]/All Mail"
-set imap_check_subscribed
 set postponed = "+[Gmail]/Drafts"
-set mbox="+[Gmail]/All Mail"
 # unset record as gmail smtp does this by default
 unset record
 
 # bindings
-bind editor <space> noop
 macro index,pager a "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
 macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
 macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
