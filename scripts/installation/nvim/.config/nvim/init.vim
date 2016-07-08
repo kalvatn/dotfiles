@@ -245,7 +245,7 @@ call unite#custom#source('file_rec/async','sorters','sorter_rank')
 " custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 "nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim<CR>
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
+nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async:!<CR>
 "nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
 
 " mappings/keybindings (https://neovim.io/doc/user/intro.html#key-notation)

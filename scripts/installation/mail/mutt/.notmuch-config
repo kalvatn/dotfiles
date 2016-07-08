@@ -1,0 +1,20 @@
+[database]
+path=/home/kalvatn/mail
+
+[user]
+name=Jon Terje Tvergrov Kalvatn
+primary_email=jonterje.kalvatn@gmail.com
+other_email=j.kalvatn@sportradar.com
+
+[new]
+tags=unread;inbox;
+ignore=
+
+[search]
+exclude_tags=deleted;spam;
+
+[maildir]
+synchronize_flags=true
+
+[crypto]
+gpg_path=gpg
