@@ -273,7 +273,8 @@ vmap < <gv
 vmap > >gv
 
 " toggle comment
-nnoremap <leader>c gc<cr>
+nmap <leader>c gcc<cr>
+vmap <leader>c gc<cr>
 
 " map CTRL+k/j to move up/down in popupmenu
 inoremap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
