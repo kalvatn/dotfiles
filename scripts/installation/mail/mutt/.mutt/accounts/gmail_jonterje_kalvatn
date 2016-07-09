@@ -1,14 +1,13 @@
 # vim: filetype=muttrc
-unset postponed record hostname from folder imap_user imap_pass smtp_url smtp_pass hostname spoolfile imap_check_subscribed postponed mbox
 
 # receive
-set folder = "imaps://imap.gmail.com/"
-set imap_user = "jonterje.kalvatn@gmail.com"
-set imap_pass = `secret-tool lookup mail jonterje.kalvatn@gmail.com`
-set spoolfile = +INBOX
-mailboxes = "+[Gmail]/All Mail"
-set mbox="+[Gmail]/All Mail"
-set imap_check_subscribed
+set folder = "~/.mail/gmail"
+set spoolfile = "+inbox"
+mailboxes = +inbox +drafts +sent +starred +important +spam +trash +archive
+set mbox="+archive"
+set postponed = "+drafts"
+# unset record as gmail smtp does this by default
+unset record
 
 # send
 set smtp_url = "smtps://jonterje.kalvatn@smtp.gmail.com"
@@ -16,9 +15,6 @@ set smtp_pass = `secret-tool lookup mail jonterje.kalvatn@gmail.com`
 set from = "jonterje.kalvatn@gmail.com"
 set hostname = "gmail.com"
 set ssl_force_tls = yes
-set postponed = "+[Gmail]/Drafts"
-# unset record as gmail smtp does this by default
-unset record
 
 # bindings
 macro index,pager a "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
@@ -29,5 +25,4 @@ macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
 macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 
 # required to not overwrite credentials when switching accounts
-account-hook $folder "set imap_user = $imap_user imap_pass = $imap_pass"
-account-hook $smtp_url "set smtp_url = $smtp_url smtp_pass = $smtp_pass
+account-hook $folder "set from = $from hostname = $hostname smtp_url = $smtp_url smtp_pass = $smtp_pass
