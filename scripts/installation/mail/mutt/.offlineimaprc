@@ -1,5 +1,7 @@
+# vim set ft=conf
 [general]
 ui = ttyui
+# accounts = gmail, sportradar
 accounts = gmail
 pythonfile = /home/kalvatn/dotfiles/scripts/installation/mail/mutt/secret.py
 fsync = False
@@ -7,6 +9,13 @@ fsync = False
 [Account gmail]
 localrepository = gmail_local
 remoterepository = gmail_remote
+status_backend = sqlite
+postsynchook = notmuch new
+
+
+[Account sportradar]
+localrepository = sportradar_local
+remoterepository = sportradar_remote
 status_backend = sqlite
 postsynchook = notmuch new
 
@@ -34,7 +43,6 @@ nametrans = lambda folder: {
 
 folderfilter = lambda folder: folder not in [
     '[Gmail]/Spam',
-    '[Gmail]/All Mail'
   ]
 
 [Repository gmail_local]
@@ -52,6 +60,23 @@ nametrans = lambda folder: {
     'trash'     : '[Gmail]/Trash',
     'archive'   : '[Gmail]/All Mail',
   }.get(folder, folder)
+
+[Repository sportradar_remote]
+maxconnections = 3
+type = IMAP
+remotehost = mail.sportradar.com
+remotehost = 172.16.17.81
+remoteuser = j.kalvatn
+remotepasseval = get_password('mail', 'j.kalvatn@sportradar.com')
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+realdelete = no
+
+[Repository sportradar_local]
+type = Maildir
+localfolders = ~/.mail/sportradar
+sep = /
+restoreatime = no
 
 [mbnames]
 enabled = yes
