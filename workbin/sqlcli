@@ -5,48 +5,83 @@ set -e
 HOST_TEST="10.12.26.46"
 HOST_SELECT="10.12.26.41"
 HOST_MISC="10.12.26.55"
+
+DATABASE_ODDS="odds"
+DATABASE_MISC_INTERNAL="misc-internal"
+
+# set defaults
+HOST=$HOST_TEST
+DATABASE=$DATABASE_ODDS
 USER="developer"
 PASS="$(secret-tool lookup mysql "$USER" 2>/dev/null &)"
 
 if [ -z "$PASS" ]; then
-  echo "password not set"
+  echo "storing password for developer@mysql"
   secret-tool store --label "developer@mysql" mysql "$USER"
 fi
-PASS="$(secret-tool lookup mysql "$USER" 2>/dev/null &)"
+PASS="$(secret-tool lookup mysql "$USER")"
 
-USE_HOST=""
-
-function usage {
-  echo "usage sqlcli (test|select|misc) <schema> <query>"
+function show_usage_message {
+  echo "usage: sqlcli [-h test|select|misc] [-d <database>] <query>"
 }
 
-if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
-  usage
-  exit
+
+
+while getopts ":h:d:" OPTION; do
+	case $OPTION in
+		u)
+			show_usage_message
+			exit 0
+			;;
+		h)
+			case "$OPTARG" in
+				select) HOST=$HOST_SELECT;;
+				misc) HOST=$HOST_MISC;;
+				test) HOST=$HOST_TEST;;
+				*)
+					echo "illegal value '$OPTARG' for option -$OPTION, legal values are [$HOST_SELECT, $HOST_TEST, $HOST_MISC]" >&2
+          show_usage_message
+					exit 1
+					;;
+				esac
+			;;
+    d)
+      case "$OPTARG" in
+        odds) DATABASE=$DATABASE_ODDS;;
+        misc-internal) DATABASE=$DATABASE_MISC_INTERNAL;;
+        *)
+					echo "illegal value '$OPTARG' for option -$OPTION, legal values are [$DATABASE_ODDS, $DATABASE_MISC_INTERNAL]" >&2
+          show_usage_message
+					exit 1
+					;;
+      esac
+      ;;
+		\?)
+			echo "unrecognized option '-$OPTARG'" >&2
+			show_usage_message
+			exit 1
+			;;
+		:)
+			echo "option '-$OPTARG' requires an argument" >&2
+			show_usage_message
+			exit 1
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+if [ -z "$1" ]; then
+  show_usage_message
+  exit 1
 fi
 
-case "$1" in
-  "test")
-    USE_HOST="$HOST_TEST"
-    ;;
-  "select")
-    USE_HOST="$HOST_SELECT"
-    ;;
-  "misc")
-    USE_HOST="$HOST_MISC"
-    ;;
-  *)
-    USE_HOST=""
-    ;;
-esac
 
 
-if [ -z "$USE_HOST" ]; then
-  usage
-  exit
-fi
 
-mysql_cmd="mysql -Bt -h$USE_HOST -u$USER -p$PASS -D$2"
-echo "results for query '$3'"
+mysql_cmd="mysql -Bt -h$HOST -u$USER -p$PASS -D$DATABASE"
+echo "results for query '$1' on $USER@$HOST:$DATABASE"
 
-echo "$3" | $mysql_cmd | less -SXFR
+echo "$1" | $mysql_cmd | less -SXFR
+
+
+
