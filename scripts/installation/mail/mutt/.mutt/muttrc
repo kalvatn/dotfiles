@@ -2,20 +2,13 @@
 # reload config
 macro index,pager <f5> '<enter-command>source ~/.mutt/muttrc<enter>'
 
-# folders
-set mbox_type = Maildir
-set folder = ~/.mail
-set spoolfile=+/
+# caching
 set header_cache = ~/.cache/mutt/header_cache/
 set message_cachedir = ~/.cache/mutt/message_cachedir/
 set mailcap_path = ~/.mutt/mailcap
 # speed up folder switch
 set sleep_time = 0
 
-# imap
-unset imap_passive
-set imap_keepalive = 300
-set mail_check = 30
 set wait_key = no        # shut up, mutt
 set mbox_type = Maildir  # mailbox type
 set timeout = 3          # idle time before scanning
@@ -31,10 +24,22 @@ set postpone=ask-yes
 set prompt_after=no
 
 # colors
-#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
 #source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-256.muttrc
 #source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
-source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
+#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
+
+
+# generic (un)binds
+bind index,pager,browser C noop
+bind index,pager,browser J noop
+bind index,pager,browser K noop
+bind index,pager,browser d noop
+bind index,pager,browser f noop
+bind index,pager,browser a noop
+bind index,pager,browser r noop
+bind index,pager,browser R noop
+bind index,pager,browser F noop
 
 # browser / select folder
 bind browser gg first-entry
@@ -55,10 +60,21 @@ bind index G last-entry
 bind index h noop
 bind index l display-message
 bind index N search-opposite
+bind index R reply
+bind index ! flag-message
+bind index F forward-message
+
+macro index L "<enter-command> \
+  unset wait_key<enter><shell-escape> \
+    read -p 'notmuch query: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \
+    \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;chomp@a;s/\^id:// for@a;$,=\"|\"; \
+    print@a'\`\"<enter>" "show only messages matching a notmuch pattern"
+macro index a "<limit>all\n" "show all messages (undo limit)"
+
 
 # sidebar
 set sidebar_visible = yes
-set sidebar_width = 24
+set sidebar_width = 30
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index O sidebar-open
@@ -97,11 +113,11 @@ set fast_reply=yes
 set include=yes
 
 # accounts
-folder-hook imaps://imap.gmail.com/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
-#folder-hook imaps://mail.sportradar.com/ "source ~/.mutt/accounts/sportradar"
+folder-hook ~/.mail/gmail/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
+folder-hook ~/.mail/sportradar/ "source ~/.mutt/accounts/sportradar"
 
 source ~/.mutt/accounts/gmail_jonterje_kalvatn
-#source ~/.mutt/accounts/sportradar
+source ~/.mutt/accounts/sportradar
 
-#macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
+macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/sportradar<enter><change-folder>!<enter>'

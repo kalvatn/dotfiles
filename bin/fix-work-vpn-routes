@@ -8,3 +8,7 @@ sudo ip route add 172.19.22.131 via 10.12.121.1
 sudo ip route add 172.19.22.105 via 10.12.121.1
 # helpdesk.sportradar.ag
 sudo ip route add 172.19.22.30 via 10.12.121.1
+# confluence.sportradar.ag
+sudo ip route add 172.19.22.131 via 10.12.121.1
+
+sudo ip route add 85.126.56.60 via 10.12.121.1

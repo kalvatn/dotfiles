@@ -3,30 +3,30 @@
 set -e
 source "$HOME/.functions"
 
-# if needs_install mutt-patched secret-tool libsecret-tools w3m urlview; then
-#   apt_install libsecret-tools w3m mutt-patched urlview
-# fi
 CWD="$(get_script_dir "$0")"
 
-
-packages=(checkinstall autoconf libsecret-tools w3m urlview openssl libsasl2-modules libsasl2-dev libssl-dev libssl1.0.0 libnotmuch-dev notmuch libncurses5-dev libtokyocabinet-dev libkrb5-dev)
+packages=(mutt-patched libsecret-tools w3m urlview notmuch)
 if needs_install "${packages[@]}"; then
   apt_install "${packages[@]}"
 fi
+# packages=(checkinstall autoconf libsecret-tools w3m urlview openssl libsasl2-modules libsasl2-dev libssl-dev libssl1.0.0 libnotmuch-dev notmuch libncurses5-dev libtokyocabinet-dev libkrb5-dev)
+# if needs_install "${packages[@]}"; then
+#   apt_install "${packages[@]}"
+# fi
 
-NEOMUTT_TMP_INSTALL=/tmp/neomutt
-if needs_install neomutt; then
-  info "building neomutt from source"
-  if [ -d "$NEOMUTT_TMP_INSTALL" ]; then
-    rm -Rf "$NEOMUTT_TMP_INSTALL"
-  fi
-  git clone https://github.com/neomutt/neomutt "$NEOMUTT_TMP_INSTALL"
+# NEOMUTT_TMP_INSTALL=/tmp/neomutt
+# if needs_install neomutt; then
+#   info "building neomutt from source"
+#   if [ -d "$NEOMUTT_TMP_INSTALL" ]; then
+#     rm -Rf "$NEOMUTT_TMP_INSTALL"
+#   fi
+#   git clone https://github.com/neomutt/neomutt "$NEOMUTT_TMP_INSTALL"
 
-  cd "$NEOMUTT_TMP_INSTALL"
-  ./prepare --enable-imap --enable-smtp --enable-sidebar --enable-notmuch --enable-hcache --with-gss --with-ssl --with-sasl
-  make && sudo checkinstall -y --pkgname=neomutt --pkgversion=1.6.2 --deldoc=yes --delspec=yes --deldesc=yes
-  cd "$CWD"
-fi
+#   cd "$NEOMUTT_TMP_INSTALL"
+#   ./prepare --enable-imap --enable-smtp --enable-sidebar --enable-notmuch --enable-hcache --with-gss --with-ssl --with-sasl
+#   make && sudo checkinstall -y --pkgname=neomutt --pkgversion=1.6.2 --deldoc=yes --delspec=yes --deldesc=yes
+#   cd "$CWD"
+# fi
 
 OFFLINEIMAP_TMP_INSTALL=/tmp/offlineimap
 if needs_install offlineimap; then

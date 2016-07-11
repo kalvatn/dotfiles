@@ -1,5 +1,5 @@
 [database]
-path=/home/kalvatn/mail
+path=/home/kalvatn/.mail/
 
 [user]
 name=Jon Terje Tvergrov Kalvatn
