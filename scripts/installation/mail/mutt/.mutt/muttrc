@@ -64,6 +64,13 @@ bind index R reply
 bind index ! flag-message
 bind index F forward-message
 
+macro index L "<enter-command> \
+  unset wait_key<enter><shell-escape> \
+    read -p 'notmuch query: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \
+    \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;chomp@a;s/\^id:// for@a;$,=\"|\"; \
+    print@a'\`\"<enter>" "show only messages matching a notmuch pattern"
+macro index a "<limit>all\n" "show all messages (undo limit)"
+
 
 # sidebar
 set sidebar_visible = yes
