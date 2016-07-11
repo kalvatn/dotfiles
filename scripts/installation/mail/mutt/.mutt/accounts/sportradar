@@ -18,11 +18,11 @@ set ssl_starttls = yes
 #unset ssl_starttls
 
 
-macro index,pager A "<save-message>=archive<enter><enter>" "archive"
-macro index,pager D "<save-message>=trash<enter><enter>" "delete"
-macro index gi "<change-folder>=inbox<enter>" "go to Inbox"
-macro index ga "<change-folder>=archive<enter>" "go to Archive"
-macro index gd "<change-folder>=drafts<enter>" "go to Drafts"
+macro index,pager A "<save-message>=archive<enter>" "archive"
+macro index,pager D "<save-message>=trash<enter>" "delete"
+macro index gi "<change-folder>=inbox<enter>" "go to inbox"
+macro index ga "<change-folder>=archive<enter>" "go to archive"
+macro index gd "<change-folder>=drafts<enter>" "go to drafts"
 
 # needs to be called
 account-hook $folder "set from = $from hostname = $hostname smtp_url = $smtp_url smtp_pass = $smtp_pass"

@@ -17,9 +17,9 @@ set hostname = "gmail.com"
 set ssl_force_tls = yes
 
 # bindings
-macro index,pager A "<save-message>=archive<enter><enter>" "archive"
-macro index,pager S "<save-message>=starred<enter><enter>" "star"
-macro index,pager D "<save-message>=trash<enter><enter>" "trash"
+macro index,pager A "<save-message>=archive<enter>" "archive"
+macro index,pager S "<save-message>=starred<enter>" "star"
+macro index,pager D "<save-message>=trash<enter>" "trash"
 macro index gi "<change-folder>=inbox<enter>" "go to inbox"
 macro index ga "<change-folder>=archive<enter>" "go to archive"
 macro index gs "<change-folder>=starred<enter>" "go to starred"
