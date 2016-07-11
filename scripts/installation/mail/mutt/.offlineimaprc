@@ -1,8 +1,7 @@
 # vim set ft=conf
 [general]
 ui = ttyui
-# accounts = gmail, sportradar
-accounts = gmail
+accounts = gmail, sportradar
 pythonfile = /home/kalvatn/dotfiles/scripts/installation/mail/mutt/secret.py
 fsync = False
 

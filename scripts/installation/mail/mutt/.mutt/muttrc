@@ -29,6 +29,18 @@ source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256
 #source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 #source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
 
+
+# generic (un)binds
+bind index,pager,browser C noop
+bind index,pager,browser J noop
+bind index,pager,browser K noop
+bind index,pager,browser d noop
+bind index,pager,browser f noop
+bind index,pager,browser a noop
+bind index,pager,browser r noop
+bind index,pager,browser R noop
+bind index,pager,browser F noop
+
 # browser / select folder
 bind browser gg first-entry
 bind browser G last-entry
@@ -48,6 +60,10 @@ bind index G last-entry
 bind index h noop
 bind index l display-message
 bind index N search-opposite
+bind index R reply
+bind index ! flag-message
+bind index F forward-message
+
 
 # sidebar
 set sidebar_visible = yes
