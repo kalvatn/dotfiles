@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+HOST_TEST="10.12.26.46"
+HOST_SELECT="10.12.26.41"
+HOST_MISC="10.12.26.55"
+USER="developer"
+PASS="$(secret-tool lookup mysql "$USER" 2>/dev/null &)"
+
+if [ -z "$PASS" ]; then
+  echo "password not set"
+  secret-tool store --label "developer@mysql" mysql "$USER"
+fi
+PASS="$(secret-tool lookup mysql "$USER" 2>/dev/null &)"
+
+USE_HOST=""
+
+function usage {
+  echo "usage sqlcli (test|select|misc) <schema> <query>"
+}
+
+if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
+  usage
+  exit
+fi
+
+case "$1" in
+  "test")
+    USE_HOST="$HOST_TEST"
+    ;;
+  "select")
+    USE_HOST="$HOST_SELECT"
+    ;;
+  "misc")
+    USE_HOST="$HOST_MISC"
+    ;;
+  *)
+    USE_HOST=""
+    ;;
+esac
+
+
+if [ -z "$USE_HOST" ]; then
+  usage
+  exit
+fi
+
+mysql_cmd="mysql -Bt -h$USE_HOST -u$USER -p$PASS -D$2"
+echo "results for query '$3'"
+
+echo "$3" | $mysql_cmd | less -SXFR
