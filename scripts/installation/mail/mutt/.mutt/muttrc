@@ -91,10 +91,10 @@ set include=yes
 
 # accounts
 folder-hook ~/.mail/gmail/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
-#folder-hook imaps://mail.sportradar.com/ "source ~/.mutt/accounts/sportradar"
+folder-hook ~/.mail/sportradar/ "source ~/.mutt/accounts/sportradar"
 
 source ~/.mutt/accounts/gmail_jonterje_kalvatn
-#source ~/.mutt/accounts/sportradar
+source ~/.mutt/accounts/sportradar
 
-#macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
+macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/sportradar<enter><change-folder>!<enter>'

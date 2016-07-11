@@ -1,36 +1,28 @@
 # vim: filetype=muttrc
-unset postponed record hostname from folder imap_user imap_pass smtp_url smtp_pass hostname spoolfile imap_check_subscribed postponed mbox
 
 # receive
-set folder = "imaps://mail.sportradar.com"
-set imap_user = "j.kalvatn"
-set imap_pass = `secret-tool lookup mail j.kalvatn@sportradar.com`
-set spoolfile = +INBOX
-mailboxes = "+INBOX" "+Archive" "+Drafts" "+Sent Items" "+Deleted Items"
-set mbox = "+INBOX"
-#set imap_check_subscribed
+set folder = "~/.mail/sportradar"
+set spoolfile = "+inbox"
+mailboxes = +inbox +drafts +sent +spam +trash +archive
+set mbox="+archive"
+set postponed = "+drafts"
+set record = "+sent"
 
 # send
 set smtp_url = "smtp://j.kalvatn@mail.sportradar.com:587"
 set smtp_pass = `secret-tool lookup mail j.kalvatn@sportradar.com`
 set from = "j.kalvatn@sportradar.com"
 set hostname = "sportradar.com"
-set postponed = "+Drafts"
-set record = "+Sent Items"
 #set ssl_force_tls = yes
 set ssl_starttls = yes
 #unset ssl_starttls
 
 
-macro index,pager A "<save-message>=Archive<enter><enter>" "Archive"
-macro index,pager D "<save-message>=Deleted Items<enter><enter>" "Delete"
-macro index gi "<change-folder>=INBOX<enter>" "Go to Inbox"
-macro index ga "<change-folder>=Archive<enter>" "Go to Archive"
-macro index gd "<change-folder>=Drafts<enter>" "Go to Drafts"
+macro index,pager A "<save-message>=archive<enter><enter>" "archive"
+macro index,pager D "<save-message>=trash<enter><enter>" "delete"
+macro index gi "<change-folder>=inbox<enter>" "go to Inbox"
+macro index ga "<change-folder>=archive<enter>" "go to Archive"
+macro index gd "<change-folder>=drafts<enter>" "go to Drafts"
 
-macro index gi noop
-macro index ga noop
-macro index gd noop
 # needs to be called
-account-hook $folder "set imap_user = $imap_user imap_pass = $imap_pass"
-account-hook $smtp_url "set smtp_url = $smtp_url smtp_pass = $smtp_pass
+account-hook $folder "set from = $from hostname = $hostname smtp_url = $smtp_url smtp_pass = $smtp_pass"

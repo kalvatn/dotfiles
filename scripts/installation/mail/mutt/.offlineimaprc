@@ -65,18 +65,40 @@ nametrans = lambda folder: {
 maxconnections = 3
 type = IMAP
 remotehost = mail.sportradar.com
-remotehost = 172.16.17.81
+#remotehost = 172.16.17.81
 remoteuser = j.kalvatn
 remotepasseval = get_password('mail', 'j.kalvatn@sportradar.com')
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 realdelete = no
 
+#Archive  Calendar  Contacts  Deleted Items  Deleted ItemsItems  Drafts  [Gmail]  INBOX  Junk E-Mail  Outbox  Sent  Sent Items  Tasks
+
+nametrans = lambda folder: {
+    'INBOX'             : 'inbox',
+    'Drafts'    : 'drafts',
+    'Sent Items' : 'sent',
+    'Junk E-Mail'      : 'spam',
+    'Deleted Items'     : 'trash',
+    'Archive'  : 'archive'
+  }.get(folder, folder)
+
+folderfilter = lambda folder : folder not in ['Calendar', 'Contacts', 'Outbox', 'Tasks', 'Sent']
+
 [Repository sportradar_local]
 type = Maildir
 localfolders = ~/.mail/sportradar
 sep = /
 restoreatime = no
+
+nametrans = lambda folder: {
+		'inbox'     : 'INBOX',
+		'drafts'    : 'Drafts',
+		'sent'      : 'Sent Items',
+		'spam'      : 'Junk E-Mail',
+		'trash'     : 'Deleted Items',
+		'archive'   : 'Archive',
+	}.get(folder, folder)
 
 [mbnames]
 enabled = yes
