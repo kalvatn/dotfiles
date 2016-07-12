@@ -9,14 +9,11 @@ fsync = False
 localrepository = gmail_local
 remoterepository = gmail_remote
 status_backend = sqlite
-postsynchook = notmuch new
-
 
 [Account sportradar]
 localrepository = sportradar_local
 remoterepository = sportradar_remote
 status_backend = sqlite
-postsynchook = notmuch new
 
 [Repository gmail_remote]
 maxconnections = 3

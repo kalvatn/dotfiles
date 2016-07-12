@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+export PATH="$PATH:/usr/local/bin"
+
+SLEEPTIME=10
+monitor() {
+	local pid=$1 i=0
+	while ps "$pid" &>/dev/null; do
+		if (( i++ > 5 )); then
+			echo "max checks reached, sending SIGKILL to ${pid}"
+			kill -9 "$pid"
+      return 1
+		fi
+		sleep $SLEEPTIME
+	done
+	return 0
+}
+
+pid="$(pgrep offlineimap & 2>/dev/null)"
+if [ ! -z "$pid" ]; then
+  echo "offlineimap already running (pid : $pid), exiting"
+	exit 1
+fi
+
+sessionfile="$(find "${HOME}/.dbus/session-bus/" -type f)"
+export "$(grep ^DBUS_SESSION_BUS_ADDRESS "$sessionfile")"
+#echo "DBUS_SESSION_BUS_ADDRESS : $DBUS_SESSION_BUS_ADDRESS"
+
+offlineimap -u quiet & monitor "$!"
+/home/kalvatn/dotfiles/scripts/installation/mail/mutt/offlineimap-postsync
+echo "mailsync finished $(date +"%Y-%m-%d %H:%M:%S")"

@@ -157,7 +157,7 @@ set undodir=$HOME/.config/nvim/.undo
 let g:netrw_dirhistmax = 0
 
 " clipboard
-set clipboard+=unnamed
+"set clipboard+=unnamed
 set clipboard+=unnamedplus
 set nopaste
 

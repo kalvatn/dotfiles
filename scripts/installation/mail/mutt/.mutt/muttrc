@@ -40,6 +40,7 @@ bind index,pager,browser a noop
 bind index,pager,browser r noop
 bind index,pager,browser R noop
 bind index,pager,browser F noop
+bind index,pager,browser <Tab> noop
 
 # browser / select folder
 bind browser gg first-entry
@@ -52,8 +53,11 @@ bind browser L view-file
 set sort=threads
 set sort_aux=last-date-received
 set thread_received=yes
-set status_chars  = " *%A"
-set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+#set status_chars  = " *%A"
+#set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+#set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+#set index_format="%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+#set index_format="%4C %Z %{%Y-%m-%d} %-17.17L (%?l?%4l&%4c?) %s"
 
 bind index gg first-entry
 bind index G last-entry
@@ -63,6 +67,7 @@ bind index N search-opposite
 bind index R reply
 bind index ! flag-message
 bind index F forward-message
+bind index \cR toggle-new
 
 macro index L "<enter-command> \
   unset wait_key<enter><shell-escape> \
@@ -73,11 +78,12 @@ macro index a "<limit>all\n" "show all messages (undo limit)"
 
 
 # sidebar
-set sidebar_visible = yes
+set sidebar_visible = no
 set sidebar_width = 30
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index O sidebar-open
+macro index,pager <Tab> '<enter-command>toggle sidebar_visible<enter>'
 
 # pager / view messge
 set pager_index_lines=10 # split index and pager when viewing messages
