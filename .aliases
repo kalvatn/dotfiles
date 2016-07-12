@@ -64,6 +64,7 @@ fi
 # TODO: move
 alias workstation="ssh kalvatn@10.12.121.13"
 alias hans="ssh hans@10.12.100.220"
+alias home-laptop="ssh kalvatn@178.164.96.140"
 
 
 # work-servers
