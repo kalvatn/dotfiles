@@ -34,7 +34,7 @@ alias xerrors="follow ~/.xsession-errors"
 alias xup='xrdb ~/.Xresources'
 
 # TODO: move
-#alias ag='ag --path-to-agignore ~/.agignore'
+alias ag='ag -p ~/.agignore'
 
 # custom launchers
 
