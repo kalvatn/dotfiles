@@ -165,9 +165,22 @@ set noshowmode
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set termguicolors
+" set background=dark
 set background=dark
+
+
+" https://github.com/tmux/tmux/releases/download/2.2/tmux-2.2.tar.gz
+" https://deductivelabs.com/en/2016/03/using-true-color-vim-tmux/
+" http://ethanschoonover.com/solarized/vim-colors-solarized
 colorscheme solarized
+let g:solarized_degrade = 1
+" let g:solarized_bold = 1
+" let g:solarized_termtrans = 1
+" let g:solarized_contrast = "low"
+" let g:solarized_contrast = "normal"
+let g:solarized_contrast = "high"
 "colorscheme default
+call togglebg#map("<F5>")
 
 
 " search
