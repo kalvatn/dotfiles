@@ -40,7 +40,6 @@ esac
 case "$COLORTERM" in
   *gnome-terminal|*-256color)
     color_prompt=yes
-    export TERM="xterm-256color"
     ;;
 esac
 
@@ -89,7 +88,6 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 if [ -f ~/.aliases ]; then
-  echo "sourcing aliases"
   . ~/.aliases
 fi
 
