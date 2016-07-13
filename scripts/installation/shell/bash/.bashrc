@@ -40,6 +40,7 @@ esac
 case "$COLORTERM" in
   *gnome-terminal|*-256color)
     color_prompt=yes
+    export TERM="xterm-256color"
     ;;
 esac
 

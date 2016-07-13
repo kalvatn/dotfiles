@@ -3,7 +3,7 @@ export ZSHRC=/home/kalvatn/.zshrc
 export ZSH=/home/kalvatn/.oh-my-zsh
 
 
-#[[ "$COLORTERM" == "gnome-terminal" ]] && export TERM="xterm-256color"
+[[ "$COLORTERM" == "gnome-terminal" ]] && export TERM="xterm-256color"
 
 autoload -U colors zsh-mime-setup select-word-style
 colors          # colors

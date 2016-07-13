@@ -25,9 +25,9 @@ set prompt_after=no
 
 # colors
 source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
-#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-256.muttrc
-#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
-#source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
+# source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-256.muttrc
+# source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+# source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
 
 
 # generic (un)binds
@@ -50,8 +50,13 @@ bind browser l select-entry
 bind browser L view-file
 
 # index / message list
+set nomarkers
 set sort=threads
 set sort_aux=last-date-received
+set date_format = "%Y-%m-%d"
+set index_format = "[%Z] %D %-30.30F %s"
+# set sort = threads                         # like gmail
+# set sort_aux = reverse-last-date-received # like gmail
 set thread_received=yes
 #set status_chars  = " *%A"
 #set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
@@ -97,7 +102,29 @@ unignore from: date subject to cc list-unsubscribe
 unhdr_order *
 hdr_order Date: From: To: Cc: Subject:
 
+auto_view application/zip
+auto_view application/x-gzip
+auto_view application/x-gunzip
+auto_view application/pgp-signature
+auto_view application/pgp
+auto_view application/octet-stream
+auto_view application/x-zip-compressed
+auto_view application/x-arj-compressed
+auto_view application/x-tar-gz
+auto_view application/ms-tnef
+auto_view application/x-perl
+auto_view application/x-sh
+auto_view application/x-tcl
+auto_view application/x-delphi-source
+auto_view application/emacs-lisp
+auto_view application/msword
+auto_view text/x-patch
 auto_view text/html
+auto_view text/x-vcard
+auto_view text/x-script.elisp
+auto_view text/x-lisp
+auto_view text/x-diff
+auto_view image/tiff
 alternative_order text/plain text/enriched text/html
 
 bind pager h exit

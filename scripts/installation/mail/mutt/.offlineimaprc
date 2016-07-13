@@ -16,7 +16,7 @@ remoterepository = sportradar_remote
 status_backend = sqlite
 
 [Repository gmail_remote]
-maxconnections = 3
+maxconnections = 2
 type = Gmail
 auth_mechanisms = LOGIN
 remotehost = imap.gmail.com
@@ -58,7 +58,7 @@ nametrans = lambda folder: {
   }.get(folder, folder)
 
 [Repository sportradar_remote]
-maxconnections = 3
+maxconnections = 2
 type = IMAP
 remotehost = mail.sportradar.com
 #remotehost = 172.16.17.81
