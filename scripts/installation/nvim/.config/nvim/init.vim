@@ -210,6 +210,7 @@ set ruler
 set nowrap
 set lazyredraw
 set so=10
+set mouse-=a
 syntax on
 
 set virtualedit=block
