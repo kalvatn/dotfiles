@@ -275,19 +275,19 @@ let g:unite_data_directory='~/.config/nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
 "let g:unite_prompt='❯ '
 let g:unite_prompt='> '
-let g:unite_source_rec_async_command  = ['ag', '-p', '/home/kalvatn/.agignore', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+" let g:unite_source_rec_async_command  = ['ag', '-p', '/home/kalvatn/.agignore', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
 let g:unite_source_rec_neovim_command = ['ag', '-f', '--nocolor', '--nogroup', '--hidden', '-g', '']
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '-t -f --hidden --nogroup --nocolor --column -l'
-let g:unite_source_grep_recursive_opt = ''
+" let g:unite_source_grep_command = 'ag'
+" let g:unite_source_grep_default_opts = '-t -f --hidden --nogroup --nocolor --column -l'
+" let g:unite_source_grep_recursive_opt = ''
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec/async','sorters','sorter_rank')
+" call unite#custom#source('file_rec/async','sorters','sorter_rank')
 call unite#custom#source('file_rec/neovim','sorters','sorter_rank')
-" nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim:!<CR>
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim:!<CR>
-nnoremap <silent> <c-F> :Unite -auto-resize -start-insert -direction=botright grep:!<CR>
 " nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async:!<CR>
+" nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim:!<CR>
+
+" nnoremap <silent> <c-F> :Unite -auto-resize -start-insert -direction=botright grep:!<CR><CR>
 " nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
 
 " custom mappings for the unite buffer
