@@ -131,3 +131,5 @@ source /home/kalvatn/dotfiles/scripts/installation/tmux/.tmuxinator/completion/t
 
 
 stty -ixon
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
