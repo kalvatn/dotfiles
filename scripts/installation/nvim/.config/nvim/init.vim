@@ -162,7 +162,8 @@ set nopaste
 
 " ui
 set noshowmode
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" TODO: NVIM_TUI_ENABLE_TRUE_COLOR now a noop? replaced by set termguicolors?
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set termguicolors
 " set background=dark
@@ -176,9 +177,9 @@ colorscheme solarized
 let g:solarized_degrade = 1
 " let g:solarized_bold = 1
 " let g:solarized_termtrans = 1
-" let g:solarized_contrast = "low"
-" let g:solarized_contrast = "normal"
-let g:solarized_contrast = "high"
+" let g:solarized_contrast = 'low'
+" let g:solarized_contrast = 'normal'
+" let g:solarized_contrast = 'high'
 "colorscheme default
 call togglebg#map("<F5>")
 
