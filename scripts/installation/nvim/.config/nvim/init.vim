@@ -11,7 +11,6 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 
-call dein#add('terryma/vim-multiple-cursors')
 
 " ui
 call dein#add('vim-airline/vim-airline')
@@ -24,9 +23,12 @@ call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 " async
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
-" search
+" search / replace
 call dein#add('troydm/asyncfinder.vim')
 call dein#add('Shougo/unite.vim')
+call dein#add('junegunn/fzf', {'build': './install --all' })
+call dein#add('junegunn/fzf.vim')
+call dein#add('terryma/vim-multiple-cursors')
 
 " completion
 call dein#add('Shougo/deoplete.nvim')
@@ -123,11 +125,6 @@ function! HLNext (blinktime)
   redraw
 endfunction
 
-function! s:unite_settings()
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-endfunction
 
 augroup filetypedetect
   autocmd BufRead,BufNewFile *mutt-* setfiletype mail
@@ -204,6 +201,24 @@ set virtualedit=block
 set viminfo^=%
 
 " plugin settings
+
+" fzf
+let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -g ""'
+let $FZF_DEFAULT_OPTS .= ' --inline-info'
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+command! Plugs call fzf#run({
+	\ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
+	\ 'options': '--delimiter / --nth -1',
+	\ 'down':    '~40%',
+	\ 'sink':    'Explore'})
+
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -220,6 +235,7 @@ let g:gitgutter_max_signs = 1000  " default value
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_refresh_always = 1
 call deoplete#custom#set('buffer', 'mark', 'buffer')
 call deoplete#custom#set('omni', 'mark', 'omni')
 call deoplete#custom#set('file', 'mark', 'file')
@@ -238,17 +254,34 @@ let g:NERDTreeAutoDeleteBuffer=1
 " unite
 let g:unite_data_directory='~/.config/nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
-let g:unite_prompt='❯ '
-"let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
-let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+"let g:unite_prompt='❯ '
+let g:unite_prompt='> '
+let g:unite_source_rec_async_command  = ['ag', '-p', '/home/kalvatn/.agignore', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+let g:unite_source_rec_neovim_command = ['ag', '-f', '--nocolor', '--nogroup', '--hidden', '-g', '']
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '-t -f --hidden --nogroup --nocolor --column -l'
+let g:unite_source_grep_recursive_opt = ''
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file_rec/async','sorters','sorter_rank')
+call unite#custom#source('file_rec/neovim','sorters','sorter_rank')
+" nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim:!<CR>
+nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim:!<CR>
+nnoremap <silent> <c-F> :Unite -auto-resize -start-insert -direction=botright grep:!<CR>
+" nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async:!<CR>
+" nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
+
 " custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
-"nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim<CR>
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async:!<CR>
-"nnoremap <silent> <leader>o :Unite -winwidth=45 -vertical -direction=botright outline<CR>
+function! s:unite_settings()
+	" Enable navigation with control-j and control-k in insert mode
+	imap <buffer> <C-j> <Plug>(unite_select_next_line)
+	imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+endfunction
+
+
+
+
 
 " mappings/keybindings (https://neovim.io/doc/user/intro.html#key-notation)
 
