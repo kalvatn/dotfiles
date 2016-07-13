@@ -321,7 +321,7 @@ vmap < <gv
 vmap > >gv
 
 " toggle comment
-nmap <leader>c gcc<cr>
+nmap <leader>c gcc
 vmap <leader>c gc<cr>
 
 " map CTRL+k/j to move up/down in popupmenu
