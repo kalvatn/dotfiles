@@ -13,6 +13,7 @@ if needs_install "${packages[@]}"; then
   apt_install "${packages[@]}"
   sudo pip2 install --upgrade neovim
   sudo pip3 install --upgrade neovim
+  sudo gem install neovim
 
 
   # https://askubuntu.com/questions/512525/how-to-enable-24bit-true-color-support-in-gnome-terminal
