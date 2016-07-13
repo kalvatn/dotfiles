@@ -10,6 +10,7 @@ call dein#add('Shougo/dein.vim')
 " plugins
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('honza/vim-snippets')
 
 
 " ui
@@ -233,6 +234,21 @@ command! Plugs call fzf#run({
 	\ 'options': '--delimiter / --nth -1',
 	\ 'down':    '~40%',
 	\ 'sink':    'Explore'})
+" snippets
+let g:neosnippet#enable_snipmate_compatibility = 1
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+autocmd FileType setlocal completeopt+=noselect,menu,preview
+set completeopt+=noselect,menu,preview
 
 " colorizer
 " let g:colorizer_auto_color = 1
