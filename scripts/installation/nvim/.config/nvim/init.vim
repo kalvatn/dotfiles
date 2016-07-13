@@ -219,22 +219,6 @@ set viminfo^=%
 
 " plugin settings
 
-" fzf
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -g ""'
-let $FZF_DEFAULT_OPTS .= ' --inline-info'
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-command! Plugs call fzf#run({
-	\ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
-	\ 'options': '--delimiter / --nth -1',
-	\ 'down':    '~40%',
-	\ 'sink':    'Explore'})
 " snippets
 let g:neosnippet#enable_snipmate_compatibility = 1
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -314,8 +298,24 @@ function! s:unite_settings()
 	imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
 
+" fzf
+let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -g ""'
+let $FZF_DEFAULT_OPTS .= ' --inline-info'
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
+command! Plugs call fzf#run({
+	\ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
+	\ 'options': '--delimiter / --nth -1',
+	\ 'down':    '~40%',
+	\ 'sink':    'Explore'})
 
+nnoremap <silent> <c-p> :FZF<CR>
 
 
 " mappings/keybindings (https://neovim.io/doc/user/intro.html#key-notation)
