@@ -4,27 +4,8 @@ set -e
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
-if needs_install i3; then
-  apt_install i3
-fi
-
-ROFI_INSTALL_TMP=/tmp/rofi
-if needs_install checkinstall rofi; then
-  apt_install checkinstall
-
-  # apt_install xcb-aux xcb-xkb xkbcommon xkbcommon-x11 xcb-ewmh xcb-xinerama xcb-icccm xcb-xrm
-  apt_install libxcb-xkb-dev libxcb-xinerama0-dev  xkbcommon xkbcommon-x11 xcb-ewmh xcb-xinerama xcb-icccm xcb-xrm
-  if [ ! -d "$ROFI_INSTALL_TMP" ]; then
-    git clone https://github.com/DaveDavenport/rofi.git "$ROFI_INSTALL_TMP"
-  fi
-  cd "$ROFI_INSTALL_TMP"
-  git clean -d -f
-  git submodule update --init
-  autoreconf -i
-  mkdir -p build
-  cd build
-  ../configure
-  make && sudo checkinstall -y --pkgname=rofi --pkgversion=1.6.2 --deldoc=yes --delspec=yes --deldesc=yes
+if needs_install i3 rofi; then
+  apt_install i3 rofi
 fi
 
 if needs_install i3blocks ruby-ronn; then
