@@ -19,6 +19,7 @@ call dein#add('ryanoasis/vim-devicons')
 call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 call dein#add('Yggdroot/indentLine')
 call dein#add('frankier/neovim-colors-solarized-truecolor-only')
+call dein#add('chrisbra/Colorizer')
 
 " async
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -232,6 +233,9 @@ command! Plugs call fzf#run({
 	\ 'options': '--delimiter / --nth -1',
 	\ 'down':    '~40%',
 	\ 'sink':    'Explore'})
+
+" colorizer
+" let g:colorizer_auto_color = 1
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
