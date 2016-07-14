@@ -142,7 +142,7 @@ git submodule update --init
 
 ./scripts/installation/media/ncmpcpp/install
 ./scripts/installation/media/spotify/install
-./scripts/installation/media/mopidy/install
+# ./scripts/installation/media/mopidy/install
 ./scripts/installation/media/pipelight/install
 ./scripts/installation/media/background-images/install
 
