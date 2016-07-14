@@ -109,7 +109,7 @@ git submodule update --init
 ./scripts/installation/tools/environments/ruby/install
 ./scripts/installation/tools/environments/mysql/install
 ./scripts/installation/tools/environments/java/install
-./scripts/installation/tools/environments/node/install
+# ./scripts/installation/tools/environments/node/install
 ./scripts/installation/tools/search/silversearcher/install
 ./scripts/installation/tools/xml/install
 #./scripts/installation/vpn/openconnect/install
@@ -117,7 +117,7 @@ git submodule update --init
 ./scripts/installation/shell/bash/install
 ./scripts/installation/shell/zsh/install
 
-./scripts/installation/browser/google-chrome/install
+# ./scripts/installation/browser/google-chrome/install
 
 ./scripts/installation/vim/install
 ./scripts/installation/nvim/install
@@ -137,7 +137,7 @@ git submodule update --init
 #./scripts/installation/misc/notifyosd/install
 #./scripts/installation/misc/alsa/install
 
-./scripts/installation/docker/install
+# ./scripts/installation/docker/install
 ./scripts/installation/command-line-dictionary/install
 
 ./scripts/installation/media/ncmpcpp/install

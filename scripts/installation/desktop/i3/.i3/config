@@ -16,6 +16,7 @@ bindsym $super+Shift+q kill
 
 # bindsym $super+d exec my-dmenu-run
 bindsym $super+d exec rofi -show run
+#bindsym $super+d exec rofi -run-list-command "~/bin/alias-mine" -run-command "/bin/bash -i -c 'stty -ixoff && {cmd}'" -rnow -show run
 bindsym $super+w exec rofi -show window
 
 bindsym $super+h focus left

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ALIAS_ROOT="$HOME/.aliases"
+function extract_aliases_from_file() {
+  grep '^alias' "$1" | sed 's/^alias\s*\([a-z0-9\-]*\).*$/\1/g'
+}
+
+extract_aliases_from_file "$ALIAS_ROOT"
+grep '^source' "$ALIAS_ROOT" | sed 's/^source\s\+\(.*\)$/\1/g' | while read line; do
+  extract_aliases_from_file "$line"
+done
