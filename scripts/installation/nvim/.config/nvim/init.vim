@@ -1,7 +1,7 @@
+set nocompatible
+scriptencoding utf-8
+
 " dein plugin manager setup
-if &compatible
-  set nocompatible
-endif
 
 set runtimepath^=/home/kalvatn/dotfiles/scripts/installation/nvim/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.config/nvim/dein'))
@@ -111,21 +111,6 @@ if !exists("*ReloadVimConfig")
   endfunction
   command! Recfg call ReloadVimConfig()
 endif
-
-function! HLNext (blinktime)
-  set hlsearch
-  highlight WhiteOnRed ctermfg=white ctermbg=red
-  let [bufnum, lnum, col, off] = getpos('.')
-  let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-  let target_pattern = '\c\%#\%('.@/.'\)'
-  let match_indicator = matchadd('WhiteOnRed', target_pattern, 101)
-  "set invcursorline " toggle line of match indicator
-  redraw
-  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-  call matchdelete(match_indicator)
-  "set invcursorline " toggle line of match indicator
-  redraw
-endfunction
 
 
 augroup filetypedetect
@@ -246,6 +231,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " indentline
+" let g:indentLine_char='│'
 let g:indentLine_char='│'
 
 " gitgutter
@@ -273,8 +259,8 @@ let g:NERDTreeAutoDeleteBuffer=1
 " unite
 let g:unite_data_directory='~/.config/nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
-"let g:unite_prompt='❯ '
-let g:unite_prompt='> '
+let g:unite_prompt='❯ '
+" let g:unite_prompt='> '
 " let g:unite_source_rec_async_command  = ['ag', '-p', '/home/kalvatn/.agignore', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
 let g:unite_source_rec_neovim_command = ['ag', '-f', '--nocolor', '--nogroup', '--hidden', '-g', '']
 " let g:unite_source_grep_command = 'ag'
@@ -322,7 +308,6 @@ nnoremap <silent> <c-p> :FZF<CR>
 
 
 " set <leader> key
-let mapleader = ','
 let g:mapleader = ','
 
 
@@ -370,12 +355,6 @@ nnoremap <leader>e :e<cr>
 nnoremap <leader>s /
 " toggle search highlighting
 map <silent> <cr> :set nohlsearch!<cr>
-
-" remaps n and N to call custom highlighting function
-" https://docs.google.com/file/d/0Bx3f0gFZh5Jqc0MtcUstV3BKdTQ/edit
-let hlnext_blinktime = 0.0350
-nnoremap <silent> n   n:call HLNext(hlnext_blinktime)<cr>
-nnoremap <silent> N   N:call HLNext(hlnext_blinktime)<cr>
 
 nnoremap <silent> r <Nop>
 inoremap <silent> <C-r> <Nop>
