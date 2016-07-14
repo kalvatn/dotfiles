@@ -111,4 +111,6 @@ export NVM_DIR="/home/kalvatn/.nvm"
 stty -ixon
 source /home/kalvatn/dotfiles/scripts/installation/tmux/.tmuxinator/completion/tmuxinator.bash
 
+
+export FZF_DEFAULT_COMMAND="ag --hidden -l -g ''"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

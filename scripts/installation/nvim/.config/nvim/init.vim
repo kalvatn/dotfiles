@@ -299,7 +299,7 @@ function! s:unite_settings()
 endfunction
 
 " fzf
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -l -g ""'
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
