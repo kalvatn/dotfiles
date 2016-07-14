@@ -1,12 +1,34 @@
 #!/bin/bash
 
-LOCK_IMAGE=/tmp/i3lock_screenshot.png
+# ~/bin/switch-desktop-background
+
+BACKGROUND_IMAGE="$HOME/.current-desktop-background"
+LOCK_IMAGE="$HOME/.current-lock-image.png"
+
+function screenshot_workspace() {
+  scrot "$LOCK_IMAGE"
+}
+
+function pixelate() {
+  mogrify -scale 10% -scale 1000% "$LOCK_IMAGE"
+}
+
+function tile_background_image() {
+  convert "$BACKGROUND_IMAGE" "$BACKGROUND_IMAGE" +append "$LOCK_IMAGE"
+}
+
+function stretch_background_image() {
+  convert "$BACKGROUND_IMAGE" -gravity center -scale 200%x200% "$LOCK_IMAGE"
+  # pixelate
+}
 
 if ! pgrep i3lock; then
-  scrot "$LOCK_IMAGE"
-  mogrify -scale 10% -scale 1000% "$LOCK_IMAGE"
-  #mogrify -blur 10x10 "$LOCK_IMAGE"
-  #mogrify -colorize 0,0,0 "$LOCK_IMAGE"
+
   i3lock -i "$LOCK_IMAGE"
-  #feh "$LOCK_IMAGE"
+
+  # screenshot_workspace
+  # tile_background_image
+  # switch-desktop-background
+  stretch_background_image
+  # pixelate
 fi
