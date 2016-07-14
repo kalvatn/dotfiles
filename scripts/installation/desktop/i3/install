@@ -4,8 +4,8 @@ set -e
 source "$HOME/.functions"
 CWD="$(get_script_dir "$0")"
 
-if needs_install i3; then
-  apt_install i3
+if needs_install i3 rofi; then
+  apt_install i3 rofi
 fi
 
 if needs_install i3blocks ruby-ronn; then

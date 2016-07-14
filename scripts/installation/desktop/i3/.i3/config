@@ -14,7 +14,9 @@ bindsym $super+m exec toggle-touchpad
 
 bindsym $super+Shift+q kill
 
-bindsym $super+d exec my-dmenu-run
+# bindsym $super+d exec my-dmenu-run
+bindsym $super+d exec rofi -show run
+bindsym $super+w exec rofi -show window
 
 bindsym $super+h focus left
 bindsym $super+j focus down
@@ -32,9 +34,9 @@ bindsym $super+Shift+v split h
 
 bindsym $super+f fullscreen
 
-bindsym $super+s layout stacking
-bindsym $super+w layout tabbed
-bindsym $super+e layout toggle split
+bindsym $super+Shift+s layout stacking
+bindsym $super+Shift+w layout tabbed
+bindsym $super+Shift+e layout toggle split
 
 bindsym $super+Shift+space floating toggle
 bindsym $super+space focus mode_toggle
@@ -118,7 +120,7 @@ mode "volume" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $super+Shift+s mode "volume"
+bindsym $super+s mode "volume"
 
 set $lightstep 10
 mode "backlight" {
