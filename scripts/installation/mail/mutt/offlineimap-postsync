@@ -6,6 +6,9 @@ notmuch new
 notmuch tag -unread -- from:j.kalvatn@sportradar.com
 notmuch tag -unread -- from:jonterje.kalvatn@gmail.com
 
+notmuch tag +intranet -- from:intranet@sportradar.com
+notmuch tag +timesystem -- from:timesystem@sportradar.com
+
 NOTIFICATION_ICON=/usr/share/icons/gnome/24x24/emblems/emblem-mail.png
 SEARCH="tag:unread"
 #LIMIT=3
