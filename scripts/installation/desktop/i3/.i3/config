@@ -54,8 +54,8 @@ set $workspace_0 0
 
 #set $output1 $(xrandr -q | grep " connected" | cut -d ' ' -f1 | head -n1)
 #set $output2 $(xrandr -q | grep " connected" | cut -d ' ' -f1 | head -n2)
-set $output1 DFP1
-set $output2 DFP2
+set $output1 DVI-0
+set $output2 DVI-1
 workspace $workspace_1 output $output1
 workspace $workspace_2 output $output1
 workspace $workspace_3 output $output1
