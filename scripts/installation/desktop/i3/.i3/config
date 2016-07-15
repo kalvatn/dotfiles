@@ -15,9 +15,9 @@ bindsym $super+m exec toggle-touchpad
 bindsym $super+Shift+q kill
 
 # bindsym $super+d exec my-dmenu-run
-bindsym $super+d exec rofi -show run
+bindsym $super+d exec --no-startup-id rofi -show run
 #bindsym $super+d exec rofi -run-list-command "~/bin/alias-mine" -run-command "/bin/bash -i -c 'stty -ixoff && {cmd}'" -rnow -show run
-bindsym $super+w exec rofi -show window
+bindsym $super+w exec --no-startup-id rofi -show window
 
 bindsym $super+h focus left
 bindsym $super+j focus down
@@ -142,35 +142,31 @@ bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 #bindsym --release Insert exec pkill -SIGRTMIN+11 i3blocks
 
 bar {
-    workspace_buttons no
-    tray_output primary
-    position top
-    colors {
-        background #000000
-        statusline #ffffff
-    }
+  workspace_buttons no
+  tray_output primary
+  position top
+  colors {
+    background #000000
+    statusline #ffffff
+  }
 }
 bar {
-    status_command SCRIPT_DIR=~/.i3/blocklets i3blocks -c ~/.i3/i3blocks.conf
-    workspace_buttons yes
-    position bottom
-    colors {
-        background #000000
-        statusline #ffffff
-    }
+  status_command SCRIPT_DIR=~/.i3/blocklets i3blocks -c ~/.i3/i3blocks.conf
+  workspace_buttons yes
+  position bottom
+  colors {
+    background #000000
+    statusline #ffffff
+  }
 }
 
 
-#for_window [class="^Spotify$"] floating enable
-
-#assign [class="Thunderbird"] $workspace_6
-for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 assign [class="jetbrains-idea"] $workspace_1
-assign [class="google-chrome"] $workspace_8
+assign [class="Firefox"] $workspace_8
 assign [class="Spotify" ] $workspace_0
 
 # startup
-exec xautolock -time 5 -locker $lockscript &
+exec --no-startup-id xautolock -time 5 -locker $lockscript &
 #exec --no-startup-id spotify
 exec --no-startup-id nm-applet
 

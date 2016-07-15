@@ -1,8 +1,10 @@
 #!/bin/sh
 
 export PROJECTS="/work/projects"
-#export WILDFLY_HOME="/work/tools/appservers/jboss/wildfly-8.2.0.Final"
-export WILDFLY_HOME="/srv/wildfly"
+export WILDFLY_HOME="/work/tools/appservers/jboss/wildfly-8.2.0.Final"
+# export WILDFLY_HOME="/srv/wildfly"
 export JBOSS_HOME="$WILDFLY_HOME"
 export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
 export SONAR_HOME="/work/tools/sonarqube/sonarqube-5.3"
+
+export INTELLIJ_HOME="/work/tools/ide/intellij/idea-IU-145.258.11"
