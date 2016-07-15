@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#share.no.sportradar.ag (10.12.21.101).
+smbclient //share.no.sportradar.ag/share -USPORTRADAR/j.kalvatn

@@ -1,0 +1,3 @@
+
+# work tools
+smbget -uSPORTRADAR/j.kalvatn smb://share.no.sportradar.ag/share/Downloads/Programs/SQLyog/SQLyog-9.0.2-0.exe -o /home/kalvatn/media/downloads/SQLyog-9.0.2-0.exe
