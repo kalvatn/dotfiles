@@ -185,6 +185,9 @@ exec --no-startup-id xautolock -time 5 -locker $lockscript &
 exec --no-startup-id nm-applet
 
 
+# exec --no-startup-id compton -cCGb --backend glx --vsync opengl
+# exec --no-startup-id compton --config ~/.i3/compton.conf -b
+
 
 # reload desktop-background on startup to fix jagging/tearing issue
 #exec /home/kalvatn/bin/reload-desktop-background
