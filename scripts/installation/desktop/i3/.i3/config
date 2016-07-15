@@ -93,11 +93,7 @@ bindsym $super+Shift+0 move container to workspace $workspace_0
 
 bindsym $super+Shift+c reload
 bindsym $super+Shift+r restart
-bindsym $super+Shift+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $super+Ctrl+Shift+Escape exec i3-msg exit
 
-set $lockscript /home/kalvatn/bin/lock
-bindsym $super+Ctrl+Shift+l exec $lockscript
 
 set $sizestep 5
 mode "resize" {
@@ -131,6 +127,24 @@ mode "backlight" {
   bindsym Escape mode "default"
 }
 bindsym $super+Shift+t mode "backlight"
+
+set $lockscript /home/kalvatn/bin/lock && sleep 1
+bindsym $super+Ctrl+Shift+l exec --no-startup-id $lockscript
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+		bindsym l exec --no-startup-id $lockscript, mode "default"
+		bindsym e exec --no-startup-id i3-msg exit, mode "default"
+		bindsym s exec --no-startup-id $lockscript && systemctl suspend, mode "default"
+		bindsym h exec --no-startup-id $lockscript && systemctl hibernate, mode "default"
+		bindsym r exec --no-startup-id systemctl reboot, mode "default"
+		bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+		# back to normal: Enter or Escape
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+
+bindsym $super+Escape mode "$mode_system"
 
 bindsym $super+Shift+Prior exec spotifyctrl Next
 bindsym $super+Shift+Next exec spotifyctrl Previous
