@@ -16,7 +16,7 @@ monitor() {
 	return 0
 }
 
-pid="$(pgrep offlineimap & 2>/dev/null)"
+pid="$(pgrep offlineimap)"
 if [ ! -z "$pid" ]; then
   echo "offlineimap already running (pid : $pid), exiting"
 	exit 1

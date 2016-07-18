@@ -72,7 +72,8 @@ bind index N search-opposite
 bind index R reply
 bind index ! flag-message
 bind index F forward-message
-bind index \cR toggle-new
+# bind index \cR toggle-new
+macro index \cR '<enter-command>exec toggle-new<enter><enter-command>exec sync-mailbox<enter>'
 
 macro index L "<enter-command> \
   unset wait_key<enter><shell-escape> \
@@ -135,7 +136,7 @@ bind pager J next-page
 bind pager gg top
 bind pager G bottom
 bind pager N search-opposite
-macro attach 'V' "<pipe-entry>cat >/tmp/mail.html && google-chrome /tmp/mail.html && rm /tmp/mail.html<enter>"
+macro attach 'V' "<pipe-entry>cat >/tmp/mail.html && xdg-open /tmp/mail.html && rm /tmp/mail.html<enter>"
 
 # compose / send/forward/reply
 set editor = `echo \$EDITOR`
