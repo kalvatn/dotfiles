@@ -1,0 +1,8 @@
+# vi: set ft=yaml:
+
+user: "{{ansible_user_id}}"
+user_home: "/home/{{user}}"
+dotfiles_root: "{{user_home}}/dotfiles"
+
+git_user: "{{user}}"
+git_email: "{{user}}@git.host"
