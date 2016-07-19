@@ -1,0 +1,3 @@
+- name: clone prezto
+  script: prezto-setup.sh creates="{{user_home}}/.zprezto"
+

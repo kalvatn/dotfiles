@@ -3,6 +3,8 @@
   apt: pkg=zsh state=latest
   become: yes
 
+- include: prezto.yml
+
 - name: link zsh configuration
   file:
     src: "{{role_path}}/files/{{item}}"
@@ -10,3 +12,7 @@
     state: link
   with_items:
     - .zshrc
+
+- name: change default login shell to zsh
+  become: yes
+  command: chsh -s /bin/zsh "{{user}}"
