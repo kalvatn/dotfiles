@@ -3,10 +3,9 @@
 set -e
 
 if [[ $EUID -ne 0 ]]; then
-	 echo "this script must be run as root"
-	 exit 1
+   echo "this script must be run as root"
+   exit 1
 fi
-
 
 LOCALE_EN=en_US.UTF-8
 LOCALE_NO=nb_NO.UTF-8

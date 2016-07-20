@@ -280,13 +280,15 @@ call unite#custom#source('file_rec/neovim','sorters','sorter_rank')
 " custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-	" Enable navigation with control-j and control-k in insert mode
-	imap <buffer> <C-j> <Plug>(unite_select_next_line)
-	imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
 
 " fzf
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -l -g ""'
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -l -g ""'
+endif
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -297,10 +299,10 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 command! Plugs call fzf#run({
-	\ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
-	\ 'options': '--delimiter / --nth -1',
-	\ 'down':    '~40%',
-	\ 'sink':    'Explore'})
+  \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
+  \ 'options': '--delimiter / --nth -1',
+  \ 'down':    '~40%',
+  \ 'sink':    'Explore'})
 
 nnoremap <silent> <c-p> :FZF<CR>
 
