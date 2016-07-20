@@ -66,6 +66,7 @@ filetype plugin indent on
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
+  :retab
   exe "normal `z"
 endfunc
 
@@ -349,7 +350,7 @@ nnoremap <silent> <leader>v :vsplit<cr>
 nnoremap <silent> <leader>- :split<cr>
 
 " move to last character of pasted content
-noremap <silent> p :set paste<cr>o<Esc>gP<Esc>:set nopaste<cr>
+noremap <silent> p :set paste<cr>o<Esc>gp<Esc>:set nopaste<cr>
 noremap <silent> P :set paste<cr>o<Esc>gP<Esc>:set nopaste<cr>
 " paste from clipboard
 " map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>

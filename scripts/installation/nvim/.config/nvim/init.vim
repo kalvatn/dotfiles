@@ -3,7 +3,7 @@ scriptencoding utf-8
 
 " dein plugin manager setup
 
-set runtimepath^=/home/kalvatn/dotfiles/scripts/installation/nvim/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.config/nvim/dein'))
 call dein#add('Shougo/dein.vim')
 
@@ -287,7 +287,9 @@ function! s:unite_settings()
 endfunction
 
 " fzf
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -l -g ""'
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden -f -l -g ""'
+endif
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -348,7 +350,7 @@ nnoremap <silent> <leader>v :vsplit<cr>
 nnoremap <silent> <leader>- :split<cr>
 
 " move to last character of pasted content
-noremap <silent> p :set paste<cr>o<Esc>gP<Esc>:set nopaste<cr>
+noremap <silent> p :set paste<cr>o<Esc>gp<Esc>:set nopaste<cr>
 noremap <silent> P :set paste<cr>o<Esc>gP<Esc>:set nopaste<cr>
 " paste from clipboard
 " map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
