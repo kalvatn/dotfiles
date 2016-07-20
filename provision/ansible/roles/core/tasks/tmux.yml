@@ -1,4 +1,9 @@
+- name: check tmux version
+  shell: tmux -V | cut -d ' ' -f2 | cut -d '.' -f1
+  register: tmux_version
+
 - name: remove existing tmux
+  when: tmux_version.stdout != "2"
   become: yes
   apt: pkg=tmux state=removed
 
@@ -9,17 +14,13 @@
     - libevent-dev
     - libncurses5-dev
 
-- name: check tmux version
-  command: tmux -V
-  register: result
-
 - name: clone tmux source
-  when: result.stdout != "tmux 2.3"
+  when: tmux_version.stdout != "2"
   git: repo=https://github.com/tmux/tmux.git dest=/tmp/tmux
 
 - name: build tmux from source
-  when: result.stdout != "tmux 2.3"
-  shell: sh autogen.sh && ./configure && sudo make install
+  when: tmux_version.stdout != "2"
+  shell: sh autogen.sh && ./configure && sudo checkinstall -y
   args:
     chdir: /tmp/tmux
     executable: /bin/bash

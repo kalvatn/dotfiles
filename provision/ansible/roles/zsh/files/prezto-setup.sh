@@ -4,7 +4,7 @@
 set -e
 
 
-ZPRESTO_HOME="${ZDOTDIR:-$HOME}/.zpresto"
+ZPRESTO_HOME="${ZDOTDIR:-$HOME}/.zprezto"
 
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "$ZPRESTO_HOME"
 

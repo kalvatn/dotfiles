@@ -1,4 +1,4 @@
-- name: clone prezto
+- name: install prezto
   script: prezto-setup.sh creates="{{user_home}}/.zprezto"
 
 - name: link prezto kalvatn theme

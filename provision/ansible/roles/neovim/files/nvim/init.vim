@@ -3,7 +3,7 @@ scriptencoding utf-8
 
 " dein plugin manager setup
 
-set runtimepath^=/home/kalvatn/dotfiles/scripts/installation/nvim/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.config/nvim/dein'))
 call dein#add('Shougo/dein.vim')
 

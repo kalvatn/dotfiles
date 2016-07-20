@@ -106,3 +106,5 @@ export PATH="$HOME/bin:$HOME/workbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/u
 [[ -f $HOME/.functions ]] && source $HOME/.functions
 
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
