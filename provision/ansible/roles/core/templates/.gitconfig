@@ -1,0 +1,44 @@
+[user]
+  name = {{git_name}}
+  email = {{git_email}}
+  useconfigonly = true
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = auto
+[core]
+  excludesfile = ~/.gitignore-global
+  autocrlf = false
+  pager = less -x4
+  editor = vim
+[push]
+  default = current
+[merge]
+  tool = meld
+[diff]
+  compactionHeuristic = true
+  tool = meld
+[alias]
+  alias = config --get-regexp alias
+  st = !sh -c "echo;tput setaf 3; echo '--- IGNORED ---'; git ignored; echo '--- IGNORED ---'; tput sgr 0; git status"
+  bst = !sh -c "gitbranchstatus; git st"
+  ci = commit
+  co = checkout
+  di = diff
+  dc = diff --cached
+  amend = commit --amend
+  aa = add --all
+  ap = add -p
+  lg = log -20 --graph --decorate --pretty=oneline --abbrev-commit
+  lga = log --graph --decorate --pretty=oneline --abbrev-commit
+  lb = branch -vv
+  lba = branch -avv
+  lastlog = diff HEAD^ HEAD
+  rprune = remote prune origin
+
+  ignore = update-index --assume-unchanged
+  unignore = update-index --no-assume-unchanged
+  ignored = !git ls-files -v | grep "^[[:lower:]]"
+
+  diffstash = stash show -p stash@{0}
