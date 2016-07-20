@@ -1,0 +1,10 @@
+- name: install build tools
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - apt-utils
+    - build-essential
+    - automake
+    - autoconf
+    - pkg-config
+    - gcc

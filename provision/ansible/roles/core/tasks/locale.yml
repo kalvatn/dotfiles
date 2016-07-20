@@ -1,0 +1,3 @@
+- name: setup locale
+  become: yes
+  script: setup-locales.sh

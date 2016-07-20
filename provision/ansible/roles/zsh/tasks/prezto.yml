@@ -1,3 +1,16 @@
 - name: clone prezto
   script: prezto-setup.sh creates="{{user_home}}/.zprezto"
 
+- name: link prezto kalvatn theme
+  file:
+    src: "{{role_path}}/files/prompt_kalvatn_setup"
+    dest: "{{user_home}}/.zprezto/modules/prompt/functions/prompt_kalvatn_setup"
+    state: link
+
+- name: link .zpreztorc
+  file:
+    src: "{{role_path}}/files/.zpreztorc"
+    dest: "{{user_home}}/.zpreztorc"
+    state: link
+
+

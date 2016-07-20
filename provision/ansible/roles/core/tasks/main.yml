@@ -1,0 +1,22 @@
+- include: locale.yml
+- include: build-tools.yml
+
+- name: add apt repository git-core
+  become: yes
+  apt_repository: repo='ppa:git-core/ppa'
+
+- name: install core packages
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - git-core
+    - curl
+    - bzip2
+    - wget
+    - software-properties-common
+    - python
+    - python-pip
+    - ruby
+
+- include: tmux.yml
+

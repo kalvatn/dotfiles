@@ -1,0 +1,25 @@
+- name: remove existing tmux
+  become: yes
+  apt: pkg=tmux state=removed
+
+- name: install tmux build dependencies
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - libevent-dev
+    - libncurses5-dev
+
+- name: check tmux version
+  command: tmux -V
+  register: result
+
+- name: clone tmux source
+  when: result.stdout != "tmux 2.3"
+  git: repo=https://github.com/tmux/tmux.git dest=/tmp/tmux
+
+- name: build tmux from source
+  when: result.stdout != "tmux 2.3"
+  shell: sh autogen.sh && ./configure && sudo make install
+  args:
+    chdir: /tmp/tmux
+    executable: /bin/bash
