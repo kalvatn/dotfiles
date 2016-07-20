@@ -143,8 +143,8 @@ set undodir=$HOME/.config/nvim/.undo
 let g:netrw_dirhistmax = 0
 
 " clipboard
-"set clipboard+=unnamed
-set clipboard+=unnamedplus
+set clipboard+=unnamed
+" set clipboard+=unnamedplus
 set nopaste
 
 " ui
@@ -190,6 +190,7 @@ set wildignore+=*.o,*.out,*.obj,*.class,*.pyc,*.swp
 set wildignore+=*.git,*.svn
 set laststatus=2
 set nu
+set list
 set hidden
 set ruler
 set nowrap
@@ -344,8 +345,13 @@ nnoremap <silent> <leader>n :next<cr>
 nnoremap <silent> <leader>N :prev<cr>
 nnoremap <silent> <leader>v :vsplit<cr>
 nnoremap <silent> <leader>- :split<cr>
+
+" move to last character of pasted content
+noremap <silent> p :set paste<cr>o<Esc>gP<Esc>:set nopaste<cr>
+noremap <silent> P :set paste<cr>o<Esc>gP<Esc>:set nopaste<cr>
 " paste from clipboard
-map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
+" map <silent> <leader>p :set paste<cr>o<Esc>"+]p<Esc> :set nopaste<cr>
+" map <silent> <leader>p :set paste<cr>o<Esc>p<Esc> :set nopaste<cr>
 map <silent> <leader>t :tabnew<cr>
 " quicksave
 nnoremap <leader>w :w<cr>
