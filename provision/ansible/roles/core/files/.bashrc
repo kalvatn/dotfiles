@@ -108,9 +108,12 @@ export EDITOR='nvim'
 export NVM_DIR="/home/kalvatn/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-stty -ixon
-source /home/kalvatn/dotfiles/scripts/installation/tmux/.tmuxinator/completion/tmuxinator.bash
-
-
 export FZF_DEFAULT_COMMAND="ag --hidden -l -g ''"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# BEGIN ANSIBLE MANAGED BLOCK
+TMUXINATOR_COMPLETION_FILE="/home/vagrant/.tmuxinator/completion/tmuxinator.bash"
+if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
+  echo "sourcing $TMUXINATOR_COMPLETION_FILE"
+  source "$TMUXINATOR_COMPLETION_FILE"
+fi
+# END ANSIBLE MANAGED BLOCK

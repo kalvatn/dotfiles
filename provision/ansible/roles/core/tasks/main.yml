@@ -1,8 +1,25 @@
-- include: locale.yml
-- include: build-tools.yml
-- include: git.yml
+- name: setup locale
+  become: yes
+  script: setup-locales.sh
 
-- name: install core packages
+- name: setup timezone data
+  become: yes
+  shell: echo 'Europe/Oslo' > /etc/timezone && dpkg-reconfigure tzdata -f noninteractive
+
+- name: install core system/build tools
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - software-properties-common
+    - apt-utils
+    - checkinstall
+    - build-essential
+    - automake
+    - autoconf
+    - pkg-config
+    - gcc
+
+- name: install core shell tools
   become: yes
   apt: pkg="{{item}}" state=latest
   with_items:
@@ -10,10 +27,13 @@
     - curl
     - bzip2
     - wget
-    - software-properties-common
     - python
     - python-pip
-    - ruby
+
+- include: git.yml
+- include: ruby.yml
+
+
 
 - include: tmux.yml
 
@@ -26,5 +46,7 @@
   with_items:
     - .agignore
     - .bashrc
+
+
 
 

@@ -1,0 +1,26 @@
+# ~/.tmuxinator/wildfly.yml
+
+name: wildfly
+root: <%= ENV["WILDFLY_HOME"] %>
+
+windows:
+  - conf:
+      layout: even-vertical
+      panes:
+        - ~/dotfiles/scripts/wildfly/clean-and-restart
+        - follow 100 standalone/log/all.log
+  - logs:
+      layout: even-vertical
+      panes:
+        - follow standalone/log/info.log
+        - follow standalone/log/debug.log
+  - monitoring:
+      layout: even-vertical
+      panes:
+        - htop
+        - ~/dotfiles/scripts/wildfly/watch-queues
+        - follow standalone/log/filesender.log
+  - files:
+      layout: even-vertical
+      panes:
+        - cd /tmp/xmlexport && ls

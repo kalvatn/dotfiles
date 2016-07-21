@@ -25,8 +25,31 @@
     chdir: /tmp/tmux
     executable: /bin/bash
 
+- name: install tmuxinator
+  become: yes
+  gem: name=tmuxinator state=latest
+
 - name: link .tmux.conf
   file:
-    src: "{{role_path}}/files/.tmux.conf"
-    dest: "{{user_home}}/.tmux.conf"
+    src: "{{role_path}}/files/{{item}}"
+    dest: "{{user_home}}/{{item}}"
     state: link
+    force: yes
+  with_items:
+  - .tmux.conf
+  - .tmuxinator
+
+- name: source tmuxinator completions
+  blockinfile:
+    dest: "{{user_home}}/{{item.dest}}"
+    follow: yes
+    block: |
+      TMUXINATOR_COMPLETION_FILE="{{user_home}}/.tmuxinator/completion/{{item.completion_file}}"
+      if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
+        echo "sourcing $TMUXINATOR_COMPLETION_FILE"
+        source "$TMUXINATOR_COMPLETION_FILE"
+      fi
+  with_items:
+    - { dest : .bashrc, completion_file: tmuxinator.bash }
+    - { dest : .zshrc, completion_file: tmuxinator.zsh }
+

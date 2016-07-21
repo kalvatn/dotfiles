@@ -1,16 +1,24 @@
 - name: install prezto
   script: prezto-setup.sh creates="{{user_home}}/.zprezto"
 
-- name: link prezto kalvatn theme
+- name: link prezto config
   file:
-    src: "{{role_path}}/files/prompt_kalvatn_setup"
-    dest: "{{user_home}}/.zprezto/modules/prompt/functions/prompt_kalvatn_setup"
+    src: "{{role_path}}/files/{{item.src}}"
+    dest: "{{item.dest}}"
     state: link
+    force: yes
+  with_items:
+    - { src: .zpreztorc, dest: "{{user_home}}/.zpreztorc" }
+    - { src: prompt_kalvatn_setup, dest: "{{user_home}}/.zprezto/modules/prompt/functions/prompt_kalvatn_setup" }
 
-- name: link .zpreztorc
-  file:
-    src: "{{role_path}}/files/.zpreztorc"
-    dest: "{{user_home}}/.zpreztorc"
-    state: link
+- name: source prezto init file
+  blockinfile:
+    dest: "{{user_home}}/.zshrc"
+    follow: yes
+    block: |
+      ZPREZTO_INIT_FILE="${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+      if [ -s "$ZPREZTO_INIT_FILE" ]; then
+        source "$ZPREZTO_INIT_FILE"
+      fi
 
 

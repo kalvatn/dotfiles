@@ -11,6 +11,7 @@
     src: "{{role_path}}/files/.gitignore-global"
     dest: "{{user_home}}/.gitignore-global"
     state: link
+    force: yes
 
 - name: update .gitconfig
   template:

@@ -10,6 +10,7 @@
     src: "{{role_path}}/files/{{item}}"
     dest: "{{user_home}}/{{item}}"
     state: link
+    force: yes
   with_items:
     - .zshrc
 
