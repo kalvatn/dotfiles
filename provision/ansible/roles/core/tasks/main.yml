@@ -33,10 +33,6 @@
 - include: git.yml
 - include: ruby.yml
 
-
-
-- include: tmux.yml
-
 - name: link configs
   file:
     src: "{{role_path}}/files/{{item}}"

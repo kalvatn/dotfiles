@@ -117,3 +117,9 @@ if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
   source "$TMUXINATOR_COMPLETION_FILE"
 fi
 # END ANSIBLE MANAGED BLOCK
+# BEGIN ANSIBLE MANAGED BLOCK tmuxinator.bash
+TMUXINATOR_COMPLETION_FILE="/home/vagrant/.tmuxinator/completion/tmuxinator.bash"
+if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
+  source "$TMUXINATOR_COMPLETION_FILE"
+fi
+# END ANSIBLE MANAGED BLOCK tmuxinator.bash

@@ -3,7 +3,6 @@
   apt: pkg=zsh state=latest
   become: yes
 
-- include: prezto.yml
 
 - name: link zsh configuration
   file:
@@ -13,6 +12,9 @@
     force: yes
   with_items:
     - .zshrc
+
+
+- include: prezto.yml
 
 - name: get current default login shell
   shell: getent passwd "{{user}}" | cut -d ':' -f7

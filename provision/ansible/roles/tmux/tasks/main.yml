@@ -25,9 +25,14 @@
     chdir: /tmp/tmux
     executable: /bin/bash
 
+- name: tmuxinator exists
+  shell: command -v tmuxinator > /dev/null
+  register: tmuxinator_installed
+
 - name: install tmuxinator
+  when: tmuxinator_installed|failed
   become: yes
-  gem: name=tmuxinator state=latest
+  shell: gem install tmuxinator
 
 - name: link .tmux.conf
   file:
@@ -42,11 +47,11 @@
 - name: source tmuxinator completions
   blockinfile:
     dest: "{{user_home}}/{{item.dest}}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{item.completion_file}}"
     follow: yes
     block: |
       TMUXINATOR_COMPLETION_FILE="{{user_home}}/.tmuxinator/completion/{{item.completion_file}}"
       if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
-        echo "sourcing $TMUXINATOR_COMPLETION_FILE"
         source "$TMUXINATOR_COMPLETION_FILE"
       fi
   with_items:

@@ -2,25 +2,16 @@
 
 [[ "$COLORTERM" == "gnome-terminal" ]] && export TERM="xterm-256color"
 
-# BEGIN ANSIBLE MANAGED BLOCK
-ZPREZTO_INIT_FILE="${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-if [ -s "$ZPREZTO_INIT_FILE" ]; then
-  source "$ZPREZTO_INIT_FILE"
-fi
-# END ANSIBLE MANAGED BLOCK
-
-# autoload -Uz promptinit
-# promptinit
-# prompt kalvatn
-
 autoload -U compinit
 compinit
 zmodload -i zsh/complist
 
 autoload -Uz colors zsh-mime-setup #select-word-style
-# colors          # colors
-# zsh-mime-setup  # run everything as if it's an executable
+colors          # colors
+zsh-mime-setup  # run everything as if it's an executable
 # select-word-style bash # ctrl+w on words
+
+
 # autoload predict-on
 # predict-toggle() {
 #   ((predict_on=1-predict_on)) && predict-on || predict-off
@@ -29,9 +20,6 @@ autoload -Uz colors zsh-mime-setup #select-word-style
 # bindkey '^Z'   predict-toggle
 # zstyle ':predict' toggle true
 # zstyle ':predict' verbose true
-
-
-
 
 bindkey -v
 bindkey -M vicmd 'v' edit-command-line
@@ -57,7 +45,6 @@ autoload -Uz edit-command-line
 TRAPWINCH() {
   zle && { zle reset-prompt; zle -R }
 }
-# use cursor as indicator of vi mode
 zle-keymap-select () {
   zle reset-prompt
   zle -R
@@ -80,7 +67,6 @@ zle-line-init () {
   zle -K viins
   echo -ne "\033]12;Grey\007"
 }
-
 
 zle -N edit-command-line
 zle -N zle-line-init
@@ -166,22 +152,30 @@ export LESS="-XFR"
 export PATH="$HOME/bin:$HOME/workbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
 if [ -f "$HOME/.aliases" ]; then
-  echo "sourcing aliases"
   source $HOME/.aliases
 fi
 
 if [ -f "$HOME/.variables" ]; then
-  echo "sourcing variables"
   source $HOME/.variables
 fi
 
 if [ -f "$HOME/.functions" ]; then
-  echo "sourcing functions"
   source $HOME/.functions
 fi
 
 
-if [ -f ~/.fzf.zsh ]; then
-  echo "sourcing ~/.fzf.zsh"
+if [ -f "$HOME/.fzf.zsh" ]; then
   source ~/.fzf.zsh
 fi
+# BEGIN ANSIBLE MANAGED BLOCK tmuxinator.zsh
+TMUXINATOR_COMPLETION_FILE="/home/vagrant/.tmuxinator/completion/tmuxinator.zsh"
+if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
+  source "$TMUXINATOR_COMPLETION_FILE"
+fi
+# END ANSIBLE MANAGED BLOCK tmuxinator.zsh
+# BEGIN ANSIBLE MANAGED BLOCK .zpresto/init.zsh
+ZPREZTO_INIT_FILE="${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [ -s "$ZPREZTO_INIT_FILE" ]; then
+  source "$ZPREZTO_INIT_FILE"
+fi
+# END ANSIBLE MANAGED BLOCK .zpresto/init.zsh

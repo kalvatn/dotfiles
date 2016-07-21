@@ -2,4 +2,4 @@
 
 CWD="$(dirname "$(readlink -f "$0")")"
 # ansible-playbook vagrant-playbook.yml -i hosts -u vagrant --ask-sudo-pass --private-key=~/.vagrant.d/insecure_private_key -l vagrant -U vagrant
-ansible-playbook "$CWD/vagrant-playbook.yml" -i "$CWD/hosts" -l localhost -vv
+ansible-playbook "$CWD/vagrant-playbook.yml" -i "$CWD/hosts" -l localhost -v
