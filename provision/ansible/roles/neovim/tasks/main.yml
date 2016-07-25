@@ -22,16 +22,20 @@
   become: yes
   pip: name=neovim executable=pip3
 
-
 - name: install neovim
   become: yes
   apt: pkg=neovim state=latest
 
 - name: install dein plugin manager
-  # shell: curl -s -L https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s "{{role_path}}/files/nvim/dein"
   shell: curl -s -L https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s "{{user_home}}/.config/nvim/dein"
 
-
+- name: setup neovim alternatives
+  become: yes
+  shell: update-alternatives --install "/usr/bin/{{item}}" "{{item}}" /usr/bin/nvim 60 && update-alternatives --config "{{item}}"
+  with_items:
+    - vi
+    - vim
+    - editor
 
 - name: link configuration
   file:
