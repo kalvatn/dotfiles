@@ -26,7 +26,8 @@
     executable: /bin/bash
 
 - name: tmuxinator exists
-  shell: command -v tmuxinator > /dev/null
+  shell: gem list | grep -q "^tmuxinator"
+  ignore_errors: yes
   register: tmuxinator_installed
 
 - name: install tmuxinator
