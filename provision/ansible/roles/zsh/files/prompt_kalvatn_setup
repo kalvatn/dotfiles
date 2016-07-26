@@ -81,7 +81,7 @@ function prompt_kalvatn_setup {
 
   # PROMPT="${user}${at}${host} ${dir} ${vcs0} ${vcs1} ${env} ${caret} "
   PROMPT="${user}${at}${host} ${dir} ${meta} ${caret} ${RESET}"
-  RPROMPT="${return_code}${RESET}"
+  # RPROMPT="${return_code}${RESET}"
 }
 
 prompt_kalvatn_setup "$@"

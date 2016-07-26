@@ -33,7 +33,9 @@ if [[ "$MODE_INDICATOR" == "" ]]; then
 fi
 
 function vi_mode_prompt_info() {
-  echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
+  local return_code="%(?..%?)"
+  # echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}${return_code}"
+  echo "${${KEYMAP/vicmd/NORMAL - }/(main|viins)/}${return_code}"
 }
 
 if [[ "$RPS1" == "" && "$RPROMPT" == "" ]]; then
@@ -127,21 +129,19 @@ setopt share_history
 setopt bang_hist
 
 
+
+set -o vi
 export EDITOR='vim'
 export VISUAL='vim'
-if command -v nvim > /dev/null; then
-  export EDITOR='nvim'
-  # export VISUAL='nvim'
-fi
 
-if command -v vim > /dev/null; then
-  # use vim as pager
-  # export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
-  export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
--c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
--c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
-fi
+# if command -v vim > /dev/null; then
+#   # use vim as pager
+#   # export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+#   export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+# /usr/bin/vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+# -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+# -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+# fi
 
 # -X (--no-init) -F (--quit-if-one-screen) -R (--RAW-CONTROL-CHARS)
 export LESS="-XFR"
