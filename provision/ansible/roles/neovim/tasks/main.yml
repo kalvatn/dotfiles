@@ -42,3 +42,6 @@
     src: "{{role_path}}/files/nvim/init.vim"
     dest: "{{user_home}}/.config/nvim/init.vim"
     state: link
+
+- name: run dein#update()
+  command: vim +"call dein#update()" +"qall" --headless

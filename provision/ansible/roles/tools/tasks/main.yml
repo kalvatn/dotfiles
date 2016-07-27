@@ -1,0 +1,5 @@
+- name: clone fzf
+  git: repo="https://github.com/junegunn/fzf.git" dest="{{user_home}}/.fzf" depth=1
+
+- name: install fzf
+  command: "{{user_home}}/.fzf/install"

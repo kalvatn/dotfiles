@@ -7,6 +7,9 @@ set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.config/nvim/dein'))
 call dein#add('Shougo/dein.vim')
 
+" async
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+
 " plugins
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
@@ -22,8 +25,6 @@ call dein#add('Yggdroot/indentLine')
 call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 call dein#add('chrisbra/Colorizer')
 
-" async
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
 " search / replace
 call dein#add('troydm/asyncfinder.vim')
