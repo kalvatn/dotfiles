@@ -2,6 +2,14 @@
 
 [[ "$COLORTERM" == "gnome-terminal" ]] && export TERM="xterm-256color"
 
+
+# BEGIN ANSIBLE MANAGED BLOCK .zpresto/init.zsh
+ZPREZTO_INIT_FILE="${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [ -s "$ZPREZTO_INIT_FILE" ]; then
+  source "$ZPREZTO_INIT_FILE"
+fi
+# END ANSIBLE MANAGED BLOCK .zpresto/init.zsh
+
 autoload -U compinit
 compinit
 zmodload -i zsh/complist
@@ -170,9 +178,3 @@ if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
   source "$TMUXINATOR_COMPLETION_FILE"
 fi
 # END ANSIBLE MANAGED BLOCK tmuxinator.zsh
-# BEGIN ANSIBLE MANAGED BLOCK .zpresto/init.zsh
-ZPREZTO_INIT_FILE="${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-if [ -s "$ZPREZTO_INIT_FILE" ]; then
-  source "$ZPREZTO_INIT_FILE"
-fi
-# END ANSIBLE MANAGED BLOCK .zpresto/init.zsh
