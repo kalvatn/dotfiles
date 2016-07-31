@@ -11,3 +11,4 @@
     - zsh
     - neovim
     - tmux
+    - { role: profanity, tags: [chat, profanity] }

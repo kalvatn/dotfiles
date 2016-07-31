@@ -1,0 +1,29 @@
+- name: check profanity installed
+  shell: command -v profanity > /dev/null
+  ignore_errors: yes
+  register: profanity_installed
+
+- name: clone profanity repository
+  when: profanity_installed|failed
+  git: repo="https://github.com/boothj5/profanity.git" dest="/tmp/profanity"
+
+- name: build profanity
+  when: profanity_installed|failed
+  become: yes
+  shell: cd /tmp/profanity && ./install-all.sh
+
+- name: create profanity config directory
+  file:
+    dest: "{{user_home}}/.config/profanity"
+    state: directory
+
+- name: link config
+  file:
+    src: "{{role_path}}/files/profrc"
+    dest: "{{user_home}}/.config/profanity/profrc"
+    state: link
+
+
+
+
+
