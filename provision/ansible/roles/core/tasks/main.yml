@@ -23,7 +23,6 @@
   become: yes
   apt: pkg="{{item}}" state=latest
   with_items:
-    - silversearcher-ag
     - curl
     - bzip2
     - wget
@@ -40,7 +39,6 @@
     state: link
     force: yes
   with_items:
-    - .agignore
     - .bashrc
 
 
