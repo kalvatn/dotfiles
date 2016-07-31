@@ -6,6 +6,10 @@
   become: yes
   shell: echo 'Europe/Oslo' > /etc/timezone && dpkg-reconfigure tzdata -f noninteractive
 
+- name: add universe repository
+  become: yes
+  apt_repository: repo="universe"
+
 - name: install core system/build tools
   become: yes
   apt: pkg="{{item}}" state=latest

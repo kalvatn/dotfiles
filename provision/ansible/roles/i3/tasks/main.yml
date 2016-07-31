@@ -1,0 +1,31 @@
+- name: install packages
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - i3
+    - rofi
+    - ruby-ronn
+    - xautolock
+    - sysstat
+    - acpi
+
+- name: check i3blocks installed
+  shell: command -v i3blocks > /dev/null
+  ignore_errors: yes
+  register: i3blocks_installed
+
+- name: clone i3blocks
+  when: i3blocks_installed|failed
+  git: repo="git://github.com/vivien/i3blocks" dest="/tmp/i3blocks"
+
+- name: build i3blocks
+  become: yes
+  shell: cd /tmp/i3blocks && make install
+
+- name: link configuration
+  file:
+    src: "{{role_path}}/files/.i3"
+    dest: "{{user_home}}/.i3"
+    state: link
+    force: yes
+

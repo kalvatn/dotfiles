@@ -6,9 +6,11 @@
     - vars/main.yml
 
   roles:
-    - core
-    - tools
-    - zsh
-    - neovim
-    - tmux
-    - { role: profanity, tags: [chat, profanity] }
+    - { role: core, tags: [ core ] }
+    - { role: tools, tags: [ tools ] }
+    - { role: zsh, tags: [ shell, zsh ] }
+    - { role: neovim, tags: [ editor, vim, neovim ] }
+    - { role: tmux, tags: [ tools, tmux ] }
+    - { role: profanity, tags: [ chat, profanity ] }
+    - { role: i3, tags: [ desktop, i3 ] }
+
