@@ -109,10 +109,10 @@ bindsym $super+r mode "resize"
 
 set $volumestep 5
 mode "volume" {
-	bindsym k exec volume + $volumestep
-	bindsym j exec volume - $volumestep
-	#bindsym k exec amixer -q -D pulse sset Master $volumestep%+ && pkill -RTMIN+1 i3blocks
-	#bindsym j exec amixer -q -D pulse sset Master $volumestep%- && pkill -RTMIN+1 i3blocks
+  # bindsym k exec volume + $volumestep
+  # bindsym j exec volume - $volumestep
+  bindsym k exec amixer -q -D pulse sset Master $volumestep%+ && pkill -RTMIN+1 i3blocks
+  bindsym j exec amixer -q -D pulse sset Master $volumestep%- && pkill -RTMIN+1 i3blocks
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -132,16 +132,16 @@ set $lockscript /home/kalvatn/bin/lock && sleep 1
 bindsym $super+Ctrl+Shift+l exec --no-startup-id $lockscript
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-		bindsym l exec --no-startup-id $lockscript, mode "default"
-		bindsym e exec --no-startup-id i3-msg exit, mode "default"
-		bindsym s exec --no-startup-id $lockscript && systemctl suspend, mode "default"
-		bindsym h exec --no-startup-id $lockscript && systemctl hibernate, mode "default"
-		bindsym r exec --no-startup-id systemctl reboot, mode "default"
-		bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+    bindsym l exec --no-startup-id $lockscript, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $lockscript && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $lockscript && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
-		# back to normal: Enter or Escape
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $super+Escape mode "$mode_system"
