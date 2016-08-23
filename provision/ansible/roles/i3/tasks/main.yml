@@ -19,6 +19,7 @@
   git: repo="git://github.com/vivien/i3blocks" dest="/tmp/i3blocks"
 
 - name: build i3blocks
+  when: i3blocks_installed|failed
   become: yes
   shell: cd /tmp/i3blocks && make install
 
