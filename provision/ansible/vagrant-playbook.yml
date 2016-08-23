@@ -13,4 +13,5 @@
     - { role: tmux, tags: [ tools, tmux ] }
     - { role: profanity, tags: [ chat, profanity ] }
     - { role: i3, tags: [ desktop, i3 ] }
+    - { role: mail, tags: [ mail, mutt ] }
 

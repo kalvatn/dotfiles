@@ -1,0 +1,157 @@
+# vim: filetype=muttrc
+# reload config
+macro index,pager <f5> '<enter-command>source ~/.mutt/muttrc<enter>'
+
+# caching
+set header_cache = ~/.cache/mutt/header_cache/
+set message_cachedir = ~/.cache/mutt/message_cachedir/
+set mailcap_path = ~/.mutt/mailcap
+# speed up folder switch
+set sleep_time = 0
+
+set wait_key = no        # shut up, mutt
+set mbox_type = Maildir  # mailbox type
+set timeout = 3          # idle time before scanning
+set mail_check = 0       # minimum time between scans
+set delete               # don't ask, just do
+unset confirmappend      # don't ask, just do!
+unset mark_old           # read/new is good enough for me
+set beep_new             # bell on new mails
+set pipe_decode          # strip headers and eval mimes when piping
+set thorough_search      # strip headers and eval mimes before searching
+set quit=ask-no
+set postpone=ask-yes
+set prompt_after=no
+
+# colors
+source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
+# source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-256.muttrc
+# source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+# source ~/.mutt/colorschemes/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
+
+
+# generic (un)binds
+bind index,pager,browser C noop
+bind index,pager,browser J noop
+bind index,pager,browser K noop
+bind index,pager,browser d noop
+bind index,pager,browser f noop
+bind index,pager,browser a noop
+bind index,pager,browser r noop
+bind index,pager,browser R noop
+bind index,pager,browser F noop
+bind index,pager,browser <Tab> noop
+
+# browser / select folder
+bind browser gg first-entry
+bind browser G last-entry
+bind browser h exit
+bind browser l select-entry
+bind browser L view-file
+
+# index / message list
+set nomarkers
+set sort=threads
+set sort_aux=last-date-received
+set date_format = "%Y-%m-%d"
+set index_format = "[%Z] %D %-30.30F %s"
+# set sort = threads                         # like gmail
+# set sort_aux = reverse-last-date-received # like gmail
+set thread_received=yes
+#set status_chars  = " *%A"
+#set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+#set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+#set index_format="%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+#set index_format="%4C %Z %{%Y-%m-%d} %-17.17L (%?l?%4l&%4c?) %s"
+
+bind index gg first-entry
+bind index G last-entry
+bind index h noop
+bind index l display-message
+bind index N search-opposite
+bind index R reply
+bind index ! flag-message
+bind index F forward-message
+# bind index \cR toggle-new
+macro index \cR '<enter-command>exec toggle-new<enter><enter-command>exec sync-mailbox<enter>'
+
+macro index L "<enter-command> \
+  unset wait_key<enter><shell-escape> \
+    read -p 'notmuch query: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \
+    \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;chomp@a;s/\^id:// for@a;$,=\"|\"; \
+    print@a'\`\"<enter>" "show only messages matching a notmuch pattern"
+macro index a "<limit>all\n" "show all messages (undo limit)"
+
+
+# sidebar
+set sidebar_visible = no
+set sidebar_width = 30
+bind index K sidebar-prev
+bind index J sidebar-next
+bind index O sidebar-open
+macro index,pager <Tab> '<enter-command>toggle sidebar_visible<enter>'
+
+# pager / view messge
+set pager_index_lines=10 # split index and pager when viewing messages
+set smart_wrap
+set pager_context=2
+set pager_stop=yes
+
+set edit_headers=yes
+ignore *
+unignore from: date subject to cc list-unsubscribe
+unhdr_order *
+hdr_order Date: From: To: Cc: Subject:
+
+auto_view application/zip
+auto_view application/x-gzip
+auto_view application/x-gunzip
+auto_view application/pgp-signature
+auto_view application/pgp
+auto_view application/octet-stream
+auto_view application/x-zip-compressed
+auto_view application/x-arj-compressed
+auto_view application/x-tar-gz
+auto_view application/ms-tnef
+auto_view application/x-perl
+auto_view application/x-sh
+auto_view application/x-tcl
+auto_view application/x-delphi-source
+auto_view application/emacs-lisp
+auto_view application/msword
+auto_view text/x-patch
+auto_view text/html
+auto_view text/x-vcard
+auto_view text/x-script.elisp
+auto_view text/x-lisp
+auto_view text/x-diff
+auto_view image/tiff
+alternative_order text/plain text/enriched text/html
+
+bind pager h exit
+bind pager k previous-line
+bind pager j next-line
+bind pager K previous-page
+bind pager J next-page
+bind pager gg top
+bind pager G bottom
+bind pager N search-opposite
+macro attach 'V' "<pipe-entry>cat >/tmp/mail.html && xdg-open /tmp/mail.html && rm /tmp/mail.html<enter>"
+
+# compose / send/forward/reply
+set editor = `echo \$EDITOR`
+set send_charset="utf-8"
+set realname = "Jon Terje Tvergrov Kalvatn"
+set signature = "$realname"
+set fast_reply=yes
+set include=yes
+
+# accounts
+folder-hook ~/.mail/gmail/ "source ~/.mutt/accounts/gmail_jonterje_kalvatn"
+folder-hook ~/.mail/sportradar/ "source ~/.mutt/accounts/sportradar"
+
+source ~/.mutt/accounts/gmail_jonterje_kalvatn
+source ~/.mutt/accounts/sportradar
+
+macro index,pager <f1> '<sync-mailbox><enter-command>source ~/.mutt/accounts/gmail_jonterje_kalvatn<enter><change-folder>!<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/sportradar<enter><change-folder>!<enter>'

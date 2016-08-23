@@ -1,0 +1,105 @@
+# vim set ft=conf
+[general]
+ui = ttyui
+accounts = gmail, sportradar
+pythonfile = /home/kalvatn/dotfiles/scripts/installation/mail/mutt/secret.py
+fsync = False
+
+[Account gmail]
+localrepository = gmail_local
+remoterepository = gmail_remote
+status_backend = sqlite
+
+[Account sportradar]
+localrepository = sportradar_local
+remoterepository = sportradar_remote
+status_backend = sqlite
+
+[Repository gmail_remote]
+maxconnections = 2
+type = Gmail
+auth_mechanisms = LOGIN
+remotehost = imap.gmail.com
+remoteuser = jonterje.kalvatn@gmail.com
+remotepasseval = get_password('mail', 'jonterje.kalvatn@gmail.com')
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+realdelete = no
+
+nametrans = lambda folder: {
+    'INBOX'             : 'inbox',
+    '[Gmail]/Drafts'    : 'drafts',
+    '[Gmail]/Sent Mail' : 'sent',
+    '[Gmail]/Starred'   : 'starred',
+    '[Gmail]/Important' : 'important',
+    '[Gmail]/Spam'      : 'spam',
+    '[Gmail]/Trash'     : 'trash',
+    '[Gmail]/All Mail'  : 'archive'
+  }.get(folder, folder)
+
+folderfilter = lambda folder: folder not in [
+    '[Gmail]/Spam',
+  ]
+
+[Repository gmail_local]
+type = Maildir
+localfolders = ~/.mail/gmail
+sep = /
+restoreatime = no
+nametrans = lambda folder: {
+    'inbox'     : 'INBOX',
+    'drafts'    : '[Gmail]/Drafts',
+    'sent'      : '[Gmail]/Sent Mail',
+    'starred'   : '[Gmail]/Starred',
+    'important' : '[Gmail]/Important',
+    'spam'      : '[Gmail]/Spam',
+    'trash'     : '[Gmail]/Trash',
+    'archive'   : '[Gmail]/All Mail',
+  }.get(folder, folder)
+
+[Repository sportradar_remote]
+maxconnections = 2
+type = IMAP
+remotehost = mail.sportradar.com
+#remotehost = 172.16.17.81
+remoteuser = j.kalvatn
+remotepasseval = get_password('mail', 'j.kalvatn@sportradar.com')
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+realdelete = no
+
+#Archive  Calendar  Contacts  Deleted Items  Deleted ItemsItems  Drafts  [Gmail]  INBOX  Junk E-Mail  Outbox  Sent  Sent Items  Tasks
+
+nametrans = lambda folder: {
+    'INBOX'             : 'inbox',
+    'Drafts'    : 'drafts',
+    'Sent Items' : 'sent',
+    'Junk E-Mail'      : 'spam',
+    'Deleted Items'     : 'trash',
+    'Archive'  : 'archive'
+  }.get(folder, folder)
+
+folderfilter = lambda folder : folder not in ['Calendar', 'Contacts', 'Outbox', 'Tasks', 'Sent']
+
+[Repository sportradar_local]
+type = Maildir
+localfolders = ~/.mail/sportradar
+sep = /
+restoreatime = no
+
+nametrans = lambda folder: {
+		'inbox'     : 'INBOX',
+		'drafts'    : 'Drafts',
+		'sent'      : 'Sent Items',
+		'spam'      : 'Junk E-Mail',
+		'trash'     : 'Deleted Items',
+		'archive'   : 'Archive',
+	}.get(folder, folder)
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"

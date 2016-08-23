@@ -1,0 +1,28 @@
+# vim: filetype=muttrc
+
+# receive
+set folder = "~/.mail/sportradar"
+set spoolfile = "+inbox"
+mailboxes = +inbox +drafts +sent +spam +trash +archive
+set mbox="+archive"
+set postponed = "+drafts"
+set record = "+sent"
+
+# send
+set smtp_url = "smtp://j.kalvatn@mail.sportradar.com:587"
+set smtp_pass = `secret-tool lookup mail j.kalvatn@sportradar.com`
+set from = "j.kalvatn@sportradar.com"
+set hostname = "sportradar.com"
+#set ssl_force_tls = yes
+set ssl_starttls = yes
+#unset ssl_starttls
+
+
+macro index,pager A "<save-message>=archive<enter>" "archive"
+macro index,pager D "<save-message>=trash<enter>" "delete"
+macro index gi "<change-folder>=inbox<enter>" "go to inbox"
+macro index ga "<change-folder>=archive<enter>" "go to archive"
+macro index gd "<change-folder>=drafts<enter>" "go to drafts"
+
+# needs to be called
+account-hook $folder "set from = $from hostname = $hostname smtp_url = $smtp_url smtp_pass = $smtp_pass"

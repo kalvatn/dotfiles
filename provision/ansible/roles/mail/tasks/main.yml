@@ -1,0 +1,34 @@
+- name: install mutt and utility packages
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - mutt-patched
+    - w3m
+    - urlview
+    - notmuch
+
+- name: check offlineimap installed
+  shell: command -v i3blocks > /dev/null
+  ignore_errors: yes
+  register: offlineimap_installed
+
+- name: clone offlineimap
+  when: offlineimap_installed|failed
+  git: repo="https://github.com/OfflineIMAP/offlineimap" dest=/tmp/offlineimap
+
+- name: build and install offlineimap
+  become: yes
+  when: offlineimap_installed|failed
+  shell: make clean && make && python setup.py install
+
+- name: link config
+  file:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "{{user_home}}/{{item}}"
+    state: link
+    force: yes
+  with_items:
+    - .mutt
+    - .notmuch-config
+    - .offlineimaprc
+
+

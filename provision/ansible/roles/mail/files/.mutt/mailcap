@@ -1,0 +1,4 @@
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+image/*; feh %s; test=sh -c 'test $DISPLAY';
+application/pdf; background-viewer xdg-open %s; test=sh -c 'test $DISPLAY';
+application/*; background-viewer xdg-open %s; test=sh -c 'test $DISPLAY';
