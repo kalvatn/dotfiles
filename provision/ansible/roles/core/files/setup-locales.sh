@@ -29,4 +29,4 @@ export LC_ALL=
 locale-gen $LOCALE_EN
 locale-gen $LOCALE_NO
 
-dpkg-reconfigure locales
+dpkg-reconfigure -f noninteractive locales

@@ -173,7 +173,7 @@ if [ -f "$HOME/.fzf.zsh" ]; then
   source ~/.fzf.zsh
 fi
 # BEGIN ANSIBLE MANAGED BLOCK tmuxinator.zsh
-TMUXINATOR_COMPLETION_FILE="/home/vagrant/.tmuxinator/completion/tmuxinator.zsh"
+TMUXINATOR_COMPLETION_FILE="/home/kalvatn/.tmuxinator/completion/tmuxinator.zsh"
 if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
   source "$TMUXINATOR_COMPLETION_FILE"
 fi

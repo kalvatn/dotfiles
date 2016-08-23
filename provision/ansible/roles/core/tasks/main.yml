@@ -4,11 +4,11 @@
 
 - name: setup timezone data
   become: yes
-  shell: echo 'Europe/Oslo' > /etc/timezone && dpkg-reconfigure tzdata -f noninteractive
+  shell: echo 'Europe/Oslo' > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
-- name: add universe repository
-  become: yes
-  apt_repository: repo="universe"
+# - name: add universe repository
+#   become: yes
+#   apt_repository: repo="universe"
 
 - name: install core system/build tools
   become: yes
