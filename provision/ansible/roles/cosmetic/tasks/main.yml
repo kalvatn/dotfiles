@@ -1,3 +1,4 @@
 ---
 - include: user-dirs.yml
 - include: background-images.yml
+- include: greeter.yml
