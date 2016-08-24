@@ -3,3 +3,13 @@
 - name: run background image setup script
   script: background-images-setup.sh
 
+- name: link background manipulation scripts
+  file:
+    src: "{{role_path}}/files/bin/{{item}}.sh"
+    dest: "{{user_home}}/bin/{{item}}"
+    state: link
+    force: yes
+  with_items:
+    - reload-desktop-background
+    - switch-desktop-background
+
