@@ -1,3 +1,4 @@
+---
 - name: install mutt and utility packages
   become: yes
   apt: pkg="{{item}}" state=latest
@@ -32,4 +33,15 @@
     - .notmuch-config
     - .offlineimaprc
 
+
+- name: link mailsync script
+  become: yes
+  file:
+    src: "{{role_path}}/files/mailsync.sh"
+    dest: /usr/local/bin/mailsync
+    state: link
+    force: yes
+
+- name: setup mailsync cronjob
+  cron: name="mailsync" minute="*/2" job="/usr/local/bin/mailsync > /dev/null"
 
