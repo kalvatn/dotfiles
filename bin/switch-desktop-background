@@ -2,6 +2,7 @@
 
 set -e
 
+source "$HOME/.config/user-dirs.dirs"
 BACKGROUND_IMAGE_FOLDER="$XDG_PICTURES_DIR/background_images"
 
 if [ ! -d "$BACKGROUND_IMAGE_FOLDER" ]; then
@@ -21,5 +22,5 @@ if [ ! -f "$image_file" ]; then
 fi
 
 BACKGROUND_IMAGE_LINK="$HOME/.current-desktop-background"
-symlink "$image_file" "$BACKGROUND_IMAGE_LINK"
+ln -sf "$image_file" "$BACKGROUND_IMAGE_LINK"
 feh --no-fehbg --bg-fill "$image_file"

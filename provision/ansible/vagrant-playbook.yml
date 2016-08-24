@@ -14,6 +14,6 @@
     - { role: profanity, tags: [ chat, profanity ] }
     - { role: i3, tags: [ desktop, i3 ] }
     - { role: mail, tags: [ mail, mutt ] }
-    - { role: fonts, tags: [ fonts ] }
+    - { role: fonts, tags: [ fonts, cosmetic ] }
     - { role: development, tags: [ development ] }
-
+    - { role: cosmetic, tags: [ cosmetic ] }

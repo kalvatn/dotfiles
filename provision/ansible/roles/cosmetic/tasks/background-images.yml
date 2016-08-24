@@ -1,0 +1,5 @@
+---
+
+- name: run background image setup script
+  script: background-images-setup.sh
+
