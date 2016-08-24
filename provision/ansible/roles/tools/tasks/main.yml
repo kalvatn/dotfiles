@@ -1,6 +1,11 @@
-- name: install ag
+---
+- name: install various useful command-line tools
   become: yes
-  apt: pkg=silversearcher-ag state=latest
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - feh
+    - scrot
+    - silversearcher-ag
 
 - name: update fzf
   git: repo="https://github.com/junegunn/fzf.git" dest="{{user_home}}/.fzf" depth=1 update=yes
