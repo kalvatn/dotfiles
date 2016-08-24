@@ -6,6 +6,7 @@
     - feh
     - scrot
     - silversearcher-ag
+    - xbacklight
 
 - name: update fzf
   git: repo="https://github.com/junegunn/fzf.git" dest="{{user_home}}/.fzf" depth=1 update=yes
