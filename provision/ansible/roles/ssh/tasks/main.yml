@@ -1,0 +1,10 @@
+---
+- name: setup ssh-keys
+  command: ssh-keygen -b 2048 -t rsa -f "{{user_home}}/ssh/id_rsa" -q -N ""
+  args:
+    creates: "{{user_home}}/.ssh/id_rsa"
+
+- name: install openssh-server
+  become: yes
+  apt: pkg=openssh-server state=latest
+

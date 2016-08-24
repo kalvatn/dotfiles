@@ -8,6 +8,7 @@
   roles:
     - { role: core, tags: [ core ] }
     - { role: tools, tags: [ tools ] }
+    - { role: ssh, tags: [ ssh ] }
     - { role: zsh, tags: [ shell, zsh ] }
     - { role: neovim, tags: [ editor, vim, neovim ] }
     - { role: tmux, tags: [ tools, tmux ] }
