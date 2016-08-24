@@ -32,6 +32,7 @@
     - wget
     - python
     - python-pip
+    - tree
 
 - include: git.yml
 - include: ruby.yml

@@ -15,4 +15,5 @@
     - { role: i3, tags: [ desktop, i3 ] }
     - { role: mail, tags: [ mail, mutt ] }
     - { role: fonts, tags: [ fonts ] }
+    - { role: development, tags: [ development ] }
 
