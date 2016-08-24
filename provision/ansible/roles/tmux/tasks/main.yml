@@ -59,3 +59,10 @@
     - { dest : .bashrc, completion_file: tmuxinator.bash }
     - { dest : .zshrc, completion_file: tmuxinator.zsh }
 
+- name: source tmux aliases
+  blockinfile:
+    dest: "{{user_home}}/.aliases"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK tmux_aliases"
+    follow: yes
+    block: |
+      [[ -f "{{role_path}}/aliases" ]] && source "{{role_path}}/aliases"

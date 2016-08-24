@@ -1,0 +1,66 @@
+#!/bin/bash
+
+alias ls='ls --color=auto'
+alias l='ls'
+alias sl='ls'
+alias ll='ls -l'
+alias la='ll -A'
+alias lc='ls -CF'
+
+alias v='nvim'
+alias vim='nvim'
+
+alias grep='grep --color=auto'
+alias igrep='grep -i'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias nslisten='netstat -plan | grep LISTEN'
+
+_follow() {
+  clear
+  if [ -z "$2" ]; then
+    tail -F -n100 "$1" 2> /dev/null
+  else
+    tail -F -n "$1" "$2" 2> /dev/null
+  fi
+}
+alias follow=_follow
+alias xerrors="follow ~/.xsession-errors"
+
+# TODO: move
+alias xup='xrdb ~/.Xresources'
+
+# TODO: move
+alias ag='ag -p ~/.agignore'
+
+# custom launchers
+
+# work
+# ssh aliases
+# TODO: move
+if which autossh > /dev/null; then
+  alias ssh="autossh"
+fi
+
+# work-workstations
+# TODO: move
+alias workstation="ssh kalvatn@10.12.121.13"
+alias hans="ssh hans@10.12.100.220"
+alias home-laptop="ssh kalvatn@178.164.96.140"
+
+
+# work-servers
+# TODO: move
+alias xmlexport1="ssh j.kalvatn@10.200.4.11"
+alias xmlexport1-proxy='ssh -t kalvatn@10.12.121.13 ssh j.kalvatn@10.200.4.11'
+alias xmlexport2="ssh j.kalvatn@10.200.4.12"
+alias xmlexport2-proxy='ssh -t kalvatn@10.12.121.13 ssh j.kalvatn@10.200.4.12'
+alias xmlexport-test="ssh j.kalvatn@10.200.4.22"
+alias xmlexport-test-proxy="ssh -t kalvatn@10.12.121.13 ssh j.kalvatn@10.200.4.22"
+
+# other-servers
+alias northrend="ssh kalvatn@northrend.bitnexus.net"
+# BEGIN ANSIBLE MANAGED BLOCK tmux_aliases
+[[ -f "/home/kalvatn/dotfiles/provision/ansible/roles/tmux/aliases" ]] && source "/home/kalvatn/dotfiles/provision/ansible/roles/tmux/aliases"
+# END ANSIBLE MANAGED BLOCK tmux_aliases

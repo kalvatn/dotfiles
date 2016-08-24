@@ -12,6 +12,7 @@
     force: yes
   with_items:
     - .zshrc
+    - .aliases
 
 
 - include: prezto.yml
