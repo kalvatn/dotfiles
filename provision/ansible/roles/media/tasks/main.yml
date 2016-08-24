@@ -1,0 +1,6 @@
+---
+
+- include: spotify.yml
+
+- name: mute speakers
+  command: amixer set Speaker mute

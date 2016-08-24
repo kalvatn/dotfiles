@@ -1,0 +1,12 @@
+---
+
+- name: link XDG user dirs config
+  file:
+    src: "{{role_path}}/files/user-dirs.dirs"
+    dest: "{{user_home}}/.config/user-dirs.dirs"
+    state: link
+    force: yes
+
+- name: XDG user dirs setup
+  script: user-dirs-setup.sh
+

@@ -109,10 +109,9 @@ bindsym $super+r mode "resize"
 
 set $volumestep 5
 mode "volume" {
-  # bindsym k exec volume + $volumestep
-  # bindsym j exec volume - $volumestep
   bindsym k exec amixer -q -D pulse sset Master $volumestep%+ && pkill -RTMIN+1 i3blocks
   bindsym j exec amixer -q -D pulse sset Master $volumestep%- && pkill -RTMIN+1 i3blocks
+  bindsym m exec amixer -q -D pulse set Master 1+ toggle && pkill -RTMIN+1 i3blocks
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
