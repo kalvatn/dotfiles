@@ -177,6 +177,7 @@ bar {
 assign [class="jetbrains-idea"] $workspace_1
 assign [class="Firefox"] $workspace_8
 assign [class="Spotify" ] $workspace_0
+assign [class="SQLyog.exe" ] $workspace_7
 
 # startup
 exec --no-startup-id xautolock -time 5 -locker $lockscript &
