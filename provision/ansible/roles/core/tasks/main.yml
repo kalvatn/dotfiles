@@ -33,6 +33,7 @@
   apt: pkg="{{item}}" state=latest
   with_items:
     - curl
+    - htop
     - bzip2
     - wget
     - python
