@@ -65,4 +65,4 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK tmux_aliases"
     follow: yes
     block: |
-      [[ -f "{{role_path}}/aliases" ]] && source "{{role_path}}/aliases"
+      [[ -f "{{role_path}}/files/aliases" ]] && source "{{role_path}}/files/aliases"

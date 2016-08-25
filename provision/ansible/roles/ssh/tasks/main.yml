@@ -8,3 +8,11 @@
   become: yes
   apt: pkg=openssh-server state=latest
 
+
+- name: source ssh aliases
+  blockinfile:
+    dest: "{{user_home}}/.aliases"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ssh_aliases"
+    follow: yes
+    block: |
+      [[ -f "{{role_path}}/files/aliases" ]] && source "{{role_path}}/files/aliases"

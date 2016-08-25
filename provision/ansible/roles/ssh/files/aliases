@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# use autossh if it exists
+if which autossh > /dev/null; then
+  alias ssh="autossh"
+fi
+
+# work-workstations
+alias workstation="ssh kalvatn@10.12.121.13"
+alias hans="ssh hans@10.12.100.220"
+
+
+function hans_proxy() {
+  ssh -t hans@10.12.100.220 ssh "h.selvig@$1"
+}
+
+function workstation_proxy() {
+  ssh -t kalvatn@10.12.121.13 ssh "j.kalvatn@$1"
+}
+
+function work_ssh() {
+  ssh "j.kalvatn@$1"
+}
+
+# work-servers
+alias xmlexport1='work_ssh "10.200.4.11"'
+alias xmlexport2='work_ssh "10.200.4.12"'
+alias xmlexport-test='work_ssh "10.200.4.22"'
+
+alias xmlexport1-proxy='workstation_proxy "10.200.4.11"'
+alias xmlexport2-proxy='workstation_proxy "10.200.4.12"'
+alias xmlexport-test-proxy='workstation_proxy "10.200.4.22"'
+
+# other-servers
+alias northrend="ssh kalvatn@northrend.bitnexus.net"
+alias home-laptop="ssh kalvatn@178.164.96.140"
+
+
