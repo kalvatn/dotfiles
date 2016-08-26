@@ -4,9 +4,12 @@
   args:
     creates: "{{user_home}}/.ssh/id_rsa"
 
-- name: install openssh-server
+- name: install useful ssh packages
   become: yes
-  apt: pkg=openssh-server state=latest
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - openssh-server
+    - autossh
 
 
 - name: source ssh aliases
