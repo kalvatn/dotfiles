@@ -13,6 +13,7 @@
   with_items:
     - .zshrc
     - .aliases
+    - .environment
 
 
 - include: prezto.yml

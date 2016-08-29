@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export PROJECTS=/work/projects
+export JBOSS_HOME=/srv/wildfly
+export WILDFLY_HOME="$JBOSS_HOME"

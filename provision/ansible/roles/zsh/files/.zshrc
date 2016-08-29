@@ -160,8 +160,8 @@ if [ -f "$HOME/.aliases" ]; then
   source $HOME/.aliases
 fi
 
-if [ -f "$HOME/.variables" ]; then
-  source $HOME/.variables
+if [ -f "$HOME/.environment" ]; then
+  source $HOME/.environment
 fi
 
 if [ -f "$HOME/.functions" ]; then
