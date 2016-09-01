@@ -72,8 +72,11 @@ bind index N search-opposite
 bind index R reply
 bind index ! flag-message
 bind index F forward-message
+bind index \cb previous-page
+bind index \cf next-page
 # bind index \cR toggle-new
 macro index \cR '<enter-command>exec toggle-new<enter><enter-command>exec sync-mailbox<enter>'
+macro index,pager \cl "|urlview<enter>" "call urlview to open links"
 
 macro index L "<enter-command> \
   unset wait_key<enter><shell-escape> \
