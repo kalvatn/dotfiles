@@ -1,7 +1,3 @@
 [submodule ".urxvt/ext/perls"]
 	path = scripts/installation/misc/urxvt/.urxvt/ext/perls
   url = git://github.com/muennich/urxvt-perls.git
-[submodule "scripts/installation/desktop/i3/.i3/i3blocklets/contrib"]
-	path = scripts/installation/desktop/i3/.i3/blocklets/contrib
-	url = git://github.com/vivien/i3blocks-contrib.git
-  ignore = dirty
