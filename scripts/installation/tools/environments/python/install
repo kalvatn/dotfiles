@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -e
-source "$HOME/.functions"
-
-if needs_install python python-pip; then
-	apt_install python python-pip
-  sudo pip install --upgrade pip
-fi

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -e
-
-source "$HOME/.functions"
-
-if needs_install xmllint libxml2-utils; then
-  apt_install libxml2-utils
-fi
