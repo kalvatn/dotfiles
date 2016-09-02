@@ -6,10 +6,6 @@
   path = scripts/installation/vim/.vim/bundle/syntastic
   url = https://github.com/scrooloose/syntastic
   ignore = dirty
-[submodule ".oh-my-zsh"]
-	path = scripts/installation/shell/zsh/.oh-my-zsh
-  url = https://github.com/robbyrussell/oh-my-zsh
-  ignore = dirty
 [submodule ".vim/bundle/dragvisuals.vim"]
   path = scripts/installation/vim/.vim/bundle/dragvisuals.vim
   url = https://github.com/gavinbeatty/dragvisuals.vim.git
