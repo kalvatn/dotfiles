@@ -1,9 +1,0 @@
-name: mail
-
-windows:
-  - mail: mutt
-  - offlineimap:
-      layout: even-vertical
-      panes:
-        - offlineimap
-        - notmuch search --format=text --output=summary --limit=10 --sort=newest-first tag:unread
