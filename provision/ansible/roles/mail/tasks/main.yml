@@ -1,0 +1,47 @@
+---
+- name: install mutt and utility packages
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - mutt-patched
+    - w3m
+    - urlview
+    - notmuch
+
+- name: check offlineimap installed
+  shell: command -v offlineimap > /dev/null
+  ignore_errors: yes
+  register: offlineimap_installed
+
+- name: clone offlineimap
+  when: offlineimap_installed|failed
+  git: repo="https://github.com/OfflineIMAP/offlineimap" dest=/tmp/offlineimap
+
+- name: build and install offlineimap
+  when: offlineimap_installed|failed
+  become: yes
+  shell: cd /tmp/offlineimap && make && python setup.py install
+
+- name: link config
+  file:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "{{user_home}}/{{item}}"
+    state: link
+    force: yes
+  with_items:
+    - .mutt
+    - .notmuch-config
+    - .offlineimaprc
+
+
+- name: link mailsync script
+  become: yes
+  file:
+    src: "{{role_path}}/files/mailsync.sh"
+    dest: /usr/local/bin/mailsync
+    state: link
+    force: yes
+
+- name: setup mailsync cronjob
+  cron: name="mailsync" minute="*/2" job="/usr/local/bin/mailsync > /dev/null"
+

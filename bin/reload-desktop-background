@@ -1,3 +1,1 @@
-#!/bin/sh
-
-feh --no-fehbg --bg-fill /home/kalvatn/current-desktop-background
+/home/kalvatn/dotfiles/provision/ansible/roles/cosmetic/files/bin/reload-desktop-background.sh

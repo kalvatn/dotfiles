@@ -1,0 +1,87 @@
+#!/usr/bin/env zsh
+
+
+function prompt_kalvatn_precmd {
+  vcs_info
+
+  if (( $+functions[python-info] )); then
+    python-info
+  fi
+}
+
+function prompt_kalvatn_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  SYMBOL_CARET="»"
+  SYMBOL_RETURN="↵"
+  SYMBOL_LBRACKET="‹"
+  SYMBOL_RBRACKET="›"
+  # SYMBOL_UNSTAGED="!"
+  SYMBOL_UNSTAGED="●"
+  # SYMBOL_STAGED="+"
+  SYMBOL_STAGED="●"
+
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+  autoload -Uz colors
+  colors
+
+  add-zsh-hook precmd prompt_kalvatn_precmd
+
+  CYAN="%{$fg[cyan]%}"
+  YELLOW="%{$fg[yellow]%}"
+  PURPLE="%{$fg[magenta]%}"
+  RED="%{$fg[red]%}"
+  GREEN="%{$fg[green]%}"
+  CYAN_BOLD="%{$fg_bold[cyan]%}"
+  YELLOW_BOLD="%{$fg_bold[yellow]%}"
+  PURPLE_BOLD="%{$fg_bold[magenta]%}"
+  RED_BOLD="%{$fg_bold[red]%}"
+  GREEN_BOLD="%{$fg_bold[green]%}"
+
+  RESET="%{$fg_no_bold[white]%}"
+  LBRACKET="${PURPLE_BOLD}${SYMBOL_LBRACKET}${RESET}"
+  RBRACKET="${PURPLE_BOLD}${SYMBOL_RBRACKET}${RESET}"
+
+  local branch_format="${PURPLE_BOLD}%b${RESET}%u%c${RESET}"
+  local action_format="${GREEN}%a${RESET}"
+  local unstaged_format="${RED}${SYMBOL_UNSTAGED}${RESET}"
+  local staged_format="${GREEN}${SYMBOL_STAGED}${RESET}"
+
+  zstyle ':vcs_info:*' enable bzr git hg svn
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' unstagedstr " ${unstaged_format}"
+  zstyle ':vcs_info:*' stagedstr " ${staged_format}"
+  zstyle ':vcs_info:*' actionformats "${branch_format}${action_format}"
+  zstyle ':vcs_info:*' formats "${LBRACKET}${branch_format}${RBRACKET}"
+  zstyle ':vcs_info:*' nvcsformats "${RESET}"
+
+  zstyle ':prezto:module:python:info:virtualenv' format "${LBRACKET}%v${RBRACKET}"
+
+  local user="${GREEN_BOLD}%n${RESET}"
+  local at="@"
+  local host="${CYAN_BOLD}%m${RESET}"
+  local dir="${YELLOW_BOLD}%3~${RESET}"
+  local vcs0=""'${vcs_info_msg_0_}'"${RESET}"
+  local vcs1=""'${vcs_info_msg_1_}'"${RESET}"
+  local env=""'${python_info[virtualenv]}'"${RESET}"
+  local caret="${YELLOW_BOLD}${SYMBOL_CARET}${RESET}"
+  local return_code="%(?..${RED}%?${SYMBOL_RETURN}${RESET})"
+
+  local meta=""
+  if [ ! -z "${vcs_info_msg_0_}" ]; then
+    meta="$vcs0"
+  fi
+
+  if [ ! -z "${python_info[virtualenv]}" ]; then
+    meta="$meta $env"
+  fi
+
+  # PROMPT="${user}${at}${host} ${dir} ${vcs0} ${vcs1} ${env} ${caret} "
+  PROMPT="${user}${at}${host} ${dir} ${meta} ${caret} ${RESET}"
+  # RPROMPT="${return_code}${RESET}"
+}
+
+prompt_kalvatn_setup "$@"

@@ -3,4 +3,4 @@ dein/
 .cache
 .undo
 */.vim/bundle
-
+*.retry

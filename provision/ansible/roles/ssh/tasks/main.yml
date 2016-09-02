@@ -1,0 +1,21 @@
+---
+- name: setup ssh-keys
+  command: ssh-keygen -b 2048 -t rsa -f "{{user_home}}/ssh/id_rsa" -q -N ""
+  args:
+    creates: "{{user_home}}/.ssh/id_rsa"
+
+- name: install useful ssh packages
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - openssh-server
+    - autossh
+
+
+- name: source ssh aliases
+  blockinfile:
+    dest: "{{user_home}}/.aliases"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK ssh_aliases"
+    follow: yes
+    block: |
+      [[ -f "{{role_path}}/files/aliases" ]] && source "{{role_path}}/files/aliases"

@@ -1,0 +1,10 @@
+- name: install system ruby
+  become: yes
+  apt: pkg=ruby state=latest
+
+- name: configure system ruby
+  file:
+    src: "{{role_path}}/files/.gemrc"
+    dest: "{{user_home}}/.gemrc"
+    state: link
+    force: yes

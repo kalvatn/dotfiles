@@ -1,0 +1,19 @@
+- name: add apt repository git-core
+  become: yes
+  apt_repository: repo='ppa:git-core/ppa'
+
+- name: install git
+  become: yes
+  apt: pkg=git-core state=latest
+
+- name: link global .gitignore
+  file:
+    src: "{{role_path}}/files/.gitignore-global"
+    dest: "{{user_home}}/.gitignore-global"
+    state: link
+    force: yes
+
+- name: update .gitconfig
+  template:
+    src: .gitconfig
+    dest: "{{user_home}}/.gitconfig"

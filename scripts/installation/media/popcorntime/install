@@ -1,7 +1,0 @@
-#!/bin/bash
-
-source "$HOME/.functions"
-if ! needs_install popcorn-time; then
-  apt_add_repository ppa:webupd8team/popcorntime
-  apt_install popcorn-time
-fi

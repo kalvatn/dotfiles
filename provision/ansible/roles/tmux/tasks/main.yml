@@ -1,0 +1,68 @@
+- name: check tmux version
+  shell: tmux -V | cut -d ' ' -f2 | cut -d '.' -f1
+  register: tmux_version
+
+- name: remove existing tmux
+  when: tmux_version.stdout != "2"
+  become: yes
+  apt: pkg=tmux state=removed
+
+- name: install tmux build dependencies
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - libevent-dev
+    - libncurses5-dev
+
+- name: clone tmux source
+  when: tmux_version.stdout != "2"
+  git: repo=https://github.com/tmux/tmux.git dest=/tmp/tmux
+
+- name: build tmux from source
+  when: tmux_version.stdout != "2"
+  shell: sh autogen.sh && ./configure && sudo checkinstall -y
+  args:
+    chdir: /tmp/tmux
+    executable: /bin/bash
+
+- name: tmuxinator exists
+  shell: gem list | grep -q "^tmuxinator"
+  ignore_errors: yes
+  register: tmuxinator_installed
+
+- name: install tmuxinator
+  when: tmuxinator_installed|failed
+  become: yes
+  shell: gem install tmuxinator
+
+- name: link .tmux.conf
+  file:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "{{user_home}}/{{item}}"
+    state: link
+    force: yes
+  with_items:
+  - .tmux.conf
+  - .tmuxinator
+
+- name: source tmuxinator completions
+  blockinfile:
+    dest: "{{user_home}}/{{item.dest}}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{item.completion_file}}"
+    follow: yes
+    block: |
+      TMUXINATOR_COMPLETION_FILE="{{user_home}}/.tmuxinator/completion/{{item.completion_file}}"
+      if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
+        source "$TMUXINATOR_COMPLETION_FILE"
+      fi
+  with_items:
+    - { dest : .bashrc, completion_file: tmuxinator.bash }
+    - { dest : .zshrc, completion_file: tmuxinator.zsh }
+
+- name: source tmux aliases
+  blockinfile:
+    dest: "{{user_home}}/.aliases"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK tmux_aliases"
+    follow: yes
+    block: |
+      [[ -f "{{role_path}}/files/aliases" ]] && source "{{role_path}}/files/aliases"

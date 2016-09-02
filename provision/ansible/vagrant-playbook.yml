@@ -1,0 +1,21 @@
+---
+- hosts: vagrant
+  gather_facts: yes
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: core, tags: [ core ] }
+    - { role: tools, tags: [ tools ] }
+    - { role: ssh, tags: [ ssh ] }
+    - { role: zsh, tags: [ shell, zsh ] }
+    - { role: neovim, tags: [ editor, vim, neovim ] }
+    - { role: tmux, tags: [ tools, tmux ] }
+    - { role: profanity, tags: [ chat, profanity ] }
+    - { role: i3, tags: [ desktop, i3 ] }
+    - { role: mail, tags: [ mail, mutt ] }
+    - { role: fonts, tags: [ fonts, cosmetic ] }
+    - { role: development, tags: [ development ] }
+    - { role: cosmetic, tags: [ cosmetic ] }
+    - { role: media, tags: [ media, audio, video ] }

@@ -1,0 +1,63 @@
+---
+- name: install various useful command-line tools
+  become: yes
+  apt: pkg="{{item}}" state=latest
+  with_items:
+    - feh
+    - scrot
+    - silversearcher-ag
+    - xbacklight
+    - mysql-client
+    - smbclient
+    - wine
+    # TODO:FIXME:XXX make home specific
+    # - openconnect
+    # - network-manager-openconnect
+
+- name: update fzf
+  git: repo="https://github.com/junegunn/fzf.git" dest="{{user_home}}/.fzf" depth=1 update=yes
+
+- name: install fzf
+  command: "{{user_home}}/.fzf/install"
+
+# TODO:FIXME:XXX make this host specific to work
+
+- stat: path="{{user_home}}/.wine/drive_c/Program Files (x86)/SQLyog/SQLyog.exe"
+  register: sqlyog_executable
+
+- stat: path=/tmp/sqlyog_installer.exe
+  register: sqlyog_installer
+
+- name: download sqlyog installer
+  when: sqlyog_executable.stat.exists == False and sqlyog_installer.stat.exists == False
+  shell: smbget -uSPORTRADAR/j.kalvatn -p "$(secret-tool lookup sportradar-accounts j.kalvatn)" "smb://share.no.sportradar.ag/share/Downloads/Programs/SQLyog/SQLyog-9.0.2-0.exe" -o /tmp/sqlyog_installer.exe
+
+- name: install SQLyog
+  when: sqlyog_executable.stat.exists == False and sqlyog_installer.stat.exists == True
+  command: wine /tmp/sqlyog_installer.exe /S
+
+- stat: path="{{user_home}}/.sqlyog.ini"
+  register: sqlyog_config
+
+- name: download SQLyog default configuration
+  when: sqlyog_config.stat.exists == False
+  shell: smbget -uSPORTRADAR/j.kalvatn -p "$(secret-tool lookup sportradar-accounts j.kalvatn)" "smb://share.no.sportradar.ag/share/Downloads/Programs/SQLyog/sqlyog.ini" -o "{{user_home}}/.sqlyog.ini"
+
+- name: link SQLyog configuration
+  when: sqlyog_config.stat.exists == True
+  file:
+    src: "{{user_home}}/.sqlyog.ini"
+    dest: "{{user_home}}/.wine/drive_c/users/kalvatn/Application Data/SQLyog/sqlyog.ini"
+    state: link
+    force: yes
+
+
+- name: link configs
+  file:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "{{user_home}}/{{item}}"
+    state: link
+    force: yes
+  with_items:
+    - .agignore
+

@@ -1,0 +1,6 @@
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+text/*; vim %s;
+image/*; feh %s; test=sh -c 'test $DISPLAY';
+application/pdf; background-viewer xdg-open %s; test=sh -c 'test $DISPLAY';
+application/octet-stream; vim %s;
+application/*; background-viewer xdg-open %s; test=sh -c 'test $DISPLAY';

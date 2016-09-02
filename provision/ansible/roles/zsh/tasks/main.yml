@@ -1,0 +1,29 @@
+
+- name: install latest zsh package
+  apt: pkg=zsh state=latest
+  become: yes
+
+
+- name: link zsh configuration
+  file:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "{{user_home}}/{{item}}"
+    state: link
+    force: yes
+  with_items:
+    - .zshrc
+    - .aliases
+    - .environment
+    - .functions
+
+
+- include: prezto.yml
+
+- name: get current default login shell
+  shell: getent passwd "{{user}}" | cut -d ':' -f7
+  register: current_shell
+
+- name: change default login shell to zsh
+  when: current_shell.stdout != "/bin/zsh"
+  become: yes
+  command: chsh -s /bin/zsh "{{user}}"

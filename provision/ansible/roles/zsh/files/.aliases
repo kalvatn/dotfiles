@@ -1,0 +1,44 @@
+#!/bin/bash
+
+alias ls='ls --color=auto'
+alias l='ls'
+alias sl='ls'
+alias ll='ls -l'
+alias la='ll -A'
+alias lc='ls -CF'
+
+alias v='nvim'
+alias vim='nvim'
+
+alias grep='grep --color=auto'
+alias igrep='grep -i'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias nslisten='netstat -plan | grep LISTEN'
+
+_follow() {
+  clear
+  if [ -z "$2" ]; then
+    tail -F -n100 "$1" 2> /dev/null
+  else
+    tail -F -n "$1" "$2" 2> /dev/null
+  fi
+}
+alias follow=_follow
+alias xerrors="follow ~/.xsession-errors"
+
+# TODO: move
+alias xup='xrdb ~/.Xresources'
+
+# TODO: move
+alias ag='ag -p ~/.agignore'
+
+# custom launchers
+
+# BEGIN ANSIBLE MANAGED BLOCK tmux_aliases
+[[ -f "/home/kalvatn/dotfiles/provision/ansible/roles/tmux/files/aliases" ]] && source "/home/kalvatn/dotfiles/provision/ansible/roles/tmux/files/aliases"
+# END ANSIBLE MANAGED BLOCK tmux_aliases
+# BEGIN ANSIBLE MANAGED BLOCK ssh_aliases
+[[ -f "/home/kalvatn/dotfiles/provision/ansible/roles/ssh/files/aliases" ]] && source "/home/kalvatn/dotfiles/provision/ansible/roles/ssh/files/aliases"
+# END ANSIBLE MANAGED BLOCK ssh_aliases

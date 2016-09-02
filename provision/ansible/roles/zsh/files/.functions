@@ -1,0 +1,306 @@
+#!/bin/bash
+
+function setup_formatting() {
+  RESET=$(tput sgr0)
+  BOLD=$(tput bold)
+  UNDERLINE=$(tput smul)
+  STANDOUT=$(tput smso)
+
+  RED=$(color 1)
+  GREEN=$(color 2)
+  YELLOW=$(color 3)
+  BLUE=$(color 4)
+  PURPLE=$(color 5)
+  CYAN=$(color 6)
+  WHITE=$(color 7)
+  GRAY=$(color 8)
+  BRIGHT_RED=$(color 9)
+  BRIGHT_YELLOW=$(color 11)
+  BRIGHT_WHITE=$(color 15)
+}
+
+function color() {
+  tput setaf "$1"
+}
+
+function feature_check() {
+  if [ -t 1 ]; then
+    if [ -n "$(tput colors)" ]; then
+      setup_formatting
+    fi
+  fi
+}
+
+function rainbow() {
+  string="$1"
+  color=1
+  for (( i=0; i<${#string}; i++ )); do
+    echo -n "$STANDOUT$(color $color)${string:$i:1}$RESET"
+    if ((++color % 16 == 0)); then
+      color=$((color+1))
+    fi
+  done
+  printf "\r\n"
+}
+
+function datetime() {
+  date +"%Y-%m-%d %H:%M:%S"
+}
+
+function abbr_path() {
+  ~/dotfiles/scripts/utilities/abbreviate_directory "$1"
+}
+
+function join_array {
+  local IFS="$1"
+  shift
+  echo "$*"
+}
+
+function get_loglevel_intvalue() {
+  case "$1" in
+    DEBUG)
+      echo 0
+      ;;
+    INFO)
+      echo 1
+      ;;
+    WARN)
+      echo 2
+      ;;
+    ERROR)
+      echo 3
+      ;;
+    *)
+      echo -1
+      ;;
+  esac
+}
+
+function should_log() {
+  if [ -z "$LOGLEVEL" ];then
+    configured_loglevel="$(get_loglevel_intvalue "DEBUG")"
+  else
+    configured_loglevel="$(get_loglevel_intvalue "$LOGLEVEL")"
+    if [ "$configured_loglevel" -eq -1 ]; then
+      configured_loglevel=100
+    fi
+  fi
+  candidate_loglevel="$(get_loglevel_intvalue "$1")"
+  if [ ! -z "$candidate_loglevel" -a "$candidate_loglevel" -ge "$configured_loglevel" ]; then
+    return 0
+  fi
+  return 1
+}
+
+function log_unformatted() {
+  level="$1"
+  message="$2"
+  if [ ! -z "$message" ]; then
+    if should_log "$level"; then
+      logger="$(get_script_path "$0"):$LINENO"
+      printf "%s %5s - %s - %s\n" "$(datetime)" "$level" "$logger" "$message"
+    fi
+  fi
+}
+
+function log() {
+  color="$1"
+  level="$2"
+  message="$3"
+  if [ ! -z "$message" ]; then
+    if should_log "$level"; then
+      logger="$(get_script_path "$(readlink -f "$0")"):$LINENO"
+
+      if [ -n "$(tput colors)" ]; then
+        formatted_logger="$PURPLE$(abbr_path "$logger")$RESET"
+        formatted_level="$BOLD$UNDERLINE$level$RESET$color"
+        #printf "$color%s %-24s - %s - %s$RESET\n" "$(datetime)" "$formatted_level" "$formatted_logger" "$message"
+        printf "%-45s - $color%s$RESET\n" "$formatted_logger" "$message"
+      else
+        log_unformatted "$level" "$message"
+      fi
+    fi
+  fi
+}
+
+function info() {
+  log "$BLUE" "INFO" "$1"
+}
+
+function warn() {
+  log "$BRIGHT_YELLOW" "WARN" "$1"
+}
+
+function error() {
+  log "$BRIGHT_RED" "ERROR" "$1"
+}
+
+function debug() {
+  log "$GREEN" "DEBUG" "$1"
+}
+
+
+feature_check
+
+function cmdpid() {
+  pgrep -f "$1"
+}
+
+function pidcmd() {
+  ps -p "$1" -ho command
+}
+
+function command_exists() {
+  command -v "$1" > /dev/null
+}
+
+function dpkg_is_package_installed() {
+  dpkg -s "$1" | grep -q "Status: install ok installed" > /dev/null 2>&1
+  if [ "$?" -eq 0 ]; then
+    return 0
+  fi
+  return 1
+}
+
+function needs_install() {
+  needs_install=()
+  for i in "$@"; do
+    if command_exists "$i" > /dev/null; then
+      continue
+    elif dpkg_is_package_installed "$i" > /dev/null 2>&1; then
+      continue
+    elif command_exists gem && gem list | grep -q "$i "; then
+      continue
+    elif command_exists pip && pip freeze | grep -q "$i="; then
+      continue
+    elif command_exists npm && npm list -g | grep -q "$i"; then
+      continue
+    fi
+    warn "'$i' is not installed"
+    needs_install+=("$i")
+  done
+  if [ ${#needs_install[@]} -gt 0 ]; then
+    warn "package(s) '${needs_install[*]}' are not installed"
+    return 0
+  fi
+  debug "package(s) '$*' already installed"
+  return 1
+}
+
+
+function apt_has_key() {
+  sudo apt-key list | grep -q "$1"
+}
+
+function apt_add_repository() {
+  repository_name="${1/ppa:/}"
+  if ! grep -q "^deb.*$repository_name" /etc/apt/sources.list.d/* > /dev/null 2>&1; then
+    info "adding repository $1"
+    sudo add-apt-repository -y "$1"
+    sudo apt-key update
+    info "updating packages (quiet)"
+    sudo apt-get update -qq
+  else
+    debug "ppa:$1 already added"
+  fi
+}
+function apt_install() {
+  info "sudo apt-get install -qqy $*"
+  sudo apt-get install -qqy "$@"
+}
+
+function gem_install() {
+  info "sudo gem install $*"
+  sudo gem install "$@"
+}
+
+function pip_install() {
+  info "sudo pip install $*"
+  sudo pip install "$@"
+}
+
+function symlink() {
+  if [ -f "$1" -o -d "$1" ]; then
+    info "creating symlink $(abbr_path "$1") -> $(abbr_path "$2")"
+    ln -sf "$1" "$2"
+    exitcode="$?"
+    if [ ! "$exitcode" -eq 0 ]; then
+      error "ln -sf $1 $2 returned non-zero exit code : $exitcode"
+    fi
+  else
+    error "source to symlink '$1' is neither file nor directory"
+  fi
+
+}
+
+function symlink_to_home() {
+  symlink "$1" "$HOME"
+}
+
+function append_line_to_file() {
+  line="$1"
+  target_file="$2"
+  if [ ! -z "$line" -a -f "$target_file" -o -h "$target_file" ]; then
+    if ! grep -q "$line" "$target_file" &> /dev/null; then
+      info "adding $line to $target_file"
+      echo "$line" | tee -a "$target_file"
+    else
+      debug "line '$line' already exists in $target_file, skipping"
+    fi
+  else
+    error "could not add '$line' to '$target_file'"
+  fi
+}
+
+function get_script_dir() {
+  # http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in/246128#246128
+  # get_script_dir "${BASH_SOURCE[0]}" in calling script
+  SOURCE="$1"
+
+  # resolve $SOURCE until the file is no longer a symlink
+  while [ -h "$SOURCE" ]; do
+    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    SOURCE="$(readlink "$SOURCE")"
+
+    # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+  done
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  echo "$DIR"
+}
+
+function get_script_path() {
+  echo "$(get_script_dir "$1")/$(basename "$1")"
+}
+
+# test-colors and formatting
+function test_colors() {
+  if [ -t 1 ]; then
+    echo "is terminal"
+    num_colors="$(tput colors)"
+    if [ -n "$num_colors" ]; then
+      echo "${UNDERLINE}underline$RESET"
+      echo "${BOLD}bold$RESET"
+      echo "${STANDOUT}standout$RESET"
+      for i in $(seq 1 8); do
+        echo "$(color "$i")Color $i$RESET"
+      done
+      echo "$num_colors colors"
+      rainbow "$(echo -e {1..30})"
+
+      lorem_ipsum="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      debug "$lorem_ipsum"
+      info "$lorem_ipsum"
+      warn "$lorem_ipsum"
+      error "$lorem_ipsum"
+
+      log_unformatted "DEBUG" "unformatted"
+      log_unformatted "INFO" "unformatted"
+      log_unformatted "WARN" "unformatted"
+      log_unformatted "ERROR" "unformatted"
+    fi
+  else
+    echo "not a terminal"
+  fi
+}

@@ -1,0 +1,17 @@
+---
+- stat: path=/usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.override
+  register: greeter_override_file
+
+- name: create unity greeter schema override
+  when: greeter_override_file.stat.exists == False
+  become: yes
+  copy:
+    src: unity-greeter-schema-override
+    dest: /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.override
+
+- name: compile schemas
+  when: greeter_override_file.stat.exists == False
+  become: yes
+  command: glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+
