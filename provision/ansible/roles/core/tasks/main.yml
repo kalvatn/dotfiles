@@ -39,6 +39,7 @@
     - python
     - python-pip
     - tree
+    - subversion
 
 - include: git.yml
 - include: ruby.yml
