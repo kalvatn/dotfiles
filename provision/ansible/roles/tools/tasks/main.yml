@@ -10,6 +10,9 @@
     - mysql-client
     - smbclient
     - wine
+    # TODO:FIXME:XXX make home specific
+    # - openconnect
+    # - network-manager-openconnect
 
 - name: update fzf
   git: repo="https://github.com/junegunn/fzf.git" dest="{{user_home}}/.fzf" depth=1 update=yes
