@@ -1,0 +1,17 @@
+name: gameserver
+root: <%= ENV["HOME"] + "/steamcmd" %>
+
+windows:
+  - steamcmd:
+      layout: even-vertical
+      panes:
+        - ls
+        - htop
+  - starbound:
+      layout: even-vertical
+      panes:
+        - ./start_starbound_server.sh
+  - csgo:
+      layout: even-vertical
+      panes:
+        - ./start_csgo_server.sh
