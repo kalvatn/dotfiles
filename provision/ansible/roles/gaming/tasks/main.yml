@@ -1,0 +1,14 @@
+- name: install steamcmd dependencies
+  become: yes
+  apt: pkg=lib32gcc1 state=latest
+
+- name: create steamcmd home
+  file: path="{{user_home}}/steamcmd" state=directory
+
+- name: install steamcmd
+  get_url:
+    url: "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
+    dest: "{{user_home}}/steamcmd"
+
+- name: extract steamcmd
+  unarchive: src="{{user_home}}/steamcmd/steamcmd_linux.tar.gz" dest="{{user_home}}/steamcmd"

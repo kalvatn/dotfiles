@@ -19,3 +19,4 @@
     - { role: development, tags: [ development ] }
     - { role: cosmetic, tags: [ cosmetic ] }
     - { role: media, tags: [ media, audio, video ] }
+    - { role: gaming, tags: [ gaming, steam ] }
