@@ -34,5 +34,6 @@ alias xmlexport-test-proxy='workstation_proxy "10.200.4.22"'
 # other-servers
 alias northrend="ssh kalvatn@northrend.bitnexus.net"
 alias home-laptop="ssh kalvatn@178.164.96.140"
+alias kalvatn-linode="ssh kalvatn@139.162.242.252"
 
 
