@@ -21,35 +21,34 @@
   command: "{{user_home}}/.fzf/install"
 
 # TODO:FIXME:XXX make this host specific to work
+# - stat: path="{{user_home}}/.wine/drive_c/Program Files (x86)/SQLyog/SQLyog.exe"
+#   register: sqlyog_executable
 
-- stat: path="{{user_home}}/.wine/drive_c/Program Files (x86)/SQLyog/SQLyog.exe"
-  register: sqlyog_executable
+# - stat: path=/tmp/sqlyog_installer.exe
+#   register: sqlyog_installer
 
-- stat: path=/tmp/sqlyog_installer.exe
-  register: sqlyog_installer
+# - name: download sqlyog installer
+#   when: sqlyog_executable.stat.exists == False and sqlyog_installer.stat.exists == False
+#   shell: smbget -uSPORTRADAR/j.kalvatn -p "$(secret-tool lookup sportradar-accounts j.kalvatn)" "smb://share.no.sportradar.ag/share/Downloads/Programs/SQLyog/SQLyog-9.0.2-0.exe" -o /tmp/sqlyog_installer.exe
 
-- name: download sqlyog installer
-  when: sqlyog_executable.stat.exists == False and sqlyog_installer.stat.exists == False
-  shell: smbget -uSPORTRADAR/j.kalvatn -p "$(secret-tool lookup sportradar-accounts j.kalvatn)" "smb://share.no.sportradar.ag/share/Downloads/Programs/SQLyog/SQLyog-9.0.2-0.exe" -o /tmp/sqlyog_installer.exe
+# - name: install SQLyog
+#   when: sqlyog_executable.stat.exists == False and sqlyog_installer.stat.exists == True
+#   command: wine /tmp/sqlyog_installer.exe /S
 
-- name: install SQLyog
-  when: sqlyog_executable.stat.exists == False and sqlyog_installer.stat.exists == True
-  command: wine /tmp/sqlyog_installer.exe /S
+# - stat: path="{{user_home}}/.sqlyog.ini"
+#   register: sqlyog_config
 
-- stat: path="{{user_home}}/.sqlyog.ini"
-  register: sqlyog_config
+# - name: download SQLyog default configuration
+#   when: sqlyog_config.stat.exists == False
+#   shell: smbget -uSPORTRADAR/j.kalvatn -p "$(secret-tool lookup sportradar-accounts j.kalvatn)" "smb://share.no.sportradar.ag/share/Downloads/Programs/SQLyog/sqlyog.ini" -o "{{user_home}}/.sqlyog.ini"
 
-- name: download SQLyog default configuration
-  when: sqlyog_config.stat.exists == False
-  shell: smbget -uSPORTRADAR/j.kalvatn -p "$(secret-tool lookup sportradar-accounts j.kalvatn)" "smb://share.no.sportradar.ag/share/Downloads/Programs/SQLyog/sqlyog.ini" -o "{{user_home}}/.sqlyog.ini"
-
-- name: link SQLyog configuration
-  when: sqlyog_config.stat.exists == True
-  file:
-    src: "{{user_home}}/.sqlyog.ini"
-    dest: "{{user_home}}/.wine/drive_c/users/kalvatn/Application Data/SQLyog/sqlyog.ini"
-    state: link
-    force: yes
+# - name: link SQLyog configuration
+#   when: sqlyog_config.stat.exists == True
+#   file:
+#     src: "{{user_home}}/.sqlyog.ini"
+#     dest: "{{user_home}}/.wine/drive_c/users/kalvatn/Application Data/SQLyog/sqlyog.ini"
+#     state: link
+#     force: yes
 
 
 - name: link configs
