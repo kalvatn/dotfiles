@@ -12,3 +12,16 @@
 
 - name: extract steamcmd
   unarchive: src="{{user_home}}/steamcmd/steamcmd_linux.tar.gz" dest="{{user_home}}/steamcmd"
+
+- name: add murmur repo
+  become: yes
+  apt_repository: repo=ppa:mumble/release
+
+- name: install murmur
+  become: yes
+  apt: pkg=mumble-server state=latest
+
+- name: configure murmur
+  become: yes
+  command: dpkg-reconfigure mumble-server -f noninteractive
+
