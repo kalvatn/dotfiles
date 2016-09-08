@@ -2,16 +2,27 @@ name: gameserver
 root: <%= ENV["HOME"] + "/steamcmd" %>
 
 windows:
-  - steamcmd:
+  - monitoring:
+      root: <%= ENV["HOME"] + "/steamcmd" %>
       layout: even-vertical
       panes:
-        - ls
         - htop
+        - ls
   - starbound:
+      root: <%= ENV["HOME"] + "/steamcmd/starbound" %>
       layout: even-vertical
       panes:
-        - ./start_starbound_server.sh
+        - ~/start_starbound_server.sh
+        - ls
   - csgo:
+      root: <%= ENV["HOME"] + "/steamcmd/csgo" %>
       layout: even-vertical
       panes:
-        - ./start_csgo_server.sh
+        - ~/start_csgo_server.sh
+        - ls
+  - quake2:
+      root: <%= ENV["HOME"] + "/quake2" %>
+      layout: even-vertical
+      panes:
+        - ~/start_quake2_server.sh
+        - ls
