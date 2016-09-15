@@ -40,9 +40,12 @@
 
 - name: link configuration
   file:
-    src: "{{role_path}}/files/nvim/init.vim"
-    dest: "{{user_home}}/.config/nvim/init.vim"
+    src: "{{role_path}}/files/nvim/{{item}}"
+    dest: "{{user_home}}/.config/nvim/{{item}}"
     state: link
+  with_items:
+    - init.vim
+    - vimdiff.vim
 
 - name: run dein#update()
   command: vim +"call dein#update()" +"qall" --headless

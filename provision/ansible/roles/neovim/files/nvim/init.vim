@@ -336,6 +336,15 @@ vmap > >gv
 nmap <leader>c gcc
 vmap <leader>c gc
 
+" toggle folds
+" nnoremap <leader>f za
+nnoremap <silent> <leader>f @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <leader>f zf
+augroup XML
+    autocmd!
+    autocmd FileType xml setlocal foldmethod=indent foldlevelstart=999 foldminlines=0
+augroup END
+
 " map CTRL+k/j to move up/down in popupmenu
 inoremap <expr><C-j> pumvisible() ? "\<Down>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<C-k>"

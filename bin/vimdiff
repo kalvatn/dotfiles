@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nvim --noplugin -n -m -M -u "$HOME/.config/nvim/vimdiff.vim" -d "$@"
