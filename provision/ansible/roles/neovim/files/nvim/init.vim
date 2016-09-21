@@ -67,7 +67,7 @@ filetype plugin indent on
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
-  :retab
+  " :retab
   exe "normal `z"
 endfunc
 
