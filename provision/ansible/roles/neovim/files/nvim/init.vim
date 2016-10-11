@@ -51,6 +51,9 @@ call dein#add('Xuyuanp/nerdtree-git-plugin')
 " linting
 call dein#add('neomake/neomake')
 
+" languages
+call dein#add('lambdatoast/elm.vim')
+
 " install uninstalled plugins on startup
 if dein#check_install()
   call dein#install()
@@ -133,6 +136,8 @@ match ExtraWhitespace /\s\+\%#\@<!$/
 " show leading whitespace that includes spaces, and trailing whitespace.
 "autocmd BufWinEnter * match ExtraWhitespace /^\s* \s*\|\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+
+
 
 " buffer/file settings
 set history=10000
@@ -307,6 +312,12 @@ command! Plugs call fzf#run({
   \ 'sink':    'Explore'})
 
 nnoremap <silent> <c-p> :FZF<CR>
+
+" elm
+let g:polyglot_disabled = ['elm']
+let g:elm_detailed_complete = 1
+let g:elm_format_autosave = 1
+let g:elm_syntastic_show_warnings = 1
 
 
 " mappings/keybindings (https://neovim.io/doc/user/intro.html#key-notation)
