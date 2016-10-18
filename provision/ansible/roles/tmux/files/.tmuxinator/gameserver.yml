@@ -1,28 +1,25 @@
 name: gameserver
-root: <%= ENV["HOME"] + "/steamcmd" %>
+root: <%= ENV["HOME"] %>
 
 windows:
   - monitoring:
-      root: <%= ENV["HOME"] + "/steamcmd" %>
       layout: even-vertical
       panes:
         - htop
         - ls
   - starbound:
-      root: <%= ENV["HOME"] + "/steamcmd/starbound" %>
-      layout: even-vertical
+      layout: 6273,272x71,0,0[272x47,0,0{136x47,0,0,1,135x47,137,0,9},272x23,0,48,6]
       panes:
-        - ~/start_starbound_server.sh
-        - ls
+        - ~/services/starbound start; tail -Fn100 ~/steamcmd/starbound/storage/starbound_server.log
+        - tail -Fn100 ~/steamcmd/starbound/storage/starbound_server.log | grep "Chat:\|RCON"
+        - sleep 10; ~/services/starbound status
   - csgo:
-      root: <%= ENV["HOME"] + "/steamcmd/csgo" %>
       layout: even-vertical
       panes:
-        - ~/start_csgo_server.sh
-        - ls
+        - ~/services/csgo start
+        - sleep 10; ~/services/csgo status
   - quake2:
-      root: <%= ENV["HOME"] + "/quake2" %>
       layout: even-vertical
       panes:
-        - ~/start_quake2_server.sh
-        - ls
+        - ~/services/quake2 start
+        - sleep 10; ~/services/quake2 status

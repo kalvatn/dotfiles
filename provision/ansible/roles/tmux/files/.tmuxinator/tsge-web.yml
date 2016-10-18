@@ -1,0 +1,15 @@
+name: tsge-web
+root: <%= ENV["HOME"] + "/web" %>
+
+windows:
+  - prod:
+      root: <%= ENV["HOME"] + "/web/tsge-web" %>
+      layout: even-vertical
+      panes:
+        - ~/web/tsge-web/bin/start-prod
+  - dev:
+      root: <%= ENV["HOME"] + "/web/tsge-web-dev" %>
+      layout: even-vertical
+      panes:
+        - ls
+        - ~/web/tsge-web/bin/start-dev
