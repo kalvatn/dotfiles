@@ -18,10 +18,11 @@ windows:
       layout: even-vertical
       panes:
         - cd www && svn status
-        - cd vagrant && git bst
+        - cd docker-shortcuts && git bst
   - puppet:
       root: <%= ENV["PROJECTS"] + "/sre" %>
       layout: even-vertical
       panes:
-        - cd hieradata && git bst
+        - cd hiera-router && git bst
+        - cd scripts && git bst
         - cd puppet && git bst
