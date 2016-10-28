@@ -20,6 +20,7 @@ zsh-mime-setup
 select-word-style bash
 
 
+
 # autoload predict-on
 # predict-toggle() {
 #   ((predict_on=1-predict_on)) && predict-on || predict-off
@@ -178,3 +179,7 @@ if [ -f "$TMUXINATOR_COMPLETION_FILE" ]; then
   source "$TMUXINATOR_COMPLETION_FILE"
 fi
 # END ANSIBLE MANAGED BLOCK tmuxinator.zsh
+
+autoload -Uz promptinit
+promptinit
+prompt kalvatn
