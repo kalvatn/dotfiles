@@ -14,6 +14,7 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('honza/vim-snippets')
+call dein#add('editorconfig/editorconfig-vim')
 
 
 " ui
@@ -52,7 +53,11 @@ call dein#add('Xuyuanp/nerdtree-git-plugin')
 call dein#add('neomake/neomake')
 
 " languages
-call dein#add('lambdatoast/elm.vim')
+  " elm
+  call dein#add('lambdatoast/elm.vim')
+  " typescript
+  call dein#add('leafgarland/typescript-vim')
+  call dein#add('mhartington/deoplete-typescript')
 
 " install uninstalled plugins on startup
 if dein#check_install()
@@ -70,7 +75,7 @@ filetype plugin indent on
 func! RemoveUnwantedSpaces()
   exe "normal mz"
   %s/\s\+$//ge
-  %s/\%u00a0//ge
+  %s/\%u00a0/ /ge
   " :retab
   exe "normal `z"
 endfunc
