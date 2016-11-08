@@ -67,9 +67,10 @@ filetype plugin indent on
 " functions
 
 " delete trailing whitespace
-func! DeleteTrailingWS()
+func! RemoveUnwantedSpaces()
   exe "normal mz"
   %s/\s\+$//ge
+  %s/\%u00a0//ge
   " :retab
   exe "normal `z"
 endfunc
@@ -123,7 +124,7 @@ augroup filetypedetect
 augroup END
 
 " autocmd
-autocmd BufWrite * :call DeleteTrailingWS()
+autocmd BufWrite * :call RemoveUnwantedSpaces()
 augroup AutoMkdir
   autocmd!
   autocmd  BufNewFile  *  :call EnsureDirExists()
@@ -338,6 +339,10 @@ map 0 ^
 
 " CTRL+d to delete line in insert mode
 inoremap <c-d> <esc>ddi
+" avoid nbsp on altgr+space
+inoremap <Alt-Space> <Space>
+
+
 
 " align blocks of text and keep them selected
 vmap < <gv
