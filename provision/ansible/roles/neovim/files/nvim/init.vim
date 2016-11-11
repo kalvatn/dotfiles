@@ -57,7 +57,7 @@ call dein#add('neomake/neomake')
   call dein#add('lambdatoast/elm.vim')
   " typescript
   call dein#add('leafgarland/typescript-vim')
-  call dein#add('mhartington/deoplete-typescript')
+  " call dein#add('mhartington/deoplete-typescript')
 
 " install uninstalled plugins on startup
 if dein#check_install()
@@ -264,6 +264,9 @@ let g:deoplete#omni_patterns.html = ''
 " neomake
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
+let g:neomake_list_height = 2
+
+let g:neomake_javascript_enabled_makers = ['eslint']
 
 " NERDTree
 let g:NERDTreeShowHidden=1
