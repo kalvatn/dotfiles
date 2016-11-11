@@ -169,6 +169,8 @@ if [ -f "$HOME/.functions" ]; then
   source $HOME/.functions
 fi
 
+export PATH="$PATH:./node_modules/.bin"
+
 
 if [ -f "$HOME/.fzf.zsh" ]; then
   source ~/.fzf.zsh
