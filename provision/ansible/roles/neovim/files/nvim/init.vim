@@ -266,7 +266,11 @@ autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
 let g:neomake_list_height = 2
 
+let g:neomake_typescript_tscreact_maker = { 'exe' : 'tsc', 'args'  : [ '--jsx', 'react' ] }
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_typescript_enabled_makers = ['tslint', 'tscreact']
+" let g:neomake_typescript_tslint_maker = { 'exe' : 'tslint', 'args': ['--jsx'] }
+" let g:neomake_typescript_enabled_makers = ['tslint']
 
 " NERDTree
 let g:NERDTreeShowHidden=1
