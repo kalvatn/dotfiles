@@ -147,9 +147,9 @@ export VISUAL='vim'
 #   # use vim as pager
 #   # export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 #   export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-# /usr/bin/vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+# /usr/bin/vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
 # -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-# -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+# -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 # fi
 
 # -X (--no-init) -F (--quit-if-one-screen) -R (--RAW-CONTROL-CHARS)
@@ -169,7 +169,6 @@ if [ -f "$HOME/.functions" ]; then
   source $HOME/.functions
 fi
 
-export PATH="$PATH:./node_modules/.bin"
 
 
 if [ -f "$HOME/.fzf.zsh" ]; then
@@ -185,3 +184,5 @@ fi
 autoload -Uz promptinit
 promptinit
 prompt kalvatn
+
+export PATH="$PATH:./node_modules/.bin"
