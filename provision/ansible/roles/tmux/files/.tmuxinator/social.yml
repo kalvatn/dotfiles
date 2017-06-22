@@ -1,0 +1,26 @@
+# ~/.tmuxinator/wildfly.yml
+
+name: social
+root: /work/projects/social
+
+windows:
+  - docker:
+      root: /work/projects/social/setup
+      layout: even-vertical
+      panes:
+        - git bst && prompt kalvatn
+  - liquibase:
+      root: /work/projects/social/database
+      layout: even-vertical
+      panes:
+        - git bst && prompt kalvatn
+  - backend:
+      root: /work/projects/social/backend
+      layout: even-vertical
+      panes:
+        - git bst && prompt kalvatn
+  - frontend:
+      root: /work/projects/social/frontend
+      layout: even-vertical
+      panes:
+        - git bst && prompt kalvatn

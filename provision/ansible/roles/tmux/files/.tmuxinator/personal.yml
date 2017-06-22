@@ -6,7 +6,7 @@ windows:
       root: <%= ENV["HOME"] + "/dotfiles" %>
       layout: even-vertical
       panes:
-        - git bst
+        - git bst && prompt kalvatn
   - projects:
       root: "/personal/projects"
       layout: even-vertical

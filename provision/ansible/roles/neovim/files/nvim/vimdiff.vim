@@ -64,7 +64,7 @@ let g:mapleader = ','
 " disable ex mode
 nnoremap Q <nop>
 nnoremap q <nop>
-map <leader>q :qall
+map Q :qall!
 " remap visual mode EOL to g_ (EOL - newline character)
 vmap $ g_
 " remap SOL to first non-blank character

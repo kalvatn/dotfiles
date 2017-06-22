@@ -344,6 +344,7 @@ let g:mapleader = ','
 nnoremap Q <nop>
 " remap q from recording to :q
 map q :q!
+map Q :qall!
 " remap visual mode EOL to g_ (EOL - newline character)
 vmap $ g_
 " remap SOL to first non-blank character
@@ -420,4 +421,13 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
+
+
+
+let g:incr = 0
+
+fu! Incr()
+  let g:incr = g:incr + 1
+  return g:incr
+endfu
 

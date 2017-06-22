@@ -2,6 +2,7 @@
 
 export PATH="$PATH:/usr/local/bin"
 
+echo "$(date)"
 SLEEPTIME=10
 monitor() {
   local pid=$1 i=0
@@ -48,7 +49,8 @@ if [ "$UNREAD_COUNT" -gt 0 ]; then
   # TXT_SUBS=$(notmuch search --format=text --output=summary --limit="$LIMIT" --sort="$SORT" "$SEARCH" | sed 's/^[^;]*; //' | sed 's/$/\n'/)
   # HTML_SUBS=$(echo "$TXT_SUBS" | recode UTF-8..html)
   # notify-send -i "$NOTIFICATION_ICON" "$UNREAD_COUNT unread mesages." "$HTML_SUBS"
-  notify-send -t 1 -u low -i "$NOTIFICATION_ICON" "$UNREAD_COUNT unread emails."
+  # notify-send -t 1 -u low -i "$NOTIFICATION_ICON" "$UNREAD_COUNT unread emails."
+  exit 0
 fi
 echo "mailsync finished $(date +"%Y-%m-%d %H:%M:%S")"
 exit 0

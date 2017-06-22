@@ -6,23 +6,34 @@ windows:
       root: <%= ENV["PROJECTS"] + "/bac/xmlexport" %>
       layout: even-vertical
       panes:
-        - git bst
+        - git bst && prompt kalvatn
   - java:
       root: <%= ENV["PROJECTS"] + "/bac/java" %>
       layout: even-vertical
       panes:
-        - cd lib && git bst
-        - cd source && git bst
+        - cd lib && git bst && prompt kalvatn
+        - cd source && git bst && prompt kalvatn
+  - usapi:
+      root: <%= ENV["PROJECTS"] + "/bac/usapi" %>
+      layout: even-vertical
+      panes:
+        - git bst && prompt kalvatn
+  - liquibase:
+      root: <%= ENV["PROJECTS"] + "/bac/liquibase" %>
+      layout: even-vertical
+      panes:
+        - ls
+        - git bst && prompt kalvatn
   - www:
       root: <%= ENV["PROJECTS"] + "/dei" %>
       layout: even-vertical
       panes:
-        - cd www && svn status
-        - cd docker-shortcuts && git bst
+        - cd www && svn status && prompt kalvatn
+        - cd docker-shortcuts && git bst && prompt kalvatn
   - puppet:
       root: <%= ENV["PROJECTS"] + "/sre" %>
       layout: even-vertical
       panes:
-        - cd hiera-router && git bst
-        - cd scripts && git bst
-        - cd puppet && git bst
+        - cd hiera-router && git bst && prompt kalvatn
+        - cd scripts && git bst && prompt kalvatn
+        - cd puppet && git bst && prompt kalvatn
