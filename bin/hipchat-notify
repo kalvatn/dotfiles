@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if read -t 0; then
+  message=`cat`
+else
+  message="$*"
+fi
+if [ -z "$message" ]; then
+  echo "usage: $0 <message>"
+  exit 1
+fi
+
+function generate_message() {
+cat <<EOF
+{
+    "color":"red",
+    "message":"$1",
+    "notify":false,
+    "message_format":"text"
+}
+EOF
+}
+ROOM_ID_TRD_MUSIKK=94
+# https://hipchat.sportradar.com/account/api
+API_TOKEN=""
+ROOM_NOTIFY="https://hipchat.sportradar.com/v2/room/$ROOM_ID_TRD_MUSIKK/notification?auth_token=$API_TOKEN"
+data="$(generate_message "$message")"
+curl -d "$data" -H 'Content-Type: application/json' "$ROOM_NOTIFY"

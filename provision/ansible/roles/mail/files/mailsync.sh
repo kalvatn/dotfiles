@@ -4,18 +4,18 @@ export PATH="$PATH:/usr/local/bin"
 
 echo "$(date)"
 SLEEPTIME=10
-monitor() {
-  local pid=$1 i=0
-  while ps "$pid" &>/dev/null; do
-    if (( i++ > 10 )); then
-      echo "max checks reached, sending SIGKILL to ${pid}"
-      kill -9 "$pid"
-      return 1
-    fi
-    sleep $SLEEPTIME
-  done
-  return 0
-}
+# monitor() {
+#   local pid=$1 i=0
+#   while ps "$pid" &>/dev/null; do
+#     if (( i++ > 10 )); then
+#       echo "max checks reached, sending SIGKILL to ${pid}"
+#       kill -9 "$pid"
+#       return 1
+#     fi
+#     sleep $SLEEPTIME
+#   done
+#   return 0
+# }
 
 pid="$(pgrep offlineimap)"
 if [ ! -z "$pid" ]; then
@@ -27,7 +27,8 @@ sessionfile="$(find "${HOME}/.dbus/session-bus/" -type f)"
 export "$(grep ^DBUS_SESSION_BUS_ADDRESS "$sessionfile")"
 #echo "DBUS_SESSION_BUS_ADDRESS : $DBUS_SESSION_BUS_ADDRESS"
 
-offlineimap -q -o -u quiet & monitor "$!"
+# offlineimap -q -o -u quiet & monitor "$!"
+offlineimap -q -o -u quiet &
 
 # stolen from https://github.com/natmey/dotfiles/blob/master/notmuch/notmuch-post-sync
 
