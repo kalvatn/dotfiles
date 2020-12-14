@@ -1,7 +1,6 @@
 #!/bin/bash
 
-source "$HOME/.functions"
-SCRIPT_DIR="$(get_script_dir "$0")"
+SCRIPT_DIR="$(dirname "$(readlink -sf "${BASH_SOURCE[0]}")")"
 
 cd "$SCRIPT_DIR"
 ./kill
@@ -9,8 +8,8 @@ bash "$WILDFLY_HOME/bin/standalone.sh" > "$WILDFLY_HOME/standalone/log/all.log" 
 
 pid="$(./wildfly-pid)"
 while [ -z "$pid" ]; do
-  warn "wildfly process not up yet, sleeping"
+  echo "wildfly process not up yet, sleeping"
   sleep 1
   pid="$(./wildfly-pid)"
 done
-info "wildfly process running, pid : $pid"
+echo "wildfly process running, pid : $pid"

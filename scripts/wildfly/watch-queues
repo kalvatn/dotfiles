@@ -1,8 +1,6 @@
 #!/bin/bash
 
-source "$HOME/.functions"
-cd "$(get_script_dir "${BASH_SOURCE[0]}")"
-
+cd "$(dirname "$(readlink -sf "${BASH_SOURCE[0]}")")"
 pid="$(./wildfly-pid)"
 
 while [ -z "$pid" ]; do

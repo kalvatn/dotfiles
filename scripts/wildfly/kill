@@ -1,15 +1,14 @@
 #!/bin/bash -l
 
 export LOGLEVEL=INFO
-source "$HOME/.functions"
-cd "$(get_script_dir "${BASH_SOURCE[0]}")"
+cd "$(dirname "$(readlink -sf "${BASH_SOURCE[0]}")")"
 
 pid="$(./wildfly-pid)"
 if [ -z "$pid" ]; then
-  info "no existing process found"
+  echo "no existing process found"
 else
   while [ ! -z "$(./wildfly-pid)" ]; do
-    info "killing existing process with id $pid"
+    echo "killing existing process with id $pid"
     kill -9 "$pid"
     sleep 1
   done
